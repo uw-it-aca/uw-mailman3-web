@@ -16,15 +16,12 @@ setup(
     packages=['mmtheme'],
     include_package_data=True,
     install_requires=[
-        'Django<3.0',
+        'Django<3.1',
         'django-allauth',
-        'django-mailman3',
         'djangorestframework',
-        'hyperkitty',
-        'postorius',
     ],
     license='Apache License, Version 2.0',  # example license
-    description='A Django App for analyzing major/grade data',
+    description='UW theme for mailman 3',
     long_description=README,
     url='https://github.com/uw-it-aca/uw-mailman3-web',
     author='"UW-IT AXDD"',

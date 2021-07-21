@@ -6,6 +6,10 @@ services:
     container_name: uw-mailman3-core
     build:
       context: ../uw-mailman3-core
+    ports:
+    - "8001:8001"
+    environment:
+      HYPERKITTY_API_KEY: "someapikey"
     networks:
       mailman:
         ipv4_address: 172.19.199.2
@@ -16,18 +20,19 @@ services:
     build:
       context: .
     volumes:
-      - ./mmtheme:/app/mmtheme
+    - ./mmtheme:/app/mmtheme
     ports:
-      - "${PORT:-8000}:8000"
-      - "8080:8080"
+     - "${PORT:-8000}:8000"
+     - "8080:8080"
     stdin_open: true
     tty: true
     environment:
-      ENV: localdev
-      #AUTH: ${AUTH:-SAML_DJANGO_LOGIN}
-      #DJANGO_LOGIN_USERNAME: ${DJANGO_LOGIN_USERNAME:-javerage}
-      #DJANGO_LOGIN_PASSWORD: ${DJANGO_LOGIN_PASSWORD:-javerage}
-      #DJANGO_LOGIN_EMAIL: ${DJANGO_LOGIN_EMAIL:-javerage@uw.edu}
+      ENV: "localdev"
+    #- AUTH: ${AUTH:-SAML_DJANGO_LOGIN}
+    #- DJANGO_LOGIN_USERNAME: ${DJANGO_LOGIN_USERNAME:-javerage}
+    #- DJANGO_LOGIN_PASSWORD: ${DJANGO_LOGIN_PASSWORD:-javerage}
+    #- DJANGO_LOGIN_EMAIL: ${DJANGO_LOGIN_EMAIL:-javerage@uw.edu}
+      HYPERKITTY_API_KEY: "someapikey"
       MAILMAN_HOST_IP: 172.19.199.2
       MAILMAN_HOSTNAME: ${MAILMAN_HOSTNAME:-uw-mailman3-core}
     networks:

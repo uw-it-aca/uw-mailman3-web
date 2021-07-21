@@ -2,6 +2,8 @@ from .base_settings import *
 import os
 from socket import gethostbyname
 
+DEBUG=True
+
 #
 # Full-text search engine
 #
