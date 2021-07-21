@@ -19,6 +19,7 @@ setup(
         'Django<3.1',
         'django-allauth',
         'djangorestframework',
+        'whoosh',
     ],
     license='Apache License, Version 2.0',  # example license
     description='UW theme for mailman 3',
