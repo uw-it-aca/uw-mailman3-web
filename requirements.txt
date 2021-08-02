@@ -1,0 +1,5 @@
+-e git+https://gitlab.com/mailman/mailmanclient#egg=mailmanclient
+-e git+https://gitlab.com/mailman/postorius#egg=postorius
+-e git+https://gitlab.com/mailman/hyperkitty#egg=hyperkitty
+-e git+https://gitlab.com/mailman/django-mailman3#egg=django-mailman3
+-e .
