@@ -18,6 +18,7 @@ setup(
     install_requires=[
         'Django<3.1',
         'django-allauth',
+        'UW-Django-SAML2>=1.3.8,<2.0',
         'djangorestframework',
         'whoosh',
     ],

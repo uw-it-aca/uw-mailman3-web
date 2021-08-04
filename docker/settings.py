@@ -2,7 +2,7 @@ from .base_settings import *
 import os
 from socket import gethostbyname
 
-DEBUG=True
+DEBUG = True
 
 #
 # Full-text search engine
@@ -43,13 +43,18 @@ INSTALLED_APPS += [
     'allauth.socialaccount',
 ]
 
+MIDDLEWARE += [
+    'postorius.middleware.PostoriusMiddleware'
+]
+
+
 # Mailman API credentials
-MAILMAN_REST_API_URL = os.environ.get('MAILMAN_REST_URL', 'http://mailman-core:8001')
+MAILMAN_REST_API_URL = os.environ.get('MAILMAN_REST_URL', 'http://uw-mailman3-core:8001')
 MAILMAN_REST_API_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
 MAILMAN_REST_API_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
-#MAILMAN_ARCHIVER_FROM = (os.environ.get('MAILMAN_HOST_IP', gethostbyname(os.environ.get('MAILMAN_HOSTNAME', 'mailman-core'))),)
-MAILMAN_ARCHIVER_FROM = '172.19.199.2'
+MAILMAN_ARCHIVER_FROM = os.environ.get('MAILMAN_ARCHIVER_FROM')
+
 
 MAILMAN_WEB_SOCIAL_AUTH = [
     'django_mailman3.lib.auth.fedora',
@@ -59,12 +64,23 @@ MAILMAN_WEB_SOCIAL_AUTH = [
     'allauth.socialaccount.providers.google',
 ]
 
-SITE_ID =1  # Needed for django-allauth
+SITE_ID = 1  # Needed for django-allauth
+
+LOGIN_URL = os.environ.get('LOGIN_URL', 'account_login')
+LOGOUT_URL = os.environ.get('LOGOUT_URL', 'account_logout')
+
+Q_CLUSTER = {
+    'timeout': 60,
+    'save_limit': 100,
+    'orm': 'default',
+}
 
 TEMPLATES[0]["OPTIONS"]["context_processors"].extend([
-	# Required by allauth template tags
-	"django.template.context_processors.request",
-	# allauth specific context processors
-	"allauth.account.context_processors.account",
-	"allauth.socialaccount.context_processors.socialaccount",
+    'django.template.context_processors.media',
+    'django.template.context_processors.static',
+    'django.template.context_processors.tz',
+    'django.template.context_processors.csrf',
+    'django_mailman3.context_processors.common',
+    'hyperkitty.context_processors.common',
+    'postorius.context_processors.postorius'
 ])
