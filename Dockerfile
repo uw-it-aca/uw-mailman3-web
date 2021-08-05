@@ -11,6 +11,8 @@ RUN . /app/bin/activate && pip install -U setuptools && pip install -r requireme
 
 ADD --chown=acait:acait . /app/
 ADD --chown=acait:acait docker/ project/
+ADD --chown=acait:acait docker/app_start.sh /scripts
+RUN chmod u+x /scripts/app_start.sh
 
 # unneeded on this one?
 RUN . /app/bin/activate && pip install nodeenv && nodeenv -p &&\
