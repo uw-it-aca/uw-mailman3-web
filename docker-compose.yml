@@ -4,15 +4,11 @@ services:
   uw-mailman3-core:
     restart: always
     container_name: uw-mailman3-core
+    hostname: uw-mailman3-core
     build:
       context: ../uw-mailman3-core
-    ports:
-    - "8001:8001"
     environment:
       HYPERKITTY_API_KEY: "someapikey"
-    networks:
-      mailman:
-        ipv4_address: 172.19.199.2
 
   uw-mailman3-web:
     restart: always
@@ -24,26 +20,14 @@ services:
     ports:
      - "${PORT:-8000}:8000"
      - "8080:8080"
-    stdin_open: true
-    tty: true
     environment:
-      ENV: "localdev"
+      ENV: localdev
+      AUTH: SAML_MOCK
+      LOGIN_URL: saml_login
+      LOGOUT_URL: saml_logout
+      MAILMAN_ARCHIVER_FROM: uw-mailman3-core
     #- AUTH: ${AUTH:-SAML_DJANGO_LOGIN}
     #- DJANGO_LOGIN_USERNAME: ${DJANGO_LOGIN_USERNAME:-javerage}
     #- DJANGO_LOGIN_PASSWORD: ${DJANGO_LOGIN_PASSWORD:-javerage}
     #- DJANGO_LOGIN_EMAIL: ${DJANGO_LOGIN_EMAIL:-javerage@uw.edu}
       HYPERKITTY_API_KEY: "someapikey"
-      MAILMAN_HOST_IP: 172.19.199.2
-      MAILMAN_HOSTNAME: ${MAILMAN_HOSTNAME:-uw-mailman3-core}
-    networks:
-      mailman:
-        ipv4_address: 172.19.199.3
-
-networks:
-   mailman:
-     driver: bridge
-     ipam:
-       driver: default
-       config:
-       -
-         subnet: 172.19.199.0/24
