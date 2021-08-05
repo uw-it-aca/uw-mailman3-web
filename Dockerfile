@@ -1,7 +1,7 @@
 FROM gcr.io/uwit-mci-axdd/django-container:1.3.1 as app-container
 
 USER root
-RUN apt-get update && apt-get install libpq-dev -y
+RUN apt-get update && apt-get install libpq-dev sassc -y
 USER acait
 
 ADD --chown=acait:acait mmtheme/VERSION /app/mmtheme/
@@ -11,14 +11,12 @@ RUN . /app/bin/activate && pip install -U setuptools && pip install -r requireme
 
 ADD --chown=acait:acait . /app/
 ADD --chown=acait:acait docker/ project/
-ADD --chown=acait:acait docker/app_start.sh /scripts
-RUN chmod u+x /scripts/app_start.sh
 
 # unneeded on this one?
 RUN . /app/bin/activate && pip install nodeenv && nodeenv -p &&\
     npm install -g npm && ./bin/npm install less -g
 
-RUN . /app/bin/activate && python manage.py collectstatic --noinput
+RUN . /app/bin/activate && python manage.py compress -f && python manage.py collectstatic --noinput
 
 #FROM gcr.io/uwit-mci-axdd/django-test-container:1.3.1 as app-test-container
 #
