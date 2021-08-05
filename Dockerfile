@@ -11,14 +11,14 @@ RUN . /app/bin/activate && pip install -U setuptools && pip install -r requireme
 
 ADD --chown=acait:acait . /app/
 ADD --chown=acait:acait docker/ project/
+ADD --chown=acait:acait docker/app_start.sh /scripts
+RUN chmod u+x /scripts/app_start.sh
 
 # unneeded on this one?
 RUN . /app/bin/activate && pip install nodeenv && nodeenv -p &&\
     npm install -g npm && ./bin/npm install less -g
 
-#RUN /bin/bash
 RUN . /app/bin/activate && python manage.py collectstatic --noinput
-#    python manage.py compress -f
 
 #FROM gcr.io/uwit-mci-axdd/django-test-container:1.3.1 as app-test-container
 #
