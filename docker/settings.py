@@ -47,6 +47,24 @@ MIDDLEWARE += [
     'postorius.middleware.PostoriusMiddleware'
 ]
 
+#COMPRESS_ENABLED = True
+#COMPRESS_OFFLINE = True
+COMPRESS_ROOT = '/static/'
+
+COMPRESS_PRECOMPILERS = (
+    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/x-scss', 'sassc -t compressed {infile} {outfile}'),
+    ('text/x-sass', 'sassc -t compressed {infile} {outfile}'),
+)
+
+STATICFILES_FINDERS += (
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter'
+]
 
 # Mailman API credentials
 MAILMAN_REST_API_URL = os.environ.get('MAILMAN_REST_URL', 'http://uw-mailman3-core:8001')

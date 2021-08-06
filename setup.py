@@ -20,6 +20,7 @@ setup(
         'django-allauth',
         'UW-Django-SAML2>=1.3.8,<2.0',
         'djangorestframework',
+        'django-compressor==2.4.1',
         'whoosh',
     ],
     license='Apache License, Version 2.0',  # example license
