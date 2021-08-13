@@ -1,0 +1,21 @@
+.axdd-purple {
+    background: #4d307f !important;
+}
+.axdd-brand {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 45px;
+    width: 100px;
+    padding-left: 60px;
+    margin-right: 50px;
+    line-height: 40px;
+}
+
+.footer {
+    background-color: transparent !important;
+    border-top: none !important;
+    height: auto;
+    padding: 0;
+    text-align: initial;
+}
