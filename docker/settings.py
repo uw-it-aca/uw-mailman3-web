@@ -43,6 +43,9 @@ INSTALLED_APPS += [
     'allauth.socialaccount',
 ]
 
+if os.getenv('THEME_OFF', 'False') == 'True':
+    INSTALLED_APPS.remove('mmtheme')
+
 MIDDLEWARE += [
     'postorius.middleware.PostoriusMiddleware'
 ]
