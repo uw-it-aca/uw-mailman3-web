@@ -1,3 +1,6 @@
 [submodule "postorius"]
 	path = postorius
 	url = https://gitlab.com/mailman/postorius
+[submodule "hyperkitty"]
+	path = hyperkitty
+	url = https://gitlab.com/mailman/hyperkitty

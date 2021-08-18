@@ -3,7 +3,7 @@
 if [ "$ENV"  = "localdev" ]
 then
 
-  pip install -e ./postorius
+  pip install -e ./postorius ./hyperkitty
 
   python manage.py migrate
   until curl --silent --connect-timeout 10 http://uw-mailman3-core:8001/3.1/lists > /dev/null; do
