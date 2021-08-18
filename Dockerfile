@@ -14,13 +14,4 @@ ADD --chown=acait:acait docker/ project/
 ADD --chown=acait:acait docker/app_start.sh /scripts
 RUN chmod u+x /scripts/app_start.sh
 
-# unneeded on this one?
-#RUN . /app/bin/activate && pip install nodeenv && nodeenv -p &&\
-#    npm install -g npm && ./bin/npm install less -g
-
 RUN . /app/bin/activate && python manage.py compress -f && python manage.py collectstatic --noinput
-
-#FROM gcr.io/uwit-mci-axdd/django-test-container:1.3.1 as app-test-container
-#
-#COPY --from=0 /app/ /app/
-#COPY --from=0 /static/ /static/
