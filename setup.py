@@ -18,9 +18,13 @@ setup(
     install_requires=[
         'Django<3.1',
         'django-allauth',
-        'UW-Django-SAML2>=1.3.8,<2.0',
-        'djangorestframework',
         'django-compressor==2.4.1',
+        'django-mailman3',
+        'djangorestframework',
+        'hyperkitty',
+        'mailmanclient',
+        'postorius',
+        'UW-Django-SAML2>=1.3.8,<2.0',
         'whoosh',
     ],
     license='Apache License, Version 2.0',  # example license
