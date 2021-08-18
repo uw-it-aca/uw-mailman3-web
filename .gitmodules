@@ -1,0 +1,3 @@
+[submodule "postorius"]
+	path = postorius
+	url = https://gitlab.com/mailman/postorius
