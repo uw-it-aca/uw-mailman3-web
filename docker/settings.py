@@ -43,7 +43,7 @@ INSTALLED_APPS += [
     'allauth.socialaccount',
 ]
 
-if os.getenv('THEME_OFF', 'False') == 'True':
+if os.getenv('THEME_OFF', 'false') == 'true':
     INSTALLED_APPS.remove('mmtheme')
 
 MIDDLEWARE += [
