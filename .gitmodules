@@ -4,3 +4,6 @@
 [submodule "hyperkitty"]
 	path = hyperkitty
 	url = https://gitlab.com/mailman/hyperkitty
+[submodule "django-mailman3"]
+	path = django-mailman3
+	url = https://gitlab.com/mailman/django-mailman3.git
