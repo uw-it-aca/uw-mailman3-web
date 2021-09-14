@@ -105,3 +105,6 @@ TEMPLATES[0]["OPTIONS"]["context_processors"].extend([
     'hyperkitty.context_processors.common',
     'postorius.context_processors.postorius'
 ])
+
+if os.getenv('ENV', 'localdev') == 'localdev':
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
