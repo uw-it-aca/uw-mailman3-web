@@ -9,9 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block head_title %}{{ site_name }}{% endblock %}</title>
     <link rel="shortcut icon" href="{% static 'postorius/img/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'postorius/libs/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'django-mailman3/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'postorius/css/style.css' %}">
+
+     <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@700&family=Open+Sans:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!--<link rel="stylesheet" href="{% static 'postorius/libs/bootstrap/css/bootstrap.min.css' %}">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+
+    <!--<link rel="stylesheet" href="{% static 'django-mailman3/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'postorius/css/style.css' %}">-->
     <link rel="stylesheet" href="{% static 'postorius/libs/fonts/font-awesome/css/font-awesome.min.css' %}" type="text/css" media="all" />
     {% block additionalcss %}
     <link rel="stylesheet" href="{% static 'uwtheme/css/theme.css' %}">
@@ -24,7 +33,122 @@
     <![endif]-->
 </head>
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark navbar-default p-0 axdd-purple">
+
+    
+    <div class="d-flex align-items-end flex-column" style="min-height: 100vh">
+
+        <header class="w-100">
+            <div class="py-2 small" style="background-color: #452a78!important;">
+                <div class="container-xl">
+                    <div class="d-flex">
+                        <div class="flex-fill">
+                            <ul class="list-inline list-unstyled m-0">
+                                {% if user.is_authenticated %}
+                                    <li class="list-inline-item">
+                                        <a href="#" class="dropdown-toggle text-white" data-toggle="dropdown"
+                                        role="button" aria-haspopup="true" aria-expanded="false">
+                                            {% gravatar user.email 20 %}
+                                            {{ user.username|truncatechars:"35" }}
+                                            <span class="caret"></span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="{% url 'mm_user_profile' %}" class="dropdown-item">
+                                                <span class="fa fa-user"></span>
+                                                {% trans 'Account' %}
+                                            </a>
+                                            <a href="{% url 'ps_user_profile' %}" class="dropdown-item">
+                                                <span class="fa fa-cog"></span>
+                                                {% trans 'Mailman settings' %}
+                                            </a>
+                                            {% if 'hyperkitty' in INSTALLED_APPS %}
+                                            <a href="{% url 'hk_user_profile' %}" class="dropdown-item">
+                                            <span class="fa fa-comment"></span>
+                                                {% trans 'Posting activity' %}
+                                            </a>
+                                            {% endif %}
+                                            <!--
+                                            <a href="{% url LOGOUT_URL %}?next={% url 'list_index' %}" class="dropdown-item">
+                                                <span class="fa fa-sign-out"></span>
+                                                {% trans 'Logout' %}
+                                            </a>
+                                            -->
+                                        </div>
+                                    </li>
+                                {% else %}
+                                    <li class="list-inline-item"><a class="ntext-white" href="{% url LOGIN_URL %}?next={{ next|default:request.path|urlencode }}">
+                                        <span class="fa fa-sign-in"></span>
+                                        {% trans 'Login' %}
+                                    </a></li>
+                                    <!--
+                                    <li  class="list-inline-item"><a class="text-white" href="{% url 'account_signup' %}?next={{next|default:request.path|urlencode}}">
+                                        <span class="fa fa-user-plus"></span>
+                                        {% trans 'Sign Up' %}
+                                    </a></li>
+                                    -->
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="flex-fill text-end">
+
+                            <ul class="list-inline list-unstyled m-0">
+                                <li class="list-inline-item"><a href="{% url 'list_index' %}" class="text-white">
+                                    <span class="fa fa-envelope"></span>
+                                    {% trans 'Lists' %}
+                                </a></li>
+                                {% if user.is_superuser %}
+                                    <li class="list-inline-item">
+                                    <a href="{% url 'domain_index' %}" class="text-white">
+                                        <span class="fa fa-globe"></span>
+                                        {% trans 'Domains' %}
+                                    </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="{% url 'global_bans' %}" class="text-white">
+                                            <span class="fa fa-ban"></span>
+                                            {% trans 'Bans' %}
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="{% url 'system_information' %}" class="text-white">
+                                            <span class="fa fa-list-alt"></span>
+                                            {% trans 'System Information' %}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if 'hyperkitty' in INSTALLED_APPS %}
+                                    <li class="list-inline-item"><a href="{% url 'hk_root' %}" class="text-white">
+                                        <span class="fa fa-comment"></span>
+                                        {% trans 'Archives' %}
+                                    </a></li>
+                                {% endif %}
+                                {% if user.is_authenticated %}
+                                <li class="list-inline-item">
+                                    <a href="{% url LOGOUT_URL %}?next={% url 'list_index' %}" class="text-white">
+                                        <span class="fa fa-sign-out"></span>
+                                        {% trans 'Sign out' %}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="line-height:65px; background-color: #4d307f!important">
+                <div class="container-xl" style="background-image: url('{% static '/uwtheme/images/w-logo-white.png' %}'); background-repeat: no-repeat;
+    background-size: 45px;
+    background-position: right 20px bottom;">
+                    <div class="d-inline align-middle text-white h3">
+                        <a href="#" class="text-white text-decoration-none">Mailman</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+
+  <!--<nav class="navbar navbar-expand-md navbar-dark navbar-default p-0 axdd-purple">
     <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#header-nav" aria-expanded="false">
@@ -112,34 +236,61 @@
                 </ul>
             </div>
             </div>
-    </nav>
+    </nav>-->
 
-    <div class="container" role="main">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} fade show" role="alert">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <div class="w-100">
+        <div class="container-xl" role="main">
+            
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+
+            {% block content %}{% endblock content %}
         </div>
-        {% endfor %}
-        {% block content %}{% endblock content %}
     </div>
 
-    <footer class="footer">
+    <footer class="w-100 mt-auto">
+        <div class="bg-dark">
+            <div class="container-xl py-3 small">
+                <div class="text-white font-weight-light">
+
+                <ul class="list-inline list-unstyled m-0">
+                    <li class="list-inline-item text-nowrap"><a href="mailto:help@uw.edu?subject=UW Mailman Help" class="text-white">Contact Us</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="https://itconnect.uw.edu/connect/email/resources/mailman/" class="text-white">UW Mailman Help</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="https://www.washington.edu/accessibility/" class="text-white">Accessibility</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="http://www.washington.edu/online/privacy/" class="text-white">Privacy</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="http://www.washington.edu/online/terms/" class="text-white">Terms</a></li>
+                </ul>
+
+                Copyright &copy; 2021 University of
+                Washington
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    </div>
+
+    <!--<footer class="footer">
         <div class="container">
             <p class="text-center text-muted mb-2">
                 {% trans 'UW Mailman powered by' %} <a href="https://postorius.readthedocs.org">{% trans 'Postorius' %}</a> {% trans 'version' %} {{ POSTORIUS_VERSION }}.  
             </p>
         </div>
         {% include 'uwtheme/footer.html' %}
-    </footer>
+    </footer>-->
 
    
 
     <script src="{% static 'postorius/libs/jquery/jquery-1.11.3.min.js' %}"></script>
     <script src="{% static 'postorius/libs/popperjs/popper-v1.11.0.min.js' %}"></script>
     <script src="{% static 'postorius/libs/bootstrap/js/bootstrap.min.js' %}"></script>
+
     <script src="{% static 'django-mailman3/js/main.js' %}"></script>
     <script src="{% static 'postorius/js/script.js' %}"></script>
     {% block additionaljs %}{% endblock %}
