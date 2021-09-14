@@ -4,7 +4,7 @@ USER root
 RUN apt-get update && apt-get install libpq-dev sassc -y
 USER acait
 
-ADD --chown=acait:acait mmtheme/VERSION /app/mmtheme/
+ADD --chown=acait:acait uwtheme/VERSION /app/uwtheme/
 ADD --chown=acait:acait setup.py /app/
 ADD --chown=acait:acait requirements.txt /app/
 RUN . /app/bin/activate && pip install -U setuptools && pip install -r requirements.txt
