@@ -7,8 +7,6 @@ services:
     hostname: uw-mailman3-core
     build:
       context: ../uw-mailman3-core
-    ports:
-      - "8001:8002"
     environment:
       HYPERKITTY_API_KEY: "someapikey"
 
