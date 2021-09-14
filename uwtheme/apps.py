@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class MmthemeConfig(AppConfig):
-    name = 'mmtheme'
+class UwthemeConfig(AppConfig):
+    name = 'uwtheme'

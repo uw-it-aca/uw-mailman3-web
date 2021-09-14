@@ -21,7 +21,7 @@
         <link rel="stylesheet" type="text/x-scss" media="all" href="{% static 'hyperkitty/sass/hyperkitty.scss' %}" />
         {% endcompress %}
         {% block additional_stylesheets %}
-        <link rel="stylesheet" href="{% static 'mmtheme/css/theme.css' %}">
+        <link rel="stylesheet" href="{% static 'uwtheme/css/theme.css' %}">
         {% endblock %}
         {% block head_feed %}{% endblock %}
         {% include 'hyperkitty/headers.html' %}
@@ -37,7 +37,7 @@
                 <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="fa fa-bars"></span>
                 </button>
-                <div class="axdd-brand" style="background-image: url('{% static '/mmtheme/images/w-logo-white.png' %}');">
+                <div class="axdd-brand" style="background-image: url('{% static '/uwtheme/images/w-logo-white.png' %}');">
                  {% include 'hyperkitty/navbar-brand.html' %}
                 </div>
             </div> <!-- /navbar-header -->
@@ -218,7 +218,7 @@
             {% trans 'UW Mailman powered by' %} <a href="http://hyperkitty.readthedocs.org">HyperKitty</a> {% trans 'version' %} {{ HYPERKITTY_VERSION }}.
         </p>
       </div>
-      {% include 'mmtheme/footer.html' %}
+      {% include 'uwtheme/footer.html' %}
     </footer>
 
     <script src="{% static 'hyperkitty/libs/jquery/jquery-1.10.1.min.js' %}"></script>

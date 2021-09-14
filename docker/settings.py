@@ -20,7 +20,7 @@ HAYSTACK_CONNECTIONS = {
 }
 
 INSTALLED_APPS += [
-    'mmtheme',
+    'uwtheme',
     'hyperkitty',
     'postorius',
     'django_mailman3',
@@ -44,7 +44,7 @@ INSTALLED_APPS += [
 ]
 
 if os.getenv('THEME_OFF', 'false') == 'true':
-    INSTALLED_APPS.remove('mmtheme')
+    INSTALLED_APPS.remove('uwtheme')
 
 MIDDLEWARE += [
     'postorius.middleware.PostoriusMiddleware'
