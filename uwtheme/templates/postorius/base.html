@@ -91,10 +91,10 @@
                         <div class="flex-fill text-end">
 
                             <ul class="list-inline list-unstyled m-0">
-                                <li class="list-inline-item"><a href="{% url 'list_index' %}" class="text-white">
+                                <!--<li class="list-inline-item"><a href="{% url 'list_index' %}" class="text-white">
                                     <span class="fa fa-envelope"></span>
                                     {% trans 'Lists' %}
-                                </a></li>
+                                </a></li>-->
                                 {% if user.is_superuser %}
                                     <li class="list-inline-item">
                                     <a href="{% url 'domain_index' %}" class="text-white">
