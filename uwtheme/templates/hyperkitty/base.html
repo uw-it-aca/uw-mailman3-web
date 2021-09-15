@@ -54,38 +54,31 @@
 
                              <a href="#" class="dropdown-toggle text-white" id="loginDropdownMenu" data-toggle="dropdown"
                             role="button" aria-haspopup="true" aria-expanded="false">
-                                <span class="fa fa-user"></span>
-                                <span>{{ user.username|truncatechars:"35" }}</span>
+                                <span class="fa fa-user me-1"></span><span>{{ user.username|truncatechars:"35" }}</span>
                                 <span class="caret"></span>
                             </a>
-
                                 <div class="dropdown-menu">
                             <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'mm_user_profile' %}">
-                                <span class="fa fa-user"></span>
-                                {% trans 'Account' %}
+                                <span class="fa fa-user me-2"></span>{% trans 'Account' %}
                             </a>
                             {% if 'postorius' in INSTALLED_APPS %}
                             <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'ps_user_profile' %}">
-                                <span class="fa fa-cog"></span>
-                                {% trans 'Mailman settings' %}
+                                <span class="fa fa-cog me-2"></span>{% trans 'Mailman settings' %}
                             </a>
                             {% endif %}
                             <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'hk_user_profile' %}">
-                                <span class="fa fa-comments"></span>
-                                {% trans 'Posting activity' %}
+                                <span class="fa fa-comments me-2"></span>{% trans 'Posting activity' %}
                             </a>
                             <!--
                             <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url LOGOUT_URL %}?next={% url 'hk_root' %}">
-                                <span class="fa fa-sign-out"></span>
-                                {% trans "Logout" %}
+                                <span class="fa fa-sign-out"></span>{% trans "Logout" %}
                             </a>-->
                           </div>
                             </li>
                             {% else %}
                             <li class="list-inline-item">
                             <a class="text-white" role="menuitem" tabindex="-1" href="{% url LOGIN_URL %}?next={{next|default:request.path|urlencode}}">
-                                <span class="fa fa-sign-in"></span>
-                                {% trans "Sign In" %}
+                                <span class="fa fa-sign-in me-1"></span>{% trans "Sign In" %}
                             </a>
                             </li>
                             <!--<li class="list-inline-item">
@@ -103,23 +96,20 @@
                             {% if mlist %}
                             <li class="list-inline-item">
                             <a href="{% url 'list_summary' mlist.list_id %}" class="text-white">
-                                <span class="fa fa-cog"></span>
-                                {% trans 'Manage this list' %}
+                                <span class="fa fa-cog me-1"></span>{% trans 'Manage this list' %}
                             </a>
                             </li>
                             {% else %}
                             <li class="list-inline-item">
                             <a href="{% url 'list_index' %}" class="text-white">
-                                <span class="fa fa-envelope"></span>
-                                {% trans 'Lists' %}
+                                <span class="fa fa-envelope me-1"></span>{% trans 'Lists' %}
                             </a>
                             </li>
                             {% endif %}
                              {% if user.is_authenticated %}
                             <li class="list-inline-item">
                                 <a role="menuitem" tabindex="-1" class="text-white" href="{% url LOGOUT_URL %}?next={% url 'hk_root' %}">
-                                <span class="fa fa-sign-out"></span>
-                                {% trans "Logout" %}</a>
+                                <span class="fa fa-sign-out me-1"></span>{% trans "Logout" %}</a>
                             </li>
                             {% endif %}
                         </ul>
