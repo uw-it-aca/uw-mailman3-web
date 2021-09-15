@@ -110,8 +110,8 @@
                             {% else %}
                             <li class="list-inline-item">
                             <a href="{% url 'list_index' %}" class="text-white">
-                                <span class="fa fa-cog"></span>
-                                {% trans 'Manage lists' %}
+                                <span class="fa fa-envelope"></span>
+                                {% trans 'Lists' %}
                             </a>
                             </li>
                             {% endif %}
@@ -133,7 +133,7 @@
 background-size: 45px;
 background-position: right 20px bottom;">
                 <div class="d-inline align-middle text-white h3">
-                    <a href="{% url 'hk_root' %}" class="text-white text-decoration-none">Mailman</a>
+                    <a href="{% url 'list_index' %}" class="text-white text-decoration-none">Mailman</a>
                 </div>
             </div>
         </div>
