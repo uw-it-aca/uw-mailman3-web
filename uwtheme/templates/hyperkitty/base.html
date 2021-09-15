@@ -54,8 +54,8 @@
 
                              <a href="#" class="dropdown-toggle text-white" id="loginDropdownMenu" data-toggle="dropdown"
                             role="button" aria-haspopup="true" aria-expanded="false">
-                                {% gravatar user.email 20 %}
-                                {{ user.username|truncatechars:"35" }}
+                                <span class="fa fa-user"></span>
+                                <span>{{ user.username|truncatechars:"35" }}</span>
                                 <span class="caret"></span>
                             </a>
 
