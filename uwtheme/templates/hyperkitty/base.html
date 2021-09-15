@@ -14,11 +14,21 @@
         <link rel="shortcut icon" href="{% static 'hyperkitty/img/favicon.ico' %}" />
         <link rel="stylesheet" href="{% static 'hyperkitty/libs/jquery/smoothness/jquery-ui-1.10.3.custom.min.css' %}" type="text/css" media="all" />
         <link rel="stylesheet" href="{% static 'hyperkitty/libs/fonts/font-awesome/css/font-awesome.min.css' %}" type="text/css" media="all" />
+        
+         <!-- google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@700&family=Open+Sans:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+        <!--<link rel="stylesheet" href="{% static 'postorius/libs/bootstrap/css/bootstrap.min.css' %}">-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">-->
+
         {% compress css %}
         <link rel="stylesheet" href="{% static 'hyperkitty/libs/fonts/icomoon/icomoon.css' %}" type="text/css" media="all" />
         <link rel="stylesheet" href="{% static 'hyperkitty/libs/fonts/droid/droid.css' %}" type="text/css" media="all" />
         <link rel="stylesheet" href="{% static 'django-mailman3/css/main.css' %}" />
-        <link rel="stylesheet" type="text/x-scss" media="all" href="{% static 'hyperkitty/sass/hyperkitty.scss' %}" />
+        <!--<link rel="stylesheet" type="text/x-scss" media="all" href="{% static 'hyperkitty/sass/hyperkitty.scss' %}" />-->
         {% endcompress %}
         {% block additional_stylesheets %}
         <link rel="stylesheet" href="{% static 'uwtheme/css/theme.css' %}">
@@ -29,33 +39,27 @@
 
     <body>
 
+    <div class="d-flex align-items-end flex-column" style="min-height: 100vh">
+
     {% include 'hyperkitty/top.html' %}
 
-    <nav class="navbar sticky-top navbar-dark navbar-expand-md p-0 axdd-purple">
-        <div class="container">
-            <div class="navbar-header col-md"> <!--part of navbar that's always present-->
-                <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="axdd-brand" style="background-image: url('{% static '/uwtheme/images/w-logo-white.png' %}');">
-                 {% include 'hyperkitty/navbar-brand.html' %}
-                </div>
-            </div> <!-- /navbar-header -->
+    <header class="w-100">
+        <div class="py-2 small" style="background-color: #452a78!important;">
+            <div class="container-xl">
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        <ul class="list-inline list-unstyled m-0">
+                            {% if user.is_authenticated %}
+                            <li class="list-inline-item">
 
-            <div class="navbar-collapse collapse justify-content-end"> <!--part of navbar that's collapsed on small screens-->
-                <!-- show dropdown for smaller viewports b/c login name/email may be too long -->
-                <!-- only show this extra button/dropdown if we're in small screen sizes -->
-                <div class="nav navbar-nav navbar-right auth dropdown d-sm-none">
-                  <a href="#" role="button" class="btn dropdown-toggle" id="loginDropdownMenu"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {% if user.is_authenticated %}
-                            {% gravatar user.email 20 %}
-                        {% else %}
-                            <span class="fa fa-bars"></span>
-                        {% endif %}
-                    </a>
-                      {% if user.is_authenticated %}
-                          <div class="dropdown-menu">
+                             <a href="#" class="dropdown-toggle text-white" id="loginDropdownMenu" data-toggle="dropdown"
+                            role="button" aria-haspopup="true" aria-expanded="false">
+                                {% gravatar user.email 20 %}
+                                {{ user.username|truncatechars:"35" }}
+                                <span class="caret"></span>
+                            </a>
+
+                                <div class="dropdown-menu">
                             <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'mm_user_profile' %}">
                                 <span class="fa fa-user"></span>
                                 {% trans 'Account' %}
@@ -70,102 +74,92 @@
                                 <span class="fa fa-comments"></span>
                                 {% trans 'Posting activity' %}
                             </a>
-                            <div class="dropdown-divider"></div>
+                            <!--
                             <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url LOGOUT_URL %}?next={% url 'hk_root' %}">
                                 <span class="fa fa-sign-out"></span>
                                 {% trans "Logout" %}
-                            </a>
-                          </div> <!-- dropdown menu -->
-                        {% else %}
-                            <a role="menuitem" tabindex="-1" href="{% url LOGIN_URL %}?next={{next|default:request.path|urlencode}}">
+                            </a>-->
+                          </div>
+                            </li>
+                            {% else %}
+                            <li class="list-inline-item">
+                            <a class="text-white" role="menuitem" tabindex="-1" href="{% url LOGIN_URL %}?next={{next|default:request.path|urlencode}}">
                                 <span class="fa fa-sign-in"></span>
                                 {% trans "Sign In" %}
                             </a>
+                            </li>
+                            <!--<li class="list-inline-item">
                             <a role="menuitem" tabindex="-1" href="{% url 'account_signup' %}?next={{next|default:request.path|urlencode}}">
                                 <span class="fa fa-user-plus"></span>
                                 {% trans "Sign Up" %}
+                            </a></li>-->
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="flex-fill text-end">
+                        {% if 'postorius' in INSTALLED_APPS %}
+                        <ul class="list-inline list-unstyled m-0">
+                            
+                            {% if mlist %}
+                            <li class="list-inline-item">
+                            <a href="{% url 'list_summary' mlist.list_id %}" class="text-white">
+                                <span class="fa fa-cog"></span>
+                                {% trans 'Manage this list' %}
                             </a>
+                            </li>
+                            {% else %}
+                            <li class="list-inline-item">
+                            <a href="{% url 'list_index' %}" class="text-white">
+                                <span class="fa fa-cog"></span>
+                                {% trans 'Manage lists' %}
+                            </a>
+                            </li>
+                            {% endif %}
+                             {% if user.is_authenticated %}
+                            <li class="list-inline-item">
+                                <a role="menuitem" tabindex="-1" class="text-white" href="{% url LOGOUT_URL %}?next={% url 'hk_root' %}">
+                                <span class="fa fa-sign-out"></span>
+                                {% trans "Logout" %}</a>
+                            </li>
+                            {% endif %}
+                        </ul>
                         {% endif %}
-
+                    </div>
                 </div>
-                <form name="search" method="get" action="{% url 'hk_search' %}" class="navbar-form navbar-right my-2 my-lg-2 order-1" role="search">
-                    {% if mlist %}<input type="hidden" name="mlist" value="{{ mlist.name }}" />{% endif %}
-                        <div class="input-group">
-                            <input name="q" type="text" class="form-control"
-                                   placeholder="{% if mlist %}{% trans 'Search this list' %}{% else %}{% trans 'Search all lists' %}{% endif %}"
-                                   {% if query %}value="{{ query }}"{% endif %}
-                                   />
-                            <span class="input-group-append">
-                                <button class="btn btn-secondary" type="submit"><span class="fa fa-search"></span></button>
-                            </span>
-                        </div>
-                </form>
-                <!-- larger viewports -->
-                <ul class="nav navbar-nav d-none d-sm-flex auth order-3">
-                    {% if user.is_authenticated %}
-                        <li class="dropdown nav-item">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
-                               role="button" aria-haspopup="true" aria-expanded="false">
-                                {% gravatar user.email 20 %}
-                                {{ user.username|truncatechars:"35" }}
-                                <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{% url 'mm_user_profile' %}" class="dropdown-item">
-                                    <span class="fa fa-user"></span>
-                                    {% trans 'Account' %}
-                                </a>
-                                {% if 'postorius' in INSTALLED_APPS %}
-                                <a href="{% url 'ps_user_profile' %}" class="dropdown-item">
-                                    <span class="fa fa-cog"></span>
-                                    {% trans 'Mailman settings' %}
-                                </a>
-                                {% endif %}
-                                <a href="{% url 'hk_user_profile' %}" class="dropdown-item">
-                                    <span class="fa fa-comments"></span>
-                                    {% trans 'Posting activity' %}
-                                </a>
-                                <div role="separator" class="dropdown-divider"></div>
-                                <a href="{% url LOGOUT_URL %}?next={% url 'hk_root' %}" class="dropdown-item">
-                                    <span class="fa fa-sign-out"></span>
-                                    {% trans "Logout" %}
-                                </a>
-                            </div>
-                        </li>
-                    {% else %}
-                        <li class="nav-item"><a href="{% url LOGIN_URL %}?next={{next|default:request.path|urlencode}}" class="nav-link text-white">
-                            <span class="fa fa-sign-in"></span>
-                            {% trans "Sign In" %}
-                        </a></li>
-                        <li class="nav-item"><a href="{% url 'account_signup' %}?next={{next|default:request.path|urlencode}}" class="nav-link text-white">
-                            <span class="fa fa-user-plus"></span>
-                            {% trans "Sign Up" %}
-                        </a></li>
-                    {% endif %}
-                </ul>
+            </div>
+        </div>
+        <div style="line-height:65px; background-color: #4d307f!important">
+            <div class="container-xl" style="background-image: url('{% static '/uwtheme/images/w-logo-white.png' %}'); background-repeat: no-repeat;
+background-size: 45px;
+background-position: right 20px bottom;">
+                <div class="d-inline align-middle text-white h3">
+                    <a href="{% url 'hk_root' %}" class="text-white text-decoration-none">Mailman</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- no need for top list search 
+    <div class="w-100">
+        <div class="container">
+      <form name="search" method="get" action="{% url 'hk_search' %}" class="navbar-form navbar-right my-2 my-lg-2 order-1" role="search">
+            {% if mlist %}<input type="hidden" name="mlist" value="{{ mlist.name }}" />{% endif %}
+                <div class="input-group">
+                    <input name="q" type="text" class="form-control"
+                            placeholder="{% if mlist %}{% trans 'Search this list' %}{% else %}{% trans 'Search all lists' %}{% endif %}"
+                            {% if query %}value="{{ query }}"{% endif %}
+                            />
+                    <span class="input-group-append">
+                        <button class="btn btn-secondary" type="submit"><span class="fa fa-search"></span></button>
+                    </span>
+                </div>
+        </form>
+        </div>
+    </div>-->
 
-                {% if 'postorius' in INSTALLED_APPS %}
-                <ul class="nav navbar-nav order-2">
-                    <li class="nav-item">
-                    {% if mlist %}
-                    <a href="{% url 'list_summary' mlist.list_id %}" class="nav-link text-white">
-                        <span class="fa fa-cog"></span>
-                        {% trans 'Manage this list' %}
-                    </a>
-                    {% else %}
-                    <a href="{% url 'list_index' %}" class="nav-link text-white">
-                        <span class="fa fa-cog"></span>
-                        {% trans 'Manage lists' %}
-                    </a>
-                    {% endif %}
-                    </li>
-                </ul>
-                {% endif %}
-
-
-            </div> <!--/navbar-collapse -->
-        </div> <!-- /container for navbar -->
-    </nav>
+     <div class="w-100">
+        <div class="container-xl">
+            
+            <main class="mt-3">
 
     {% if messages %}
     <div class="flashmsgs">
@@ -188,7 +182,8 @@
     </div>
     {% endif %}
 
-     <div class="modal fade" tabindex="-1" role="dialog" id="keyboard-shortcuts">
+    
+     <!--<div class="modal fade" tabindex="-1" role="dialog" id="keyboard-shortcuts">
        <div class="modal-dialog" role="document">
          <div class="modal-content">
            <div class="modal-header">
@@ -204,22 +199,37 @@
                <li><code>j l</code>: {% trans "Jump to MailingList overview" %}
              </ul>
            </div>
-         </div><!-- /.modal-content -->
-       </div><!-- /.modal-dialog -->
-     </div><!-- /.modal -->
+         </div>
+       </div
+     </div>-->
 
-     <div class="container">
-        {% block content %} {% endblock %}
-    </div> <!-- /container for content -->
 
-    <footer class="footer">
-      <div class="container">
-        <p class="text-center text-muted mb-2">
-            {% trans 'UW Mailman powered by' %} <a href="http://hyperkitty.readthedocs.org">HyperKitty</a> {% trans 'version' %} {{ HYPERKITTY_VERSION }}.
-        </p>
-      </div>
-      {% include 'uwtheme/footer.html' %}
+    {% block content %} {% endblock %}
+  
+    </main>
+    </div>
+    </div>
+
+    <footer class="w-100 mt-auto">
+        <div class="bg-dark">
+            <div class="container-xl py-3 small">
+                <div class="text-white font-weight-light">
+
+                <ul class="list-inline list-unstyled m-0">
+                    <li class="list-inline-item text-nowrap"><a href="mailto:help@uw.edu?subject=UW Mailman Help" class="text-white">Contact Us</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="https://itconnect.uw.edu/connect/email/resources/mailman/" class="text-white">UW Mailman Help</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="https://www.washington.edu/accessibility/" class="text-white">Accessibility</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="http://www.washington.edu/online/privacy/" class="text-white">Privacy</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="http://www.washington.edu/online/terms/" class="text-white">Terms</a></li>
+                </ul>
+
+                Copyright &copy; 2021 University of
+                Washington
+                </div>
+            </div>
+        </div>
     </footer>
+    </div>
 
     <script src="{% static 'hyperkitty/libs/jquery/jquery-1.10.1.min.js' %}"></script>
     <script src="{% static 'hyperkitty/libs/jquery/jquery-ui-1.10.3.custom.min.js' %}"></script>
