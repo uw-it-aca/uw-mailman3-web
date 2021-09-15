@@ -77,7 +77,7 @@
                                 {% else %}
                                     <li class="list-inline-item"><a class="text-white" href="{% url LOGIN_URL %}?next={{ next|default:request.path|urlencode }}">
                                         <span class="fa fa-sign-in"></span>
-                                        {% trans 'Login' %}
+                                        {% trans 'Sign In' %}
                                     </a></li>
                                     <!--
                                     <li  class="list-inline-item"><a class="text-white" href="{% url 'account_signup' %}?next={{next|default:request.path|urlencode}}">
@@ -140,103 +140,11 @@
     background-size: 45px;
     background-position: right 20px bottom;">
                     <div class="d-inline align-middle text-white h3">
-                        <a href="#" class="text-white text-decoration-none">Mailman</a>
+                        <a href="{% url 'list_index' %}" class="text-white text-decoration-none">Mailman</a>
                     </div>
                 </div>
             </div>
         </header>
-
-
-
-  <!--<nav class="navbar navbar-expand-md navbar-dark navbar-default p-0 axdd-purple">
-    <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#header-nav" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="axdd-brand" style="background-image: url('{% static '/uwtheme/images/w-logo-white.png' %}');">
-                    <a class="navbar-brand text-white" href="{% url 'list_index' %}">Mailman</a>
-                </div>
-            </div>
-            <div class="collapse navbar-collapse" id="header-nav">
-                <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item"><a href="{% url 'list_index' %}" class="nav-link text-white">
-                        <span class="fa fa-envelope"></span>
-                        {% trans 'Lists' %}
-                    </a></li>
-                    {% if user.is_superuser %}
-                        <li class="nav-item">
-                          <a href="{% url 'domain_index' %}" class="nav-link text-white">
-                            <span class="fa fa-globe"></span>
-                            {% trans 'Domains' %}
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'global_bans' %}" class="nav-link text-white">
-                                <span class="fa fa-ban"></span>
-                                {% trans 'Bans' %}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'system_information' %}" class="nav-link text-white">
-                                <span class="fa fa-list-alt"></span>
-                                {% trans 'System Information' %}
-                            </a>
-                        </li>
-                    {% endif %}
-                    {% if 'hyperkitty' in INSTALLED_APPS %}
-                        <li class="nav-item"><a href="{% url 'hk_root' %}" class="nav-link text-white">
-                            <span class="fa fa-comment"></span>
-                            {% trans 'Archives' %}
-                        </a></li>
-                    {% endif %}
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if user.is_authenticated %}
-                        <li class="dropdown nav-item">
-                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"
-                               role="button" aria-haspopup="true" aria-expanded="false">
-                                {% gravatar user.email 20 %}
-                                {{ user.username|truncatechars:"35" }}
-                                <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{% url 'mm_user_profile' %}" class="dropdown-item">
-                                    <span class="fa fa-user"></span>
-                                    {% trans 'Account' %}
-                                </a>
-                                <a href="{% url 'ps_user_profile' %}" class="dropdown-item">
-                                    <span class="fa fa-cog"></span>
-                                    {% trans 'Mailman settings' %}
-                                </a>
-                                {% if 'hyperkitty' in INSTALLED_APPS %}
-                                <a href="{% url 'hk_user_profile' %}" class="dropdown-item">
-                                <span class="fa fa-comment"></span>
-                                    {% trans 'Posting activity' %}
-                                </a>
-                                {% endif %}
-                                <div class="dropdown-divider"></div>
-                                <a href="{% url LOGOUT_URL %}?next={% url 'list_index' %}" class="dropdown-item">
-                                    <span class="fa fa-sign-out"></span>
-                                    {% trans 'Logout' %}
-                                </a>
-                            </div>
-                        </li>
-                    {% else %}
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url LOGIN_URL %}?next={{ next|default:request.path|urlencode }}">
-                            <span class="fa fa-sign-in"></span>
-                            {% trans 'Login' %}
-                        </a></li>
-                        <li  class="nav-item"><a class="nav-link text-white" href="{% url 'account_signup' %}?next={{next|default:request.path|urlencode}}">
-                            <span class="fa fa-user-plus"></span>
-                            {% trans 'Sign Up' %}
-                        </a></li>
-                    {% endif %}
-                </ul>
-            </div>
-            </div>
-    </nav>-->
 
     <div class="w-100">
         <div class="container-xl">
