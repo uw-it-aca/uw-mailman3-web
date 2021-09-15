@@ -13,15 +13,22 @@
 
 <div class="all-lists">
 
-<div class="row header">
+<div class="d-flex">
+   
+   <h1 class="flex-fill w-50">
+        {% trans 'Available lists' %}
+    </h1>
+
+   <div class="flex-fill w-50">
     {# This version of the sort-by options shows up on larger screens; hidden-xs and hidden-tn are Bootstrap options to hide it at tiny or small sizes. #}
-    <nav class="sort-mode right d-none d-md-flex mr-5 align-items-end">
-        <ul class="list-unstyled list-inline">
+    <div class="sort-mode d-flex justify-content-end">
+        <div class="me-2">Sort by:</div>
+        <ul class="list-inline list-unstyled ">
             <li class="list-inline-item">
                {% if sort_mode == "popular" %}
-               <span class="active">{% trans 'Most popular' %}</span>
+               <span class="border-bottom border-dark border-5">{% trans 'Most popular' %}</span>
                {% else %}
-                <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "popular" %}"
+                <a class="text-secondary" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "popular" %}"
                    data-toggle="tooltip" data-placement="bottom"
                    title="{% trans 'Sort by number of recent participants' %}"
                    >{% trans 'Most popular' %}</a>
@@ -29,9 +36,9 @@
             </li>
             <li class="list-inline-item">
                {% if sort_mode == "active" %}
-               <span class="active">{% trans 'Most active' %}</span>
+               <span class="border-bottom border-dark border-5">{% trans 'Most active' %}</span>
                {% else %}
-               <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "active" %}"
+               <a class="text-secondary" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "active" %}"
                   data-toggle="tooltip" data-placement="bottom"
                   title="{% trans 'Sort by number of recent discussions' %}"
                   >{% trans 'Most active' %}</a>
@@ -39,9 +46,9 @@
             </li>
             <li class="list-inline-item">
                {% if sort_mode == "name" %}
-               <span class="active">{% trans 'By name' %}</span>
+               <span class="border-bottom border-dark border-5">{% trans 'By name' %}</span>
                {% else %}
-               <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "name" %}"
+               <a class="text-secondary" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "name" %}"
                   data-toggle="tooltip" data-placement="bottom"
                   title="{% trans 'Sort alphabetically' %}"
                   >{% trans 'By name' %}</a>
@@ -49,21 +56,22 @@
             </li>
             <li class="list-inline-item">
                {% if sort_mode == "creation" %}
-               <span class="active">{% trans 'Newest' %}</span>
+               <span class="border-bottom border-dark border-5">{% trans 'Newest' %}</span>
                {% else %}
-                <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "creation" %}"
+                <a class="text-secondary" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "creation" %}"
                    data-toggle="tooltip" data-placement="bottom"
                    title="{% trans 'Sort by list creation date' %}"
                    >{% trans 'Newest' %}</a>
                {% endif %}
             </li>
         </ul>
-    </nav>
-    <h1 class="col-12 col-sm-4">
-        {% trans 'Available lists' %}
-    </h1>
+    </div>
+    </div>
+
+    
     {# This version of the sort-by options shows up on tablets/mobile phones. #}
-    <div class="btn-group float-right col-5 col-sm-3 d-md-none">
+    
+    <!--<div class="btn-group float-right col-5 col-sm-3 d-md-none">
         <button type="button" class="btn btn-sm btn-secondary dropdown-toggle pull-right" data-toggle="dropdown">
             {% trans 'Sort by' %} <span class="caret"></span>
         </button>
@@ -81,7 +89,8 @@
                 <a href="{% url 'hk_root' %}?{% add_to_query_string "sort" "creation" %}">{% trans 'Newest' %}</a>
             </li>
         </ul>
-    </div>
+    </div>-->
+    
 </div> <!--/row, for title & header -->
 
 <div class="row filter-lists">
