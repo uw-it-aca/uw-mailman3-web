@@ -2,18 +2,21 @@
 {% load pagination %}
 
 <div class="paginator border border-danger">
-custom axdd pagination
-<div class="row justify-content-center">
+<div class="row ">
   <nav aria-label="Page navigation">
-    <ul class="pagination">
+    <ul class="pagination justify-content-center">
     {% if page.has_previous %}
         <li class="page-item">
-            <a href="?{% add_to_query_string page_key page.previous_page_number %}" class="page-link">
-                &larr; {{ label_previous }}
+            <a href="?{% add_to_query_string page_key page.previous_page_number %}" class="page-link" aria-label="{{ label_previous }}">
+                <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
     {% else %}
-        <li class="page-item disabled"><a href="#" class="page-link">&larr; {{ label_previous }}</a></li>
+        <li class="page-item disabled">
+            <a href="#" class="page-link" aria-label="{{ label_previous }}">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
     {% endif %}
 
     {% for pagenum in page.paginator.page_range_ellipsis %}
@@ -28,12 +31,16 @@ custom axdd pagination
 
     {% if page.has_next %}
         <li class="page-item">
-            <a href="?{% add_to_query_string page_key page.next_page_number %}" class="page-link">
-                {{ label_next }} &rarr;
+            <a href="?{% add_to_query_string page_key page.next_page_number %}" class="page-link" aria-label="{{ label_next }}">
+                <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
     {% else %}
-        <li class="page-item disabled" class="page-item"><a href="#" class="page-link">{{ label_next }} &rarr;</a></li>
+        <li class="page-item disabled" class="page-item">
+            <a href="#" class="page-link" aria-label="{{ label_next }}">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
     {% endif %}
 </ul>
 </nav>
