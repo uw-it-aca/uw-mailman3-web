@@ -1,9 +1,9 @@
 [submodule "postorius"]
 	path = postorius
-	url = https://gitlab.com/mailman/postorius
+	url = https://gitlab.com/charlonpalacay/postorius.git
 [submodule "hyperkitty"]
 	path = hyperkitty
-	url = https://gitlab.com/mailman/hyperkitty
+	url = https://gitlab.com/charlonpalacay/hyperkitty.git
 [submodule "django-mailman3"]
 	path = django-mailman3
-	url = https://gitlab.com/mailman/django-mailman3.git
+	url = https://gitlab.com/charlonpalacay/django-mailman3.git
