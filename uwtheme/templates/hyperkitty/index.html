@@ -13,22 +13,21 @@
 
 <div class="all-lists">
 
-<div class="d-flex">
+<div class="d-flex mb-3">
    
-    <h1 class="flex-fill w-50">
+    <h1 class="flex-fill w-50 m-0 border-bottom">
         {% trans 'Archives' %}
     </h1>
 
-   <div class="flex-fill w-50">
+   <div class="flex-fill w-50 border-bottom">
     {# This version of the sort-by options shows up on larger screens; hidden-xs and hidden-tn are Bootstrap options to hide it at tiny or small sizes. #}
-    <div class="sort-mode d-flex justify-content-end">
-        <div class="me-2">Sort by:</div>
-        <ul class="list-inline list-unstyled ">
+    <div class="sort-mode d-flex justify-content-end align-content-end align-items-end" style="height:45px;">
+        <ul class="list-inline list-unstyled m-0">
             <li class="list-inline-item">
                {% if sort_mode == "popular" %}
-               <span class="border-bottom border-dark border-5">{% trans 'Most popular' %}</span>
+               <span class="border-bottom border-primary border-5">{% trans 'Most popular' %}</span>
                {% else %}
-                <a class="text-secondary" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "popular" %}"
+                <a class="text-secondary text-decoration-none" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "popular" %}"
                    data-toggle="tooltip" data-placement="bottom"
                    title="{% trans 'Sort by number of recent participants' %}"
                    >{% trans 'Most popular' %}</a>
@@ -36,9 +35,9 @@
             </li>
             <li class="list-inline-item">
                {% if sort_mode == "active" %}
-               <span class="border-bottom border-dark border-5">{% trans 'Most active' %}</span>
+               <span class="border-bottom border-primary border-5">{% trans 'Most active' %}</span>
                {% else %}
-               <a class="text-secondary" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "active" %}"
+               <a class="text-secondary text-decoration-none" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "active" %}"
                   data-toggle="tooltip" data-placement="bottom"
                   title="{% trans 'Sort by number of recent discussions' %}"
                   >{% trans 'Most active' %}</a>
@@ -46,9 +45,9 @@
             </li>
             <li class="list-inline-item">
                {% if sort_mode == "name" %}
-               <span class="border-bottom border-dark border-5">{% trans 'By name' %}</span>
+               <span class="border-bottom border-primary border-5">{% trans 'By name' %}</span>
                {% else %}
-               <a class="text-secondary" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "name" %}"
+               <a class="text-secondary text-decoration-none" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "name" %}"
                   data-toggle="tooltip" data-placement="bottom"
                   title="{% trans 'Sort alphabetically' %}"
                   >{% trans 'By name' %}</a>
@@ -56,9 +55,9 @@
             </li>
             <li class="list-inline-item">
                {% if sort_mode == "creation" %}
-               <span class="border-bottom border-dark border-5">{% trans 'Newest' %}</span>
+               <span class="border-bottom border-primary border-5">{% trans 'Newest' %}</span>
                {% else %}
-                <a class="text-secondary" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "creation" %}"
+                <a class="text-secondary text-decoration-none" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "creation" %}"
                    data-toggle="tooltip" data-placement="bottom"
                    title="{% trans 'Sort by list creation date' %}"
                    >{% trans 'Newest' %}</a>
