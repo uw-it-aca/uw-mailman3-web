@@ -13,15 +13,17 @@
         <meta name="dc.language" content="en" />
         <link rel="shortcut icon" href="{% static 'hyperkitty/img/favicon.ico' %}" />
         <link rel="stylesheet" href="{% static 'hyperkitty/libs/jquery/smoothness/jquery-ui-1.10.3.custom.min.css' %}" type="text/css" media="all" />
-        <link rel="stylesheet" href="{% static 'hyperkitty/libs/fonts/font-awesome/css/font-awesome.min.css' %}" type="text/css" media="all" />
+        <!--<link rel="stylesheet" href="{% static 'hyperkitty/libs/fonts/font-awesome/css/font-awesome.min.css' %}" type="text/css" media="all" />-->
         
          <!-- google fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@700&family=Open+Sans:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
+        <!-- bootstrap 5.1 + bootstrap icons -->
         <!--<link rel="stylesheet" href="{% static 'postorius/libs/bootstrap/css/bootstrap.min.css' %}">-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
         <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">-->
 
         {% compress css %}
@@ -51,35 +53,38 @@
                         <ul class="list-inline list-unstyled m-0">
                             {% if user.is_authenticated %}
                             <li class="list-inline-item">
-
-                             <a href="#" class="dropdown-toggle text-white" id="loginDropdownMenu" data-toggle="dropdown"
+                                <i class="bi bi-person-fill text-white me-1"></i>
+                                <a href="#" class="dropdown-toggle text-white" id="loginDropdownMenu" data-toggle="dropdown"
                             role="button" aria-haspopup="true" aria-expanded="false">
-                                <span class="fa fa-user me-1"></span><span>{{ user.username|truncatechars:"35" }}</span>
-                                <span class="caret"></span>
-                            </a>
+                                <span>{{ user.username|truncatechars:"35" }}</span>
+                                <span class="caret"></span></a>
                                 <div class="dropdown-menu">
-                            <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'mm_user_profile' %}">
-                                <span class="fa fa-user me-2"></span>{% trans 'Account' %}
-                            </a>
-                            {% if 'postorius' in INSTALLED_APPS %}
-                            <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'ps_user_profile' %}">
-                                <span class="fa fa-cog me-2"></span>{% trans 'Mailman settings' %}
-                            </a>
-                            {% endif %}
-                            <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'hk_user_profile' %}">
-                                <span class="fa fa-comments me-2"></span>{% trans 'Posting activity' %}
-                            </a>
-                            <!--
-                            <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url LOGOUT_URL %}?next={% url 'hk_root' %}">
-                                <span class="fa fa-sign-out"></span>{% trans "Logout" %}
-                            </a>-->
-                          </div>
+                                    <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'mm_user_profile' %}">
+                                        <i class="bi bi-person-fill me-1"></i>
+                                        {% trans 'Account' %}
+                                    </a>
+                                    {% if 'postorius' in INSTALLED_APPS %}
+                                    <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'ps_user_profile' %}">
+                                        <i class="bi bi-gear-fill me-1"></i>
+                                        {% trans 'Mailman settings' %}
+                                    </a>
+                                    {% endif %}
+                                    <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url 'hk_user_profile' %}">
+                                        <i class="bi bi-chat-fill me-1"></i>
+                                        {% trans 'Posting activity' %}
+                                    </a>
+                                    <!--
+                                    <a role="menuitem" tabindex="-1" class="dropdown-item" href="{% url LOGOUT_URL %}?next={% url 'hk_root' %}">
+                                        <span class="fa fa-sign-out"></span>{% trans "Logout" %}
+                                    </a>-->
+                                </div>
                             </li>
                             {% else %}
                             <li class="list-inline-item">
-                            <a class="text-white" role="menuitem" tabindex="-1" href="{% url LOGIN_URL %}?next={{next|default:request.path|urlencode}}">
-                                <span class="fa fa-sign-in me-1"></span>{% trans "Sign In" %}
-                            </a>
+                                <i class="bi bi-box-arrow-in-right text-white me-1"></i>
+                                <a class="text-white" role="menuitem" tabindex="-1" href="{% url LOGIN_URL %}?next={{next|default:request.path|urlencode}}">
+                                    {% trans "Sign In" %}
+                                </a>
                             </li>
                             <!--<li class="list-inline-item">
                             <a role="menuitem" tabindex="-1" href="{% url 'account_signup' %}?next={{next|default:request.path|urlencode}}">
@@ -95,21 +100,25 @@
                             
                             {% if mlist %}
                             <li class="list-inline-item">
-                            <a href="{% url 'list_summary' mlist.list_id %}" class="text-white">
-                                <span class="fa fa-cog me-1"></span>{% trans 'Manage this list' %}
-                            </a>
+                                <i class="bi bi-gear-fill text-white me-1"></i>
+                                <a href="{% url 'list_summary' mlist.list_id %}" class="text-white">
+                                    {% trans 'Manage this list' %}
+                                </a>
                             </li>
                             {% else %}
                             <li class="list-inline-item">
-                            <a href="{% url 'list_index' %}" class="text-white">
-                                <span class="fa fa-envelope me-1"></span>{% trans 'Lists' %}
-                            </a>
+                                <i class="bi bi-envelope-fill text-white me-1"></i>
+                                <a href="{% url 'list_index' %}" class="text-white">
+                                    {% trans 'Lists' %}
+                                </a>
                             </li>
                             {% endif %}
                              {% if user.is_authenticated %}
                             <li class="list-inline-item">
+                                <i class="bi bi-box-arrow-left text-white me-1"></i>
                                 <a role="menuitem" tabindex="-1" class="text-white" href="{% url LOGOUT_URL %}?next={% url 'hk_root' %}">
-                                <span class="fa fa-sign-out me-1"></span>{% trans "Logout" %}</a>
+                                {% trans "Sign out" %}
+                                </a>
                             </li>
                             {% endif %}
                         </ul>
