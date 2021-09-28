@@ -12,6 +12,6 @@ then
                 >&2 echo "waiting for mailman"
                 sleep 5
         done
-  python manage.py loaddata superuser.json
+  python manage.py loaddata /app/uwtheme/fixtures/superuser.json
 
 fi
