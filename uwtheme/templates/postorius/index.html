@@ -15,9 +15,8 @@
     <div class="row">
     {% if user.is_authenticated %}
         <div class="dropdown page-left col-md-4">
-          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
             {% trans 'Filter by Role' %}
-            <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a href="?role=owner" class="dropdown-item">{% trans 'Owner' %}</a></li>
