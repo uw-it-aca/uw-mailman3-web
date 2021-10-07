@@ -239,9 +239,13 @@ background-position: right 20px bottom;">
 
     <script src="{% static 'hyperkitty/libs/jquery/jquery-1.10.1.min.js' %}"></script>
     <script src="{% static 'hyperkitty/libs/jquery/jquery-ui-1.10.3.custom.min.js' %}"></script>
+
+    <!-- bootstrap 5.1.1 bundle + popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
     {% compress js %}
-    <script type="text/javascript" src="{% static 'hyperkitty/libs/popper/popper.min.js' %}" />
-    <script type="text/javascript" src="{% static 'hyperkitty/libs/bootstrap/javascripts/bootstrap.min.js' %}" />
+    <!--<script type="text/javascript" src="{% static 'hyperkitty/libs/popper/popper.min.js' %}" />
+    <script type="text/javascript" src="{% static 'hyperkitty/libs/bootstrap/javascripts/bootstrap.min.js' %}" />-->
     <script type="text/javascript" src="{% static 'hyperkitty/libs/mousetrap/mousetrap.min.js' %}" />
     <script type="text/javascript" src="{% static 'hyperkitty/libs/jquery.expander.js' %}" />
     <script type="text/javascript" src="{% static 'hyperkitty/libs/d3.v2.min.js' %}" />
