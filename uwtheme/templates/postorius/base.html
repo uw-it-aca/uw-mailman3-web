@@ -118,12 +118,14 @@
                                         </a>
                                     </li>
                                 {% endif %}
+
                                 <li class="list-inline-item">
                                     <i class="bi bi-envelope-fill text-white me-1"></i>
                                     <a href="{% url 'list_index' %}" class="text-white">
                                         {% trans 'Lists' %}
                                     </a>
                                 </li>
+                                
                                 {% if 'hyperkitty' in INSTALLED_APPS %}
                                 <li class="list-inline-item">
                                     <i class="bi bi-chat-fill text-white me-1"></i>
