@@ -97,12 +97,40 @@
                         {% if 'postorius' in INSTALLED_APPS %}
                         <ul class="list-inline list-unstyled m-0">
                             
+                            {% if user.is_superuser %}
+                            <li class="list-inline-item">
+                                <i class="bi bi-envelope-fill text-white me-1"></i>
+                                <a href="#" class="dropdown-toggle text-white" data-bs-toggle="dropdown"
+                                    role="button" id="dropdownMenuButton2" aria-expanded="false">
+                                    {% trans 'Lists' %}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton2">
+                                    <a href="{% url 'list_index' %}" class="dropdown-item">
+                                    <i class="bi bi-envelope-fill me-1"></i>
+                                        {% trans 'All Lists' %}
+                                    </a>
+                                    <a href="{% url 'domain_index' %}" class="dropdown-item">
+                                    <i class="bi bi-globe2 me-1"></i>
+                                    {% trans 'Domains' %}
+                                    </a>
+                                    <a href="{% url 'global_bans' %}" class="dropdown-item">
+                                    <i class="bi bi-hand-thumbs-down-fill me-1"></i>
+                                        {% trans 'Bans' %}
+                                    </a>
+                                    <a href="{% url 'system_information' %}" class="dropdown-item">
+                                    <i class="bi bi-card-list me-1"></i>
+                                        {% trans 'System Information' %}
+                                    </a>
+                                </div>
+                            </li>
+                            {% else %}
                             <li class="list-inline-item">
                                 <i class="bi bi-envelope-fill text-white me-1"></i>
                                 <a href="{% url 'list_index' %}" class="text-white">
                                     {% trans 'Lists' %}
                                 </a>
                             </li>
+                            {% endif %}
                 
                             {% if 'hyperkitty' in INSTALLED_APPS %}
                             <li class="list-inline-item">
@@ -114,7 +142,7 @@
                             {% endif %}
                              {% if user.is_authenticated %}
                             <li class="list-inline-item">
-                                <i class="bi bi-box-arrow-left text-white me-1"></i>
+                                <i class="bi bi-box-arrow-in-right text-white me-1"></i>
                                 <a role="menuitem" tabindex="-1" class="text-white" href="{% url LOGOUT_URL %}?next={% url 'hk_root' %}">
                                 {% trans "Sign out" %}
                                 </a>
