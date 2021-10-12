@@ -5,13 +5,13 @@
 </div>
 
 {% if user.is_authenticated  %}
-<ul class="nav nav-tabs justify-content-end mb-3" role="tablist">
+<ul class="nav nav-tabs mb-3" role="tablist">
   <li class="nav-item">
       <a href="{% url 'list_summary' list.list_id %}" class="{% nav_active_class current 'list_summary' %} nav-link">{% trans 'Info' %}</a></li>
     {% if user.is_superuser or user.is_list_owner or user.is_list_moderator %}
     <li role="tab" class="dropdown nav-item">
       <a href="#" class="{% nav_active_class current 'list_subscription_requests' %} nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-        {% trans 'Subscription requests' %}<span class="badge bg-secondary rounded-pill">{{ list|pending_subscriptions }}</span>
+        {% trans 'Subscription requests' %} <span class="badge bg-secondary rounded-pill">{{ list|pending_subscriptions }}</span>
       </a>
       <ul class="dropdown-menu">
         <li><a href="{% url 'list_subscription_requests' list.list_id %}" class="dropdown-item">
