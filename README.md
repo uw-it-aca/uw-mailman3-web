@@ -3,9 +3,43 @@ UW themed mailman3-web, with accessibility fixes.
 
 Clone this repo and uw-mailman3-core, they must be side-by-side on your filesystem.
 
-* git submodule init
-* git submodule update
+## System Requirements
 
-Copy the sample.env to .env and edit to override any envvars you might want.
+- Python (3+)
+- Docker
 
-To 
+## Development and Design Stack
+
+- Django (3.2)
+- Bootstrap (5.1.3)
+- Bootstrap Icons (1.7.0)
+
+## Setup
+
+Create a directory for running your project
+
+    $ mkdir mailman3
+    $ cd mailman3
+
+Clone core and web repos
+
+    $ git clone git@github.com:uw-it-aca/uw-mailman3-core.git
+    $ git clone git@github.com:uw-it-aca/uw-mailman3-web.git
+
+## Development (using Docker)
+
+Go to the web repository
+
+    $ cd uw-mailman3-web
+
+Copy the sample env configuration and override any vars you might want.
+
+    $ cp .env.sample .env
+
+Run the Docker container
+
+    $ docker-compose up --build
+
+View your application using your specified port number in the .env file
+
+    Demo: http://localhost:8000/
