@@ -16,10 +16,12 @@ services:
     build:
       context: .
     volumes:
-    - ./mmtheme:/app/mmtheme
+    - ./uwtheme:/app/uwtheme
     ports:
      - "${PORT:-8000}:8000"
      - "8080:8080"
+    stdin_open: true
+    tty: true
     environment:
       ENV: localdev
       AUTH: SAML_MOCK

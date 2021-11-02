@@ -11,19 +11,19 @@ See the README on `GitHub
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='mmtheme',
+    name='uwtheme',
     version='0.1',
-    packages=['mmtheme'],
+    packages=['uwtheme'],
     include_package_data=True,
     install_requires=[
         'Django<3.1',
         'django-allauth',
         'django-compressor==2.4.1',
-        'django-mailman3',
+        'django-mailman3==1.3.7',
         'djangorestframework',
-        'hyperkitty',
+        'hyperkitty==1.3.4',
         'mailmanclient',
-        'postorius',
+        'postorius==1.3.6',
         'UW-Django-SAML2>=1.3.8,<2.0',
         'whoosh',
     ],

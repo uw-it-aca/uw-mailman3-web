@@ -1,0 +1,217 @@
+{% load i18n %}
+{% load static %}
+{% load p_gravatar %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block head_title %}{{ site_name }}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'postorius/img/favicon.ico' %}">
+
+     <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@700&family=Open+Sans:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- bootstrap 5.1 + bootstrap icons -->
+    <!--<link rel="stylesheet" href="{% static 'postorius/libs/bootstrap/css/bootstrap.min.css' %}">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">-->
+
+    <!--<link rel="stylesheet" href="{% static 'django-mailman3/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'postorius/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'postorius/libs/fonts/font-awesome/css/font-awesome.min.css' %}" type="text/css" media="all" />-->
+    {% block additionalcss %}
+    <link rel="stylesheet" href="{% static 'uwtheme/css/theme.css' %}">
+    {% endblock %}
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="{% static 'postorius/libs/html5shiv/html5shiv.min.js' %}"></script>
+      <script src="{% static 'postorius/libs/respond/respond.min.js' %}"></script>
+    <![endif]-->
+</head>
+<body>
+
+    
+    <div class="d-flex align-items-end flex-column" style="min-height: 100vh">
+
+        <header class="w-100">
+            <div class="py-2 small" style="background-color: #452a78!important;">
+                <div class="container-xl">
+                    <div class="d-flex">
+                        <div class="flex-fill">
+                            <ul class="list-inline list-unstyled m-0">
+                                {% if user.is_authenticated %}
+                                    <li class="list-inline-item">
+                                        <i class="bi bi-person-fill text-white me-1"></i>
+                                        <a href="#" class="dropdown-toggle text-white" data-bs-toggle="dropdown"
+                                        role="button" id="dropdownMenuButton1" aria-expanded="false">
+                                            <span>{{ user.username|truncatechars:"35" }}</span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
+                                            <a href="{% url 'mm_user_profile' %}" class="dropdown-item">
+                                                <i class="bi bi-person-fill me-1"></i>
+                                                {% trans 'Account' %}
+                                            </a>
+                                            <a href="{% url 'ps_user_profile' %}" class="dropdown-item">
+                                                <i class="bi bi-gear-fill me-1"></i>
+                                                {% trans 'Mailman settings' %}
+                                            </a>
+                                            {% if 'hyperkitty' in INSTALLED_APPS %}
+                                            <a href="{% url 'hk_user_profile' %}" class="dropdown-item">
+                                                <i class="bi bi-chat-fill me-1"></i>
+                                                {% trans 'Posting activity' %}
+                                            </a>
+                                            {% endif %}
+                                            <!--
+                                            <a href="{% url LOGOUT_URL %}?next={% url 'list_index' %}" class="dropdown-item">
+                                                <span class="fa fa-sign-out"></span>
+                                                {% trans 'Logout' %}
+                                            </a>
+                                            -->
+                                        </div>
+                                    </li>
+                                {% else %}
+                                    <li class="list-inline-item">
+                                        <i class="bi bi-box-arrow-in-right text-white me-1"></i>
+                                        <a class="link-light" href="{% url LOGIN_URL %}?next={{ next|default:request.path|urlencode }}">
+                                            {% trans 'Sign In' %}
+                                        </a>
+                                    </li>
+                                    <!--
+                                    <li  class="list-inline-item"><a class="text-white" href="{% url 'account_signup' %}?next={{next|default:request.path|urlencode}}">
+                                        <span class="fa fa-user-plus"></span>
+                                        {% trans 'Sign Up' %}
+                                    </a></li>
+                                    -->
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="flex-fill text-end">
+
+                            <ul class="list-inline list-unstyled m-0">
+                                <!--<li class="list-inline-item"><a href="{% url 'list_index' %}" class="text-white">
+                                    <span class="fa fa-envelope"></span>
+                                    {% trans 'Lists' %}
+                                </a></li>-->
+                                {% if user.is_superuser %}
+                                    <li class="list-inline-item">
+                                    <i class="bi bi-globe2 text-white me-1"></i>
+                                    <a href="{% url 'domain_index' %}" class="text-white">
+                                    {% trans 'Domains' %}
+                                    </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <i class="bi bi-hand-thumbs-down-fill text-white me-1"></i>
+                                        <a href="{% url 'global_bans' %}" class="text-white">
+                                            {% trans 'Bans' %}
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <i class="bi bi-card-list text-white me-1"></i>
+                                        <a href="{% url 'system_information' %}" class="text-white">
+                                            {% trans 'System Information' %}
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                <li class="list-inline-item">
+                                    <i class="bi bi-envelope-fill text-white me-1"></i>
+                                    <a href="{% url 'list_index' %}" class="text-white">
+                                        {% trans 'Lists' %}
+                                    </a>
+                                </li>
+                                
+                                {% if 'hyperkitty' in INSTALLED_APPS %}
+                                <li class="list-inline-item">
+                                    <i class="bi bi-chat-fill text-white me-1"></i>
+                                    <a href="{% url 'hk_root' %}" class="text-white">
+                                        {% trans 'Archives' %}
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if user.is_authenticated %}
+                                <li class="list-inline-item">
+                                    <i class="bi bi-box-arrow-left text-white me-1"></i>
+                                    <a href="{% url LOGOUT_URL %}?next={% url 'list_index' %}" class="text-white">
+                                        {% trans 'Sign out' %}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="line-height:65px; background-color: #4d307f!important">
+                <div class="container-xl" style="background-image: url('{% static '/uwtheme/images/w-logo-white.png' %}'); background-repeat: no-repeat;
+    background-size: 45px;
+    background-position: right 20px bottom;">
+                    <div class="d-inline align-middle text-white h3">
+                        <a href="{% url 'list_index' %}" class="text-white text-decoration-none">Mailman</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+    <div class="w-100">
+        <div class="container-xl">
+            
+            <main class="mt-3">
+
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            
+            
+            {% block content %}{% endblock content %}
+            </main>
+
+        </div>
+    </div>
+
+    <footer class="w-100 mt-auto">
+        <div class="bg-dark">
+            <div class="container-xl py-3 small">
+                <div class="text-white font-weight-light">
+
+                <ul class="list-inline list-unstyled m-0">
+                    <li class="list-inline-item text-nowrap"><a href="mailto:help@uw.edu?subject=UW Mailman Help" class="text-white">Contact Us</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="https://itconnect.uw.edu/connect/email/resources/mailman/" class="text-white">UW Mailman Help</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="https://www.washington.edu/accessibility/" class="text-white">Accessibility</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="http://www.washington.edu/online/privacy/" class="text-white">Privacy</a></li>
+                    <li class="list-inline-item text-nowrap"><a href="http://www.washington.edu/online/terms/" class="text-white">Terms</a></li>
+                </ul>
+
+                Copyright &copy; 2021 University of
+                Washington
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    </div>
+
+    <!-- bootstrap 5.1.1 bundle + popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <!-- bootstrap 3, remove when done
+    <script src="{% static 'postorius/libs/jquery/jquery-1.11.3.min.js' %}"></script>
+    <script src="{% static 'postorius/libs/popperjs/popper-v1.11.0.min.js' %}"></script>
+    <script src="{% static 'postorius/libs/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'django-mailman3/js/main.js' %}"></script>-->
+    
+    <!-- this script is literally empty -->
+    <!--<script src="{% static 'postorius/js/script.js' %}"></script>-->
+    {% block additionaljs %}{% endblock %}
+</body>
+</html>
+
