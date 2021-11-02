@@ -21,7 +21,7 @@
 <!-- Unban -->
 <h2>{% trans 'Currently banned addresses' %}</h2>
 {% if banned_addresses|length > 0 %}
-<table class="table bans-current">
+<table class="table table-bordered">
     <tbody>
         {% for ban in banned_addresses %}
         <tr>
