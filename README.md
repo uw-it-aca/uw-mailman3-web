@@ -1,14 +1,12 @@
 # uw-mailman3-web
 UW themed mailman3-web, with accessibility fixes.
 
-Clone this repo and uw-mailman3-core, they must be side-by-side on your filesystem.
-
 ## System Requirements
 
 - Python (3+)
 - Docker
 
-## Development and Design Stack
+## Development Stack
 
 - Django (3.2)
 - Bootstrap (5.1.3)
@@ -19,10 +17,10 @@ Clone this repo and uw-mailman3-core, they must be side-by-side on your filesyst
 Create a directory for running your project
 
     $ mkdir mailman3
+    
+Clone core and web repos in the directory
+
     $ cd mailman3
-
-Clone core and web repos
-
     $ git clone git@github.com:uw-it-aca/uw-mailman3-core.git
     $ git clone git@github.com:uw-it-aca/uw-mailman3-web.git
 
