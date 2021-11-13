@@ -4,7 +4,6 @@
 <div class="paginator border border-danger">
 <div class="row ">
   <nav aria-label="Page navigation">
-    {% if page.has_next or page.has_previous %}
     <ul class="pagination justify-content-center">
     {% if page.has_previous %}
         <li class="page-item">
@@ -44,7 +43,6 @@
         </li>
     {% endif %}
     </ul>
-    {% endif %}
   </nav>
 </div>
 <div class="row">
