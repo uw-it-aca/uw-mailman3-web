@@ -156,8 +156,12 @@
 {% endblock content %}
 {% block additionaljs %}
 <script>
-$('#all-members-checkbox').change(function() {
-  $('.member-checkbox').prop('checked', this.checked);
-});
+// if all-members-checkbox is checked, then check all the member checkboxes (no jQuery)
+document.getElementById('all-members-checkbox').onclick = function() {
+    var checkboxes = document.getElementsByClassName('member-checkbox');
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = this.checked;
+    }  
+};
 </script>
 {% endblock %}
