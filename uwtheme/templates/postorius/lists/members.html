@@ -67,10 +67,12 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                          <th>
-                              {% if role == 'member' %}
-                                    <input type="checkbox" id="all-members-checkbox" aria-label="Select all members" />
-                              {% endif %}
+                            {% if role == 'member' %}
+                            <th>
+                                <input type="checkbox" id="all-members-checkbox" aria-label="Select all members">
+                            </th>
+                            {% endif %}
+                            <th>
                               {% trans 'Address' %}
                             </th>
                             {% if role == 'member' or role == 'nonmember' %}
@@ -80,10 +82,10 @@
                             <th>
                               {% trans 'Moderation Action' %}
                             </th>
-                            {%  endif %}
+                            {% endif %}
                             {# Extra column here for the "Delete" button of Non-members. #}
                             {% if role == 'nonmember' %}
-                             <th></th>
+                            <th></th>
                             {% endif %}
                         </tr>
                     </thead>
@@ -93,7 +95,9 @@
                                 {% if role == 'member' %}
                                   <td>
                                     <label class="checkbox-inline">
-                                    <input type="checkbox" class="member-checkbox" name="choices" id="id_choices_{{ forloop.counter0 }}" value="{{ member.email }}" />
+                                    <input type="checkbox" class="member-checkbox" name="choices" id="id_choices_{{ forloop.counter0 }}" value="{{ member.email }}" aria-label="Select {% if member.display_name %}{{ member.display_name }}{% else %}{{ member.email }}{% endif %}" />
+                                  </td>
+                                  <td>
                                     <a href="{% url 'list_member_options' list.list_id member.email %}?role=member">
                                         {% if member.display_name %}
                                             "{{ member.display_name }}" &lt;{{ member.email }}&gt;
