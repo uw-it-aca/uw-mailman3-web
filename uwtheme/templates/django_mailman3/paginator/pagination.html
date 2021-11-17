@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load pagination %}
 
+{% if page.has_next or page.has_previous %}
 <div class="paginator border border-danger">
 <div class="row ">
   <nav aria-label="Page navigation">
@@ -42,8 +43,9 @@
             </a>
         </li>
     {% endif %}
-</ul>
-</nav>
+    </ul>
+    
+  </nav>
 </div>
 <div class="row">
 <form class="form-inline jump-to-page" action="" method="get">
@@ -86,6 +88,7 @@
 </form>
 </div>
 </div>
+{% endif %}
 
 <script>
 document.addEventListener("DOMContentLoaded", function(event) { 
