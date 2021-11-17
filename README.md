@@ -17,7 +17,7 @@ UW themed mailman3-web, with accessibility fixes.
 Create a directory for running your project
 
     $ mkdir mailman3
-    
+
 Clone core and web repos in the directory
 
     $ cd mailman3
