@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load bootstrap_tags %}
 {% load nav_helpers %}
+{% load static %}
 {% load pagination %}
 {% load membership_helpers %}
 {% block head_title %}
@@ -155,13 +156,11 @@
 
 {% endblock content %}
 {% block additionaljs %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script>
-// if all-members-checkbox is checked, then check all the member checkboxes (no jQuery)
-document.getElementById('all-members-checkbox').onclick = function() {
-    var checkboxes = document.getElementsByClassName('member-checkbox');
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = this.checked;
-    }  
-};
+// if all-members-checkbox is checked, then check all the member checkboxes
+$('#all-members-checkbox').click(function() {
+    $('.member-checkbox').prop('checked', this.checked);
+});
 </script>
 {% endblock %}
