@@ -20,7 +20,7 @@
           <a class="nav-link {% if form.password2 %}active{% endif %}" href="{% url "account_change_password" %}" role="tab" aria-selected="{% if form.password2 %}true{% else %}false{% endif %}">{% trans "Change Password" %}</a>
         </li>
         <li role="presentation" class="nav-item">
-            <a class="nav-link {% if form.email %}active{% endif %}" href="{% url "account_email" %}" role="tab" iaria-selected="{% if form.email %}true{% else %}false{% endif %}">{% trans "E-mail Addresses" %}</a>
+            <a class="nav-link {% if form.email %}active{% endif %}" href="{% url "account_email" %}" role="tab"  aria-selected="{% if form.email %}true{% else %}false{% endif %}">{% trans "E-mail Addresses" %}</a>
         </li>
 
         {% get_providers as socialaccount_providers %}
