@@ -12,27 +12,27 @@
 
     <h1>{% trans "User profile" %} <small>{% trans "for" %} {{ user }}</small></h1>
 
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="nav-item">
-            <a class="nav-link {% if form.first_name %}active{% endif %}" href="{% url "mm_user_profile" %}">{% trans "Account" %}</a>
+            <a class="nav-link {% if form.first_name %}active{% endif %}" href="{% url "mm_user_profile" %}" role="tab" aria-selected="{% if form.first_name %}true{% else %}false{% endif %}">{% trans "Account" %}</a>
         </li>
         <li role="presentation" class="nav-item">
-          <a class="nav-link {% if form.password2 %}active{% endif %}" href="{% url "account_change_password" %}">{% trans "Change Password" %}</a>
+          <a class="nav-link {% if form.password2 %}active{% endif %}" href="{% url "account_change_password" %}" role="tab" aria-selected="{% if form.password2 %}true{% else %}false{% endif %}">{% trans "Change Password" %}</a>
         </li>
         <li role="presentation" class="nav-item">
-            <a class="nav-link {% if form.email %}active{% endif %}" href="{% url "account_email" %}">{% trans "E-mail Addresses" %}</a>
+            <a class="nav-link {% if form.email %}active{% endif %}" href="{% url "account_email" %}" role="tab" iaria-selected="{% if form.email %}true{% else %}false{% endif %}">{% trans "E-mail Addresses" %}</a>
         </li>
 
         {% get_providers as socialaccount_providers %}
         {% if socialaccount_providers %}
         <li role="presentation" class="nav-item">
           <a class="nav-link {% if not form.first_name and not form.password2 and not form.email and not delete_page %}active{% endif %}"
-             href="{% url "socialaccount_connections" %}">{% trans "Account Connections" %}
+             href="{% url "socialaccount_connections" %}" role="tab" aria-selected="{% if not form.first_name and not form.password2 and not form.email and not delete_page %}true{% else %}false{% endif %}">{% trans "Account Connections" %}
           </a>
         </li>
         {% endif %}
         <li role="presentation" class="nav-item">
-            <a class="nav-link {% if delete_page %}active{% endif %}" href="{% url "mm_user_account_delete" %}">{% trans "Delete Account" %}</a>
+            <a class="nav-link {% if delete_page %}active{% endif %}" href="{% url "mm_user_account_delete" %}" role="tab" aria-selected="{% if delete_page %}true{% else %}false{% endif %}">{% trans "Delete Account" %}</a>
         </li>
     </ul>
 
