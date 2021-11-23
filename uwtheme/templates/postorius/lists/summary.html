@@ -129,11 +129,11 @@
             <hr />
             <h3>{% trans 'List metrics' %}</h3>
             <dl class="row">
-              <dt class="col-2">{% trans 'Created at' %}</dt><dd class="col-2">{% if list.settings.created_at != "None" %}{{ list.settings.created_at|datetime_parse|localtime }}{% else %}None{% endif %}</dd>
+              <dt class="col-2">{% trans 'Created at' %}</dt><dd class="col-2">{% if list.settings.created_at != None %}{{ list.settings.created_at|datetime_parse|localtime }}{% else %}None{% endif %}</dd>
               <div class="w-100"></div>
-              <dt class="col-2">{% trans 'Last post at' %}</dt><dd class="col-2">{% if list.settings.last_post_at != "None" %}{{ list.settings.last_post_at }}{% else %}None{% endif %}</dd>
+              <dt class="col-2">{% trans 'Last post at' %}</dt><dd class="col-2">{% if list.settings.last_post_at != None %}{{ list.settings.last_post_at|datetime_parse|localtime }}{% else %}None{% endif %}</dd>
               <div class="w-100"></div>
-              <dt class="col-2">{% trans 'Digest last sent at' %}</dt><dd class="col-2">{% if list.settings.digest_last_sent_at != "None" %}{{ list.settings.digest_last_sent_at }}{% else %}None{% endif %}</dd>
+              <dt class="col-2">{% trans 'Digest last sent at' %}</dt><dd class="col-2">{% if list.settings.digest_last_sent_at != None %}{{ list.settings.digest_last_sent_at|datetime_parse|localtime }}{% else %}None{% endif %}</dd>
               <div class="w-100"></div>
               <dt class="col-2">{% trans 'Volume' %}</dt><dd class="col-2">{{ list.settings.volume }}</dd>
             </dl>
