@@ -156,11 +156,9 @@
 
 {% endblock content %}
 {% block additionaljs %}
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script>
-// if all-members-checkbox is checked, then check all the member checkboxes
-$('#all-members-checkbox').click(function() {
-    $('.member-checkbox').prop('checked', this.checked);
+$('#all-members-checkbox').change(function() {
+  $('.member-checkbox').prop('checked', this.checked);
 });
 </script>
 {% endblock %}
