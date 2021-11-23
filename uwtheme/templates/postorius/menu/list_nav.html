@@ -57,6 +57,7 @@
             </ul>
         </li>
         <li role="tab" class="nav-item"><a href="{% url 'list_header_matches' list.list_id %}" class="nav-link {% nav_active_class current 'list_header_matches' %}">{% trans 'Header filters' %}</a></li>
+        <!-- OVERRIDE: Move random nav menu items into a 'Settings' dropwdown -->
         <li role="tab" class="dropdown nav-item">
           <a href="#" class="{% nav_active_class current 'list_settings' %} dropdown-toggle nav-link" data-bs-toggle="dropdown"
                role="button" aria-expanded="false">

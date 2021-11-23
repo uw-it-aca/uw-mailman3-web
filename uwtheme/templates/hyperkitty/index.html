@@ -21,7 +21,7 @@
 
    <div class="">
     <div class="sort-mode d-flex justify-content-end">
-        <!-- MARK: convert custom tabs to use default bootstrap -->
+        <!-- OVERRIDE: convert custom tabs to use default bootstrap -->
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link {% if sort_mode == "popular" %}active{% endif %}" href="{% url 'hk_root' %}?{% add_to_query_string "sort" "popular" %}"
@@ -71,7 +71,7 @@
     <div class="col-12 col-sm-5 col-md-4">
         <form method="get" action="">
             <input name="name" type="text" class="form-control" id="focusedInput"
-                   placeholder="{% trans 'Find list' %}"
+                   placeholder="{% trans 'Find list' %}" aria-label="Search all lists"
                    />
         </form>
     </div>
