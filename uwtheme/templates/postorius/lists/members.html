@@ -43,9 +43,7 @@
         <form action="{% url 'list_members' list.list_id role %}" method="get" class="form-inline">
             <div class="input-group">
                 <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="{% trans 'Search members...' %}" aria-label="Search box" />
-                <span class="input-group-btn">
-                    <button class="btn btn-outline-primary" type="submit" aria-label="Search"><span class="fa fa-search"></span></button>
-                </span>
+                <button class="btn btn-outline-primary" type="submit" aria-label="Search"><i class="bi bi-search"></i></button>
             </div>
         </form>
     </div>
