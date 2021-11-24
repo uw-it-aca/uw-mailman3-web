@@ -1,0 +1,103 @@
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2
+ingress:
+  enabled: true
+  type: nginx
+  tls:
+    test-mailman-web:
+      secretName: mailman-web-test.axdd.s.uw.edu-ingress-cert
+      hosts:
+        - mailman-web-test.axdd.s.uw.edu
+  hosts:
+    test-mailman-web:
+      host: mailman-web-test.axdd.s.uw.edu
+      paths:
+        - "/"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+securityPolicy:
+  enabled: true
+readiness:
+  enabled: true
+database:
+  engine: postgres
+  name: mailmanweb
+  hostname: mailman-web-db-test-service
+  secretName: mailman-web-test.axdd.s.uw.edu-sql-secret
+externalService:
+  enabled: true
+  name: mailman-web-db-test-service
+  type: ClusterIP
+  serviceAddress: 172.18.1.64
+  servicePort: 5432
+repo: mailman-web
+instance: test
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 50m
+    memory: 256Mi
+image:
+  repository: gcr.io/uwit-mci-axdd/mailman-web
+  tag: IMAGE_TAG
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+environmentVariables:
+  - name: ENV
+    value: dev
+  - name: AUTH
+    value: SAML
+  - name: LOGIN_URL
+    value: saml_login
+  - name: LOGOUT_URL
+    value: saml_logout
+  - name: MAILMAN_REST_URL
+    value: http://mailman-core-prod-test
+  - name: MAILMAN_ARCHIVER_FROM
+    value: mailman-core-prod-test
+  - name: DATABASE_HOSTNAME
+    value: "mailman-web-db-test-service"
+  - name: DATABASE_DB_NAME
+    value: "mailmanweb"
+externalSecrets:
+  enabled: true
+  secrets:
+    - name: mailman-web-test.axdd.s.uw.edu-secrets
+      externalKey: axdd/kv/data/mailman-web/test/secrets
+      data:
+        - name: mailman-rest-user
+          property: mailman-rest-user
+        - name: mailman-rest-password
+          property: mailman-rest-password
+        - name: mailman-site-owner
+          property: mailman-site-owner
+        - name: hyperkitty-api-key
+          property: hyperkitty-api-key
+        - name: smtp-host
+          property: smtp-host
+    - name: mailman-web-test.axdd.s.uw.edu-sql-secret
+      externalKey: axdd/kv/data/mailman-web/test/sql-secret
+      data:
+        - name: username
+          property: sql_user
+        - name: password
+          property: sql_pass
+environmentVariablesSecrets:
+  mailmanAdminUser:
+    name: MAILMAN_REST_USER
+    secretName: mailman-web-test.axdd.s.uw.edu-secrets
+    secretKey: mailman-rest-user
+  mailmanAdminPassword:
+    name: MAILMAN_REST_PASSWORD
+    secretName: mailman-web-test.axdd.s.uw.edu-secrets
+    secretKey: mailman-rest-password
+  hyperkittyAPIKey:
+    name: HYPERKITTY_API_KEY
+    secretName: mailman-web-test.axdd.s.uw.edu-secrets
+    secretKey: hyperkitty-api-key

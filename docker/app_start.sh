@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export THEME_OFF=${THEME_OFF:-false}
+
 if [ "$ENV"  = "localdev" ]
 then
 
