@@ -89,10 +89,10 @@ externalSecrets:
       data:
         - name: test.lists.uw.edu.cert
           property: cert
-    - name: idp.uw-cert
+    - name: test.lists.uw.edu-uw-idp-cert
       externalKey: axdd/kv/data/idp-cert
       data:
-        - name: idp.uw-cert
+        - name: uw-idp-cert
           property: cert
 environmentVariablesSecrets:
   mailmanAdminUser:
@@ -113,5 +113,5 @@ environmentVariablesSecrets:
     secretKey: test.lists.uw.edu.cert
   SAMLIDPCert:
     name: IDP_CERT
-    secretName: idp.uw-cert
-    secretKey: idp.uw-cert
+    secretName: test.lists.uw.edu-uw-idp-cert
+    secretKey: uw-idp-cert
