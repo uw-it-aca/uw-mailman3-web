@@ -45,9 +45,7 @@ image:
   repository: gcr.io/uwit-mci-axdd/mailman-web
   tag: IMAGE_TAG
 metrics:
-  enabled: true
-  serviceMonitor:
-    enabled: true
+  enabled: false
 environmentVariables:
   - name: ENV
     value: dev
@@ -77,6 +75,11 @@ externalSecrets:
           property: mailman-admin-password
         - name: hyperkitty-api-key
           property: hyperkitty-api-key
+    - name: test.lists.uw.edu-secrets
+      externalKey: axdd/kv/data/mailman/web/test/secrets
+      data:
+        - name: django-secret
+          property: django-secret
     - name: test.lists.uw.edu-sql-secret
       externalKey: axdd/kv/data/mailman/web/test/sql-secret
       data:
@@ -95,6 +98,10 @@ externalSecrets:
         - name: uw-idp-cert
           property: cert
 environmentVariablesSecrets:
+  djangoSecret:
+    name: DJANGO_SECRET
+    secretName: test.lists.uw.edu-secrets
+    secretKey: django-secret
   mailmanAdminUser:
     name: MAILMAN_REST_USER
     secretName: test.lists.uw.edu-shared-secrets
