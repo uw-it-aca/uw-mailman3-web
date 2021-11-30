@@ -45,9 +45,7 @@ image:
   repository: gcr.io/uwit-mci-axdd/mailman-web
   tag: IMAGE_TAG
 metrics:
-  enabled: true
-  serviceMonitor:
-    enabled: true
+  enabled: false
 environmentVariables:
   - name: ENV
     value: dev
