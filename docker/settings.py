@@ -2,7 +2,10 @@ from .base_settings import *
 import os
 from socket import gethostbyname
 
-DEBUG = True
+if os.getenv("ENV") != "prod":
+    DEBUG = True
+
+ALLOWED_HOSTS = ['*']
 
 #
 # Full-text search engine
