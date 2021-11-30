@@ -12,10 +12,10 @@
     {% list_nav 'list_settings' 'msgid:title:list_settings' %}
 
 <div class="row">
-  <div class="col-3">
-    <ul class="nav flex-column margin-bottom navbar-light" role="tablist" aria-orientation="vertical">
+  <div class="col-3" role="navigation">
+    <ul class="nav flex-column margin-bottom navbar-light" aria-orientation="vertical">
         {% for section in section_names %}
-        <li role="tab" class="nav-item">
+        <li class="nav-item">
           <a href="{% url 'list_settings' list_id=list.list_id visible_section=section.0 %}" class="nav-link {% if section.0 == visible_section %}disabled{% endif %} ">
             {{ section.1 }}
           </a>
