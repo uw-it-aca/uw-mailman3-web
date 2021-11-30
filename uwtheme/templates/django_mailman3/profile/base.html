@@ -12,29 +12,31 @@
 
     <h1>{% trans "User profile" %} <small>{% trans "for" %} {{ user }}</small></h1>
 
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="nav-item">
-            <a class="nav-link {% if form.first_name %}active{% endif %}" href="{% url "mm_user_profile" %}" role="tab" aria-selected="{% if form.first_name %}true{% else %}false{% endif %}">{% trans "Account" %}</a>
-        </li>
-        <li role="presentation" class="nav-item">
-          <a class="nav-link {% if form.password2 %}active{% endif %}" href="{% url "account_change_password" %}" role="tab" aria-selected="{% if form.password2 %}true{% else %}false{% endif %}">{% trans "Change Password" %}</a>
-        </li>
-        <li role="presentation" class="nav-item">
-            <a class="nav-link {% if form.email %}active{% endif %}" href="{% url "account_email" %}" role="tab"  aria-selected="{% if form.email %}true{% else %}false{% endif %}">{% trans "E-mail Addresses" %}</a>
-        </li>
+    <div role="navigation">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link {% if form.first_name %}active{% endif %}" href="{% url "mm_user_profile" %}" aria-selected="{% if form.first_name %}true{% else %}false{% endif %}">{% trans "Account" %}</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link {% if form.password2 %}active{% endif %}" href="{% url "account_change_password" %}" aria-selected="{% if form.password2 %}true{% else %}false{% endif %}">{% trans "Change Password" %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if form.email %}active{% endif %}" href="{% url "account_email" %}" aria-selected="{% if form.email %}true{% else %}false{% endif %}">{% trans "E-mail Addresses" %}</a>
+            </li>
 
-        {% get_providers as socialaccount_providers %}
-        {% if socialaccount_providers %}
-        <li role="presentation" class="nav-item">
-          <a class="nav-link {% if not form.first_name and not form.password2 and not form.email and not delete_page %}active{% endif %}"
-             href="{% url "socialaccount_connections" %}" role="tab" aria-selected="{% if not form.first_name and not form.password2 and not form.email and not delete_page %}true{% else %}false{% endif %}">{% trans "Account Connections" %}
-          </a>
-        </li>
-        {% endif %}
-        <li role="presentation" class="nav-item">
-            <a class="nav-link {% if delete_page %}active{% endif %}" href="{% url "mm_user_account_delete" %}" role="tab" aria-selected="{% if delete_page %}true{% else %}false{% endif %}">{% trans "Delete Account" %}</a>
-        </li>
-    </ul>
+            {% get_providers as socialaccount_providers %}
+            {% if socialaccount_providers %}
+            <li class="nav-item">
+            <a class="nav-link {% if not form.first_name and not form.password2 and not form.email and not delete_page %}active{% endif %}"
+                href="{% url "socialaccount_connections" %}" aria-selected="{% if not form.first_name and not form.password2 and not form.email and not delete_page %}true{% else %}false{% endif %}">{% trans "Account Connections" %}
+            </a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link {% if delete_page %}active{% endif %}" href="{% url "mm_user_account_delete" %}" aria-selected="{% if delete_page %}true{% else %}false{% endif %}">{% trans "Delete Account" %}</a>
+            </li>
+        </ul>
+    </div>
 
     <div class="user-profile-content">
         {% block user_profile_content %}{% endblock %}
