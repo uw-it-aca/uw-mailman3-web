@@ -19,6 +19,7 @@ setup(
         'Django<3.1',
         'django-allauth',
         'django-compressor==2.4.1',
+        'psycopg2>=2.8,<2.9',
         'django-mailman3==1.3.7',
         'djangorestframework',
         'hyperkitty==1.3.4',
