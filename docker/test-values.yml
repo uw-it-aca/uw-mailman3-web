@@ -67,6 +67,8 @@ environmentVariables:
     value: "mailman-web-db-test-service"
   - name: DATABASE_DB_NAME
     value: "mailmanweb"
+  - name: CLUSTER_CNAME
+    value: test.lists.uw.edu
 externalSecrets:
   enabled: true
   secrets:
