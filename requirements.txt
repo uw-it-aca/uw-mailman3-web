@@ -1,1 +1,3 @@
+# mistune pinned to fix import problem until hyperkitty>1.2.0 is released
+mistune==2.0.0rc1
 -e .
