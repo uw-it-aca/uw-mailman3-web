@@ -63,10 +63,6 @@ environmentVariables:
     value: http://mailman-core-prod-test
   - name: MAILMAN_ARCHIVER_FROM
     value: mailman-core-prod-test
-  - name: DATABASE_HOSTNAME
-    value: "mailman-web-db-test-service"
-  - name: DATABASE_DB_NAME
-    value: "mailmanweb"
   - name: CLUSTER_CNAME
     value: test.lists.uw.edu
   - name: SAML_ENTITY_ID
