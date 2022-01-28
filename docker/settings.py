@@ -110,4 +110,4 @@ TEMPLATES[0]["OPTIONS"]["context_processors"].extend([
 ])
 
 if os.getenv('ENV', 'localdev') == 'localdev':
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
