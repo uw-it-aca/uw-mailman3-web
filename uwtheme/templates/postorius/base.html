@@ -8,7 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block head_title %}{{ site_name }}{% endblock %}</title>
-    <link rel="shortcut icon" href="{% static 'postorius/img/favicon.ico' %}">
+    <!-- OVERRIDE: UW favicon -->
+    <link rel="shortcut icon" href="{% static 'uwtheme/img/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'postorius/libs/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'django-mailman3/css/main.css' %}">
     <link rel="stylesheet" href="{% static 'postorius/css/style.css' %}">
