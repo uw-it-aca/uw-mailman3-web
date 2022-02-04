@@ -111,3 +111,7 @@ TEMPLATES[0]["OPTIONS"]["context_processors"].extend([
 
 if os.getenv('ENV', 'localdev') == 'localdev':
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = os.environ.get('MAILMAN_EMAIL_HOST', 'mailman-core-prod-test')
+    EMAIL_PORT = os.environ.get('MAILMAN_EMAIL_PORT', 25)
+    EMAIL_USE_TLS = True
+    EMAIL_USE_SSL = False
