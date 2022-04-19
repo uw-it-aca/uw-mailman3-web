@@ -8,6 +8,12 @@ services:
     build:
       context: ../uw-mailman3-core
     environment:
+      ENV: localdev
+      MAILMAN_HOSTNAME: uw-mailman3-core
+      SMTP_HOST: 127.0.0.1
+      MAILMAN_ADMIN_USER: restadmin
+      MAILMAN_ADMIN_PASSWORD: restpass
+      MAILMAN_SITE_OWNER: javerage@uw.edu
       HYPERKITTY_API_KEY: "someapikey"
 
   uw-mailman3-web:
@@ -18,7 +24,7 @@ services:
     volumes:
     - ./uwtheme:/app/uwtheme
     ports:
-     - "${PORT:-8000}:8000"
+     - "${PORT:-8001}:8000"
      - "8080:8080"
     stdin_open: true
     tty: true
@@ -28,6 +34,9 @@ services:
       LOGIN_URL: saml_login
       LOGOUT_URL: saml_logout
       MAILMAN_ARCHIVER_FROM: uw-mailman3-core
+      MAILMAN_REST_URL: http://uw-mailman3-core:8000
+      MAILMAN_REST_USER: restadmin
+      MAILMAN_REST_PASSWORD: restpass
     #- AUTH: ${AUTH:-SAML_DJANGO_LOGIN}
     #- DJANGO_LOGIN_USERNAME: ${DJANGO_LOGIN_USERNAME:-javerage}
     #- DJANGO_LOGIN_PASSWORD: ${DJANGO_LOGIN_PASSWORD:-javerage}

@@ -2,7 +2,10 @@ from .base_settings import *
 import os
 from socket import gethostbyname
 
-DEBUG = True
+if os.getenv("ENV") != "prod":
+    DEBUG = True
+
+ALLOWED_HOSTS = ['*']
 
 #
 # Full-text search engine
@@ -70,7 +73,7 @@ COMPRESS_CSS_FILTERS = [
 ]
 
 # Mailman API credentials
-MAILMAN_REST_API_URL = os.environ.get('MAILMAN_REST_URL', 'http://uw-mailman3-core:8001')
+MAILMAN_REST_API_URL = os.environ.get('MAILMAN_REST_URL', 'http://uw-mailman3-core:8000')
 MAILMAN_REST_API_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
 MAILMAN_REST_API_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
@@ -106,5 +109,8 @@ TEMPLATES[0]["OPTIONS"]["context_processors"].extend([
     'postorius.context_processors.postorius'
 ])
 
-if os.getenv('ENV', 'localdev') == 'localdev':
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ.get('MAILMAN_EMAIL_HOST', 'mailman-core-test.axdd.s.uw.edu')
+EMAIL_PORT = os.environ.get('MAILMAN_EMAIL_PORT', 25)
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
