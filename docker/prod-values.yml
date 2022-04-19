@@ -1,0 +1,128 @@
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+ingress:
+  enabled: true
+  type: nginx
+  tls:
+    mailman-web:
+      secretName: lists.uw.edu-ingress-cert
+      hosts:
+        - lists.uw.edu
+  hosts:
+    mailman-web:
+      host: lists.uw.edu
+      paths:
+        - "/"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+securityPolicy:
+  enabled: true
+readiness:
+  enabled: true
+database:
+  engine: postgres
+  name: mailmanweb
+  hostname: mailman-web-db-prod-service
+  secretName: lists.uw.edu-sql-secret
+externalService:
+  enabled: true
+  name: mailman-web-db-prod-service
+  type: ClusterIP
+  serviceAddress: 172.18.1.64
+  servicePort: 5432
+repo: mailman-web
+instance: prod
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 50m
+    memory: 256Mi
+image:
+  repository: gcr.io/uwit-mci-axdd/mailman-web
+  tag: IMAGE_TAG
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+  pushgateway:
+    enabled: false
+environmentVariables:
+  - name: ENV
+    value: prod
+  - name: AUTH
+    value: SAML
+  - name: LOGIN_URL
+    value: saml_login
+  - name: LOGOUT_URL
+    value: saml_logout
+  - name: MAILMAN_REST_URL
+    value: http://mailman-core-prod-prod
+  - name: MAILMAN_ARCHIVER_FROM
+    value: mailman-core-prod-prod
+  - name: CLUSTER_CNAME
+    value: lists.uw.edu
+  - name: SAML_ENTITY_ID
+    value: https://lists.uw.edu/sso/
+externalSecrets:
+  enabled: true
+  secrets:
+    - name: lists.uw.edu-shared-secrets
+      externalKey: axdd/kv/data/mailman/shared/prod/secrets
+      data:
+        - name: mailman-rest-user
+          property: mailman-admin-user
+        - name: mailman-rest-password
+          property: mailman-admin-password
+        - name: hyperkitty-api-key
+          property: hyperkitty-api-key
+    - name: lists.uw.edu-secrets
+      externalKey: axdd/kv/data/mailman/web/prod/secrets
+      data:
+        - name: django-secret
+          property: django-secret
+    - name: lists.uw.edu-sql-secret
+      externalKey: axdd/kv/data/mailman/web/prod/sql-secret
+      data:
+        - name: username
+          property: sql_user
+        - name: password
+          property: sql_pass
+    - name: lists.uw.edu-ic-certs
+      externalKey: axdd/kv/data/mailman/web/prod/ic-certs
+      data:
+        - name: lists.uw.edu.cert
+          property: cert
+    - name: lists.uw.edu-uw-idp-cert
+      externalKey: axdd/kv/data/idp-cert
+      data:
+        - name: uw-idp-cert
+          property: cert
+environmentVariablesSecrets:
+  djangoSecret:
+    name: DJANGO_SECRET
+    secretName: lists.uw.edu-secrets
+    secretKey: django-secret
+  mailmanAdminUser:
+    name: MAILMAN_REST_USER
+    secretName: lists.uw.edu-shared-secrets
+    secretKey: mailman-rest-user
+  mailmanAdminPassword:
+    name: MAILMAN_REST_PASSWORD
+    secretName: lists.uw.edu-shared-secrets
+    secretKey: mailman-rest-password
+  hyperkittyAPIKey:
+    name: HYPERKITTY_API_KEY
+    secretName: lists.uw.edu-shared-secrets
+    secretKey: hyperkitty-api-key
+  SAMLServiceProviderCert:
+    name: SP_CERT
+    secretName: lists.uw.edu-ic-certs
+    secretKey: lists.uw.edu.cert
+  SAMLIDPCert:
+    name: IDP_CERT
+    secretName: lists.uw.edu-uw-idp-cert
+    secretKey: uw-idp-cert

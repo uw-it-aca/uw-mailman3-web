@@ -79,9 +79,9 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Deployment Pipeline
+      - name: Dev/Test Deployment Pipeline
         if: >-
-          contains(fromJSON('["main", "develop"]'),
+          contains(fromJSON('["develop"]'),
             needs.context.outputs.git_repo_branch)
         uses: uw-it-aca/actions/cicd-deploy@main
         with:
@@ -89,6 +89,20 @@ jobs:
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           commit_hash: ${{ needs.context.outputs.commit_hash }}
           git_repo_branch: ${{ needs.context.outputs.git_repo_branch }}
+
+      - name: Production Deployment Pipeline
+        if: >-
+          contains(fromJSON('["main"]'),
+            needs.context.outputs.git_repo_branch)
+        uses: uw-it-aca/actions/cicd-deploy@main
+        with:
+          release_name: ${{ env.RELEASE_NAME }}
+          gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
+          commit_hash: ${{ needs.context.outputs.commit_hash }}
+          git_repo_branch: ${{ needs.context.outputs.git_repo_branch }}
+          gcp_production_project: 'uwit-mci-0016'
+          gcp_production_flux_instance: 'mailman'
+          flux_repo_default_branch: 'main'
 
       - name: 'Surface context from executed build step'
         id: context
