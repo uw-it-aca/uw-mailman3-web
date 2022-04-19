@@ -30,7 +30,7 @@ externalService:
   enabled: true
   name: mailman-web-db-prod-service
   type: ClusterIP
-  serviceAddress: 172.18.1.64
+  serviceAddress: 172.18.1.44
   servicePort: 5432
 repo: mailman-web
 instance: prod
