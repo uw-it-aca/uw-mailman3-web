@@ -41,9 +41,6 @@ resources:
   requests:
     cpu: 50m
     memory: 256Mi
-image:
-  repository: gcr.io/uwit-mci-axdd/mailman-web
-  tag: IMAGE_TAG
 metrics:
   enabled: true
   serviceMonitor:
@@ -71,7 +68,7 @@ externalSecrets:
   enabled: true
   secrets:
     - name: lists.uw.edu-shared-secrets
-      externalKey: axdd/kv/data/mailman/shared/prod/secrets
+      externalKey: mailman/shared/prod/secrets
       data:
         - name: mailman-rest-user
           property: mailman-admin-user
@@ -80,24 +77,24 @@ externalSecrets:
         - name: hyperkitty-api-key
           property: hyperkitty-api-key
     - name: lists.uw.edu-secrets
-      externalKey: axdd/kv/data/mailman/web/prod/secrets
+      externalKey: mailman/web/prod/secrets
       data:
         - name: django-secret
           property: django-secret
     - name: lists.uw.edu-sql-secret
-      externalKey: axdd/kv/data/mailman/web/prod/sql-secret
+      externalKey: mailman/web/prod/sql-secret
       data:
         - name: username
           property: sql_user
         - name: password
           property: sql_pass
     - name: lists.uw.edu-ic-certs
-      externalKey: axdd/kv/data/mailman/web/prod/ic-certs
+      externalKey: mailman/web/prod/ic-certs
       data:
         - name: lists.uw.edu.cert
           property: cert
     - name: lists.uw.edu-uw-idp-cert
-      externalKey: axdd/kv/data/idp-cert
+      externalKey: idp-cert
       data:
         - name: uw-idp-cert
           property: cert
