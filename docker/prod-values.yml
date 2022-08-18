@@ -61,7 +61,7 @@ environmentVariables:
   - name: MAILMAN_ARCHIVER_FROM
     value: mailman-core-prod-prod
   - name: MAILMAN_EMAIL_HOST
-    value: lists.uw.edu
+    value: smtp.uw.edu
   - name: MAILMAN_EMAIL_PORT
     value: '25'
   - name: CLUSTER_CNAME
