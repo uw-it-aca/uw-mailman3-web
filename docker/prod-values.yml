@@ -51,7 +51,7 @@ certs:
   mounted: true
   certPath: /certs/lists.uw.edu.cert
   keyPath: /certs/lists.uw.edu.key
-  secretName: test.lists.uw.edu-ic-certs
+  secretName: lists.uw.edu-ic-certs
 environmentVariables:
   - name: ENV
     value: prod
