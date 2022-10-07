@@ -86,6 +86,8 @@ externalSecrets:
       data:
         - name: django-secret
           property: django-secret
+        - name: email-host
+          property: email-host
     - name: test.lists.uw.edu-sql-secret
       externalKey: mailman/web/test/sql-secret
       data:
