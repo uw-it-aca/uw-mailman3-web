@@ -47,6 +47,11 @@ metrics:
     enabled: true
   pushgateway:
     enabled: false
+certs:
+  mounted: true
+  certPath: /certs/lists.uw.edu.cert
+  keyPath: /certs/lists.uw.edu.key
+  secretName: test.lists.uw.edu-ic-certs
 environmentVariables:
   - name: ENV
     value: prod
@@ -60,10 +65,6 @@ environmentVariables:
     value: http://mailman-core-prod-prod
   - name: MAILMAN_ARCHIVER_FROM
     value: mailman-core-prod-prod
-  - name: MAILMAN_EMAIL_HOST
-    value: smtp.uw.edu
-  - name: MAILMAN_EMAIL_PORT
-    value: '25'
   - name: CLUSTER_CNAME
     value: lists.uw.edu
   - name: SAML_ENTITY_ID
@@ -85,6 +86,8 @@ externalSecrets:
       data:
         - name: django-secret
           property: django-secret
+        - name: email-host
+          property: email-host
     - name: lists.uw.edu-sql-secret
       externalKey: mailman/web/prod/sql-secret
       data:
@@ -97,6 +100,8 @@ externalSecrets:
       data:
         - name: lists.uw.edu.cert
           property: cert
+        - name: lists.uw.edu.key
+          property: key
     - name: lists.uw.edu-uw-idp-cert
       externalKey: idp-cert
       data:
@@ -107,6 +112,10 @@ environmentVariablesSecrets:
     name: DJANGO_SECRET
     secretName: lists.uw.edu-secrets
     secretKey: django-secret
+  emailHost:
+    name: EMAIL_HOST
+    secretName: lists.uw.edu-secrets
+    secretKey: email-host
   mailmanAdminUser:
     name: MAILMAN_REST_USER
     secretName: lists.uw.edu-shared-secrets

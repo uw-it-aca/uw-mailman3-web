@@ -110,7 +110,8 @@ TEMPLATES[0]["OPTIONS"]["context_processors"].extend([
 ])
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get('MAILMAN_EMAIL_HOST', 'mailman-core-test.axdd.s.uw.edu')
-EMAIL_PORT = os.environ.get('MAILMAN_EMAIL_PORT', 25)
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = 587
+EMAIL_SSL_CERTFILE = os.getenv('CERT_PATH', '')
+EMAIL_SSL_KEYFILE = os.getenv('KEY_PATH', '')
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
