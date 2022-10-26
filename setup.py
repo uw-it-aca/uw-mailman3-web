@@ -16,7 +16,7 @@ setup(
     packages=['uwtheme'],
     include_package_data=True,
     install_requires=[
-        'Django<3.1',
+        'Django<=3.2',
         'django-allauth',
         'django-compressor==2.4.1',
         'django-mailman3==1.3.8',
