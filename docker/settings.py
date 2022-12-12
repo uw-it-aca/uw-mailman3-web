@@ -7,6 +7,8 @@ if os.getenv("ENV") != "prod":
 
 ALLOWED_HOSTS = ['*']
 
+SAML_USER_PROFILE = True
+
 #
 # Full-text search engine
 #
