@@ -7,7 +7,7 @@ if os.getenv("ENV") != "prod":
 
 ALLOWED_HOSTS = ['*']
 
-SAML_USER_PROFILE = True
+SAML_USER_PROFILE_HOOK = 'uwtheme.auth.update_user'
 
 #
 # Full-text search engine
