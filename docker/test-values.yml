@@ -69,6 +69,8 @@ environmentVariables:
     value: test.lists.uw.edu
   - name: SAML_ENTITY_ID
     value: https://test.lists.uw.edu/sso/
+  - name: SAML_USER_ATTRIBUTE
+    value: eppn
 externalSecrets:
   enabled: true
   secrets:
