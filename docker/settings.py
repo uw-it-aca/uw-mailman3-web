@@ -34,7 +34,7 @@ INSTALLED_APPS += [
     #'django.contrib.auth',
     #'django.contrib.contenttypes',
     #'django.contrib.sessions',
-    #'django.contrib.sites',  # Needed for django-allauth
+    'django.contrib.sites',  # Needed for django-allauth
     #'django.contrib.messages',
     #'django.contrib.staticfiles',
     'rest_framework',
@@ -43,9 +43,9 @@ INSTALLED_APPS += [
     'haystack',  # Full-text search engine
     'django_extensions',
     'django_q',
-    #'allauth',
-    #'allauth.account',
-    #'allauth.socialaccount',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 if os.getenv('THEME_OFF', 'false') == 'true':
@@ -81,6 +81,8 @@ MAILMAN_REST_API_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
 MAILMAN_ARCHIVER_FROM = os.environ.get('MAILMAN_ARCHIVER_FROM')
 
+ACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSignupAdapter'
+SOCIALACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSocialSignupAdapter'
 
 X_MAILMAN_WEB_SOCIAL_AUTH = [
     'django_mailman3.lib.auth.fedora',
@@ -90,7 +92,7 @@ X_MAILMAN_WEB_SOCIAL_AUTH = [
     'allauth.socialaccount.providers.google',
 ]
 
-X_SITE_ID = 1  # Needed for django-allauth
+SITE_ID = 1  # Needed for django-allauth
 
 LOGIN_URL = os.environ.get('LOGIN_URL', 'account_login')
 LOGOUT_URL = os.environ.get('LOGOUT_URL', 'account_logout')
