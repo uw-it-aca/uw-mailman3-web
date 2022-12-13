@@ -33,11 +33,7 @@ def update_user_profile(request):
             user=request.user, email__iexact=email, defaults={
                 'email': email, 'verified': True})
 
-    try:
-        profile = Profile.objects.get(user=request.user)
-    except Profile.DoesNotExist:
-        profile = Profile.objects.create(user=request.user)
-
+    profile, _ = Profile.objects.get_or_create(user=request.user)
     if not profile.timezone:
         profile.timezone = getattr(settings, 'TIME_ZONE')
         profile.save()
