@@ -16,7 +16,7 @@ def update_user_profile(user, request):
     if surname is not None:
         user.last_name = surname
 
-    email = get_attribute(request, 'email')
+    email = get_attribute(request, 'uwEduEmail')
     if email is not None:
         user.email = email
 
