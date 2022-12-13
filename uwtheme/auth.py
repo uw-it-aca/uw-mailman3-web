@@ -14,18 +14,24 @@ Update Django User model using SAML attributes.
 
 def update_user_profile(request):
     given_name = get_attribute(request, 'givenName')
-    if given_name is not None:
+    if given_name:
         request.user.first_name = given_name
 
     surname = get_attribute(request, 'surname')
-    if surname is not None:
+    if surname:
         request.user.last_name = surname
 
-    email = get_attribute(request, 'uwEduEmail')
-    if email is not None:
-        request.user.email = email
+    uw_email = get_attribute(request, 'uwEduEmail')
+    if uw_email:
+        request.user.email = uw_email
 
     request.user.save(update_fields=['first_name', 'last_name', 'email'])
+
+    email = get_attribute(request, 'email')
+    if email and email != uw_email:
+        existing, _ = EmailAddress.objects.get_or_create(
+            user=request.user, email__iexact=email, defaults={
+                'email': email, 'verified': True})
 
     try:
         profile = Profile.objects.get(user=request.user)
