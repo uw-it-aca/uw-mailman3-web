@@ -25,7 +25,7 @@ setup(
         'mailmanclient',
         'postorius==1.3.7',
         'whoosh',
-        'UW-Django-SAML2~=1.5',
+        'UW-Django-SAML2~=1.6',
     ],
     license='Apache License, Version 2.0',  # example license
     description='UW theme for mailman 3',
