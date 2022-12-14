@@ -13,19 +13,24 @@ Update Django User model using SAML attributes.
 
 
 def update_user_profile(request):
+    has_changed = False
     given_name = get_attribute(request, 'givenName')
-    if given_name:
+    if given_name and given_name != request.user.first_name:
         request.user.first_name = given_name
+        has_changed = True
 
     surname = get_attribute(request, 'surname')
-    if surname:
+    if surname and surname != request.user.last_name:
         request.user.last_name = surname
+        has_changed = True
 
     uw_email = get_attribute(request, 'uwEduEmail')
-    if uw_email:
+    if uw_email and uw_email != request.user.email:
         request.user.email = uw_email
+        has_changed = True
 
-    request.user.save(update_fields=['first_name', 'last_name', 'email'])
+    if has_changed:
+        request.user.save(update_fields=['first_name', 'last_name', 'email'])
 
     email = get_attribute(request, 'email')
     if email and email != uw_email:
