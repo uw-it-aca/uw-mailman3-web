@@ -88,6 +88,8 @@ externalSecrets:
           property: django-secret
         - name: email-host
           property: email-host
+        - name: default-from-email
+          property: default-from-email
     - name: lists.uw.edu-sql-secret
       externalKey: mailman/web/prod/sql-secret
       data:
@@ -116,6 +118,10 @@ environmentVariablesSecrets:
     name: EMAIL_HOST
     secretName: lists.uw.edu-secrets
     secretKey: email-host
+  defaultEmailFrom:
+    name: DEFAULT_FROM_EMAIL
+    secretName: lists.uw.edu-secrets
+    secretKey: default-from-email
   mailmanAdminUser:
     name: MAILMAN_REST_USER
     secretName: lists.uw.edu-shared-secrets
