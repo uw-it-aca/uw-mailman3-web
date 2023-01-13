@@ -9,7 +9,9 @@ USER acait
 ADD --chown=acait:acait . /app/
 ADD --chown=acait:acait docker/ /app/project/
 ADD --chown=acait:acait docker/app_start.sh /scripts
-RUN chmod u+x /scripts/app_start.sh
+ADD --chown=acait:acait scripts/hyperkitty_jobs.sh /scripts
+ADD --chown=acait:acait scripts/hyperkitty_cron.sh /scripts
+RUN chmod u+x /scripts/app_start.sh /scripts/hyperkitty_jobs.sh /scripts/hyperkitty_cron.sh
 
 RUN . /app/bin/activate && pip install -U setuptools &&\
     pip install -r requirements.txt
