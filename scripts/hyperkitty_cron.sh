@@ -5,4 +5,4 @@ set -e
 
 . bin/activate
 
-python manage.py runjobs $1 --pythonpath /app --settings settings
+python manage.py runjobs $1
