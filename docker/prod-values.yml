@@ -118,7 +118,7 @@ environmentVariablesSecrets:
     name: EMAIL_HOST
     secretName: lists.uw.edu-secrets
     secretKey: email-host
-  defaultEmailFrom:
+  defaultFromEmail:
     name: DEFAULT_FROM_EMAIL
     secretName: lists.uw.edu-secrets
     secretKey: default-from-email

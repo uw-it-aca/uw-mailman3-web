@@ -44,6 +44,5 @@ db.sqlite3
 [Ll]ib
 [Ll]ib64
 [Ll]ocal
-[Ss]cripts
 
 docker/*-values.yml
