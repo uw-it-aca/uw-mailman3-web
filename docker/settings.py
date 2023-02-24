@@ -52,7 +52,8 @@ if os.getenv('THEME_OFF', 'false') == 'true':
     INSTALLED_APPS.remove('uwtheme')
 
 MIDDLEWARE += [
-    'postorius.middleware.PostoriusMiddleware'
+    'postorius.middleware.PostoriusMiddleware',
+    'django_mailman3.middleware.TimezoneMiddleware'
 ]
 
 #COMPRESS_ENABLED = True
