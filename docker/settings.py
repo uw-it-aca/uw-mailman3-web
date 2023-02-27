@@ -116,6 +116,7 @@ EMAIL_SSL_KEYFILE = os.getenv('KEY_PATH', '')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', '')
 
-# might as well run this thing in our local time zone
-TIME_ZONE = 'America/Los_Angeles'
+# set to match core, as long as user has correct-for-them tz then
+# dates / times will display correctly
+TIME_ZONE = 'UTC'
 USE_TZ = True
