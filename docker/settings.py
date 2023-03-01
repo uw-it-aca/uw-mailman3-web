@@ -82,6 +82,10 @@ MAILMAN_REST_API_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
 MAILMAN_ARCHIVER_FROM = os.environ.get('MAILMAN_ARCHIVER_FROM')
 
+# postorius
+# this is the base for urls that are told to core so it can find templates which live in postorius
+POSTORIUS_TEMPLATE_BASE_URL = os.environ.get('POSTORIUS_TEMPLATE_BASE_URL')
+
 ACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSignupAdapter'
 SOCIALACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSocialSignupAdapter'
 
