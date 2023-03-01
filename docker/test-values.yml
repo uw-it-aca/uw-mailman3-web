@@ -70,7 +70,7 @@ environmentVariables:
   - name: SAML_ENTITY_ID
     value: https://test.lists.uw.edu/sso/
   - name: POSTORIUS_TEMPLATE_BASE_URL
-    value: https://lists.uw.edu/
+    value: https://test.lists.uw.edu/
 externalSecrets:
   enabled: true
   secrets:
