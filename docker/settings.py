@@ -83,7 +83,7 @@ MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
 MAILMAN_ARCHIVER_FROM = os.environ.get('MAILMAN_ARCHIVER_FROM')
 
 # postorius
-POSTORIUS_TEMPLATE_BASE_URL = 'unix:/var/run/gunicorn/gunicorn.sock'
+POSTORIUS_TEMPLATE_BASE_URL = os.environ.get('POSTORIUS_TEMPLATE_BASE_URL')
 
 ACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSignupAdapter'
 SOCIALACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSocialSignupAdapter'
