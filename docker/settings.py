@@ -90,6 +90,7 @@ POSTORIUS_TEMPLATE_BASE_URL = os.environ.get('POSTORIUS_TEMPLATE_BASE_URL')
 SITE_ID = 1  # Needed for django-allauth
 
 LOGIN_URL = os.environ.get('LOGIN_URL', 'account_login')
+LOGIN_REDIRECT_URL = 'list_index'
 LOGOUT_URL = os.environ.get('LOGOUT_URL', 'account_logout')
 
 Q_CLUSTER = {
