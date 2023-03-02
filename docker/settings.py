@@ -53,6 +53,7 @@ if os.getenv('THEME_OFF', 'false') == 'true':
 
 MIDDLEWARE += [
     'postorius.middleware.PostoriusMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django_mailman3.middleware.TimezoneMiddleware'
 ]
 
