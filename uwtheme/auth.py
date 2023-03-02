@@ -40,5 +40,5 @@ def update_user_profile(request):
 
     profile, _ = Profile.objects.get_or_create(user=request.user)
     if not profile.timezone:
-        profile.timezone = getattr(settings, 'TIME_ZONE')
+        profile.timezone = getattr(settings, 'PROFILE_TIME_ZONE')
         profile.save()
