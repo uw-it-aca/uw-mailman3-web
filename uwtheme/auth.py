@@ -11,6 +11,11 @@ from django_mailman3.models import Profile
 Update Django User model using SAML attributes.
 """
 
+def add_verified_email(request, email):
+    existing, _ = EmailAddress.objects.get_or_create(
+        user=request.user, email__iexact=email, defaults={
+            'email': email, 'verified': True})
+
 
 def update_user_profile(request):
     has_changed = False
@@ -26,6 +31,7 @@ def update_user_profile(request):
 
     uw_email = get_attribute(request, 'uwEduEmail')
     if uw_email and uw_email != request.user.email:
+        add_verified_email(request, uw_email)
         request.user.email = uw_email
         has_changed = True
 
@@ -34,9 +40,7 @@ def update_user_profile(request):
 
     email = get_attribute(request, 'email')
     if email and email != uw_email:
-        existing, _ = EmailAddress.objects.get_or_create(
-            user=request.user, email__iexact=email, defaults={
-                'email': email, 'verified': True})
+        add_verified_email(request, email)
 
     profile, _ = Profile.objects.get_or_create(user=request.user)
     if not profile.timezone:

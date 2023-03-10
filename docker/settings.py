@@ -87,14 +87,10 @@ MAILMAN_ARCHIVER_FROM = os.environ.get('MAILMAN_ARCHIVER_FROM')
 # this is the base for urls that are told to core so it can find templates which live in postorius
 POSTORIUS_TEMPLATE_BASE_URL = os.environ.get('POSTORIUS_TEMPLATE_BASE_URL')
 
-ACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSignupAdapter'
-SOCIALACCOUNT_ADAPTER = 'django_mailman3.views.user_adapter.DisableSocialSignupAdapter'
-
-MAILMAN_WEB_SOCIAL_AUTH = []
-
 SITE_ID = 1  # Needed for django-allauth
 
 LOGIN_URL = os.environ.get('LOGIN_URL', 'account_login')
+LOGIN_REDIRECT_URL = 'list_index'
 LOGOUT_URL = os.environ.get('LOGOUT_URL', 'account_logout')
 
 Q_CLUSTER = {
