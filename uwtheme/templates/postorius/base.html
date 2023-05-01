@@ -107,10 +107,17 @@
                             </div>
                         </li>
                     {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url LOGIN_URL %}?next={{ next|default:request.path|urlencode }}">
-                            <span class="fa fa-sign-in"></span>
-                            {% trans 'Login' %}
-                        </a></li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                              <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa fa-sign-in"></span> Sign In
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url LOGIN_URL %}?next={{ next|default:request.path|urlencode }}">{% trans 'UW Login' %}</a>
+                                <a class="dropdown-item" href="/accounts/login/?next=/postorius/lists/">Guest Sign In</a>
+                              </div>
+                            </div>
+                        </li>
                         <li  class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}?next={{next|default:request.path|urlencode}}">
                             <span class="fa fa-user-plus"></span>
                             {% trans 'Sign Up' %}
