@@ -77,7 +77,8 @@ COMPRESS_CSS_FILTERS = [
 ]
 
 # Mailman API credentials
-MAILMAN_REST_API_URL = os.environ.get('MAILMAN_REST_URL', 'http://uw-mailman3-core:8000')
+MAILMAN_REST_API_URL = os.environ.get(
+    'MAILMAN_REST_URL', 'http://uw-mailman3-core:8080')
 MAILMAN_REST_API_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
 MAILMAN_REST_API_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
@@ -92,6 +93,12 @@ SITE_ID = 1  # Needed for django-allauth
 LOGIN_URL = os.environ.get('LOGIN_URL', 'account_login')
 LOGIN_REDIRECT_URL = 'list_index'
 LOGOUT_URL = os.environ.get('LOGOUT_URL', 'account_logout')
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+AUTHENTICATION_BACKENDS += (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',)
 
 Q_CLUSTER = {
     'timeout': 60,
