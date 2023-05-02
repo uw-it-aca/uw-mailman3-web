@@ -1,0 +1,20 @@
+<script type="text/javascript">
+(function () {
+    var $signon_link = $('a.nav-link span.fa-sign-in').parent();
+
+    if ($signon_link.length) {
+        $signon_link.replaceWith(
+            '<div class="dropdown">' +
+                '<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                '<span class="fa fa-sign-in"></span> Sign In' +
+                '</button>' +
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                '<a class="dropdown-item" href="{% url LOGIN_URL %}?next={{ next|default:request.path|urlencode }}">UW Login</a>' +
+                '<a class="dropdown-item" href="/accounts/login/?next=/postorius/lists/">' +
+                'Guest Sign In' +
+                '</a>' +
+                '</div>' +
+                '</div>');
+    }
+}());
+</script>

@@ -7,14 +7,93 @@ services:
     hostname: uw-mailman3-core
     build:
       context: ../uw-mailman3-core
+    ports:
+     - "8000:8000"
     environment:
       ENV: localdev
-      MAILMAN_HOSTNAME: uw-mailman3-core
-      SMTP_HOST: 127.0.0.1
-      MAILMAN_ADMIN_USER: restadmin
-      MAILMAN_ADMIN_PASSWORD: restpass
-      MAILMAN_SITE_OWNER: javerage@uw.edu
-      HYPERKITTY_API_KEY: "someapikey"
+      HYPERKITTY_CONFIG_TEMPLATE: |
+        [general]
+        base_url: http://uw-mailman3-web:8080/hyperkitty/
+        api_key: someapikey
+      MAILMAN_CONFIG_TEMPLATE: |
+        [paths.master]
+        var_dir: /app/mailman/var
+        [database]
+        url: sqlite:////app/mailman/sqlite.db
+        [runner.retry]
+        sleep_time: 10s
+        [webservice]
+        hostname: uw-mailman3-core
+        port: 8000
+        admin_user: restadmin
+        admin_pass: restpass
+        configuration: /app/mailman/var/etc/gunicorn.cfg
+        [archiver.hyperkitty]
+        class: mailman_hyperkitty.Archiver
+        enable: yes
+        configuration: /app/mailman/var/etc/mailman-hyperkitty.cfg
+        [mta]
+        incoming: mailman.mta.postfix.LMTP
+        outgoing: mailman.mta.deliver.deliver
+        lmtp_host: 127.0.0.1
+        lmtp_port: 8024
+        smtp_host: 127.0.0.1
+        smtp_port: 25
+        configuration: /app/mailman/var/etc/postfix-mailman.cfg
+        [mailman]
+        site_owner: javerage@uw.edu
+        [logging.root]
+        path: /dev/stdout
+        [logging.archiver]
+        path: /dev/stdout
+        [logging.bounce]
+        path: /dev/stdout
+        [logging.config]
+        path: /dev/stdout
+        [logging.database]
+        path: /dev/stdout
+        [logging.debug]
+        path: /dev/stdout
+        [logging.error]
+        path: /dev/stdout
+        [logging.fromusenet]
+        path: /dev/stdout
+        [logging.http]
+        path: /dev/stdout
+        [logging.mischief]
+        path: /dev/stdout
+        [logging.plugins]
+        path: /dev/stdout
+        [logging.rest]
+        path: /dev/stdout
+        [logging.runner]
+        path: /dev/stdout
+        [logging.smtp]
+        path: /dev/stdout
+        [logging.subscribe]
+        path: /dev/stdout
+        [logging.task]
+        path: /dev/stdout
+        [logging.template]
+        path: /dev/stdout
+        [logging.vette]
+        path: /dev/stdout
+      POSTFIX_CONFIG_TEMPLATE: |
+        [postfix]
+        transport_file_type: regex
+        postmap_command: true
+      GUNICORN_CONFIG_TEMPLATE: |
+        [gunicorn]
+        graceful_timeout = 30
+        timeout = 360
+    command: >-
+      /bin/bash
+      -c
+      'echo "$$MAILMAN_CONFIG_TEMPLATE" > /config/mailman.tpl;
+       echo "$$HYPERKITTY_CONFIG_TEMPLATE" > /config/mailman-hyperkitty.tpl;
+       echo "$$POSTFIX_CONFIG_TEMPLATE" > /config/postfix-mailman.tpl;
+       echo "$$GUNICORN_CONFIG_TEMPLATE" > /config/gunicorn.tpl;
+       /scripts/start.sh'
 
   uw-mailman3-web:
     restart: always
@@ -24,11 +103,11 @@ services:
     volumes:
     - ./uwtheme:/app/uwtheme
     ports:
-     - "${PORT:-8001}:8000"
      - "8080:8080"
     stdin_open: true
     tty: true
     environment:
+      PORT: 8080
       ENV: localdev
       AUTH: SAML_MOCK
       LOGIN_URL: saml_login
