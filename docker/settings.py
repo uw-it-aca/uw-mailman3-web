@@ -128,6 +128,7 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', '')
 # set to match core, as long as user has correct-for-them tz then
 # dates / times will display correctly
 TIME_ZONE = 'UTC'
+#
 # default time zone for user profiles
 PROFILE_TIME_ZONE = 'America/Los_Angeles'
 USE_TZ = True
