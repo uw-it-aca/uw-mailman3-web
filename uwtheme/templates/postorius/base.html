@@ -1,0 +1,28 @@
+{% extends "postorius/base.html" %}
+
+{% block additionaljs %}
+<script type="text/javascript">
+(function () {
+    var $signon_link = $('ul.navbar-nav li.nav-item a.nav-link span.fa-sign-in').parents('li.nav-item');
+
+    if ($signon_link.length) {
+        $signon_link.replaceWith(
+          '<div class="btn-group">' +
+              '<button type="button" role="button" class="dropdown-toggle btn" data-bs-toggle="dropdown" aria-haspopup="true" style="color: white;">' +
+                '<span class="fa fa-sign-in"></span> Sign In' +
+              '</button>' +
+              '<ul class="dropdown-menu" role="menu">' +
+                  '<li class="dropdown-item">' +
+                      '<a class="dropdown-item" href="{% url LOGIN_URL %}?next={{ next|default:request.path|urlencode }}">UW Login</a>' +
+                  '</li>' +
+                  '<li class="dropdown-item">' +
+                      '<a class="dropdown-item" href="/accounts/login/?next={{ next|default:request.path|urlencode }}">Guest Sign In</a>' +
+                  '</li>' +
+              '</ul>' +
+          '</div>');
+    }
+}());
+</script>
+{{ block.super }}
+{% endblock %}
+

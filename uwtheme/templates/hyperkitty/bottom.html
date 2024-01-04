@@ -1,0 +1,25 @@
+<script type="text/javascript">
+(function () {
+    var $signon_link = $('a.nav-link span.fa-sign-in').parent(),
+        sign_on_html = '<div class="btn-group sign-on-list">' +
+              '<button type="button" role="button" class="dropdown-toggle btn" data-bs-toggle="dropdown" aria-haspopup="true" style="color: white;">' +
+                '<span class="fa fa-sign-in"></span> Sign In' +
+              '</button>' +
+              '<ul class="dropdown-menu" role="menu">' +
+                  '<li class="dropdown-item">' +
+                      '<a class="dropdown-item" href="{% url LOGIN_URL %}?next={{ next|default:request.path|urlencode }}">UW Login</a>' +
+                  '</li>' +
+                  '<li class="dropdown-item">' +
+                      '<a class="dropdown-item" href="/accounts/login/?next={{ next|default:request.path|urlencode }}">Guest Sign In</a>' +
+                  '</li>' +
+              '</ul>' +
+           '</div>';
+
+    if ($signon_link.length) {
+        $signon_link.replaceWith(sign_on_html);
+        $('.navbar .container-xxl .d-flex .sign-on-list').addClass('d-md-none');
+    }
+}());
+</script>
+
+
