@@ -15,7 +15,7 @@ SAML_USER_PROFILE_HOOK = 'uwtheme.auth.update_user_profile'
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': "/opt/mailman-web-data/fulltext_index",
+        'PATH': "/app/mailman/var/mailman-web-data/fulltext_index",
         # You can also use the Xapian engine, it's faster and more accurate,
         # but requires another library.
         # http://django-haystack.readthedocs.io/en/v2.4.1/installing_search_engines.html#xapian
