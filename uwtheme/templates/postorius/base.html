@@ -3,7 +3,19 @@
 {% block additionaljs %}
 <script type="text/javascript">
 (function () {
-    var $signon_link = $('ul.navbar-nav li.nav-item a.nav-link span.fa-sign-in').parents('li.nav-item');
+    var $signon_link = $('ul.navbar-nav li.nav-item a.nav-link span.fa-sign-in').parents('li.nav-item'),
+        $logo_span = $('.navbar-header a.navbar-brand span'),
+        $head = $('head'),
+        $link = $('head').find("link[rel='stylesheet']:last"),
+        link_html = "<link rel='stylesheet' href='/static/postorius/css/uw-theme.css' type='text/css' media='screen'>";
+
+    $logo_span.html($logo_span.html().replace('Postorius', 'Mailman'));
+
+    if ($link.length) {
+        $link.after(link_html);
+    } else {
+        $head.append(link_html);
+    }
 
     if ($signon_link.length) {
         $signon_link.replaceWith(
