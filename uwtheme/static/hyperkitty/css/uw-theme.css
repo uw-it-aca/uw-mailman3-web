@@ -1,0 +1,9 @@
+#navbar-main { background-color: #f8f9fa !important ; }
+.navbar .navbar-brand { color: black !important; }
+.nav-link span { color: black; }
+.nav-link { color: black !important; }
+.navbar .btn-group button { color: black !important; }
+.navbar .logo { height: 35px; }
+nav .search  { background-color: lightgrey; }
+nav .search-button { background-color: darkgrey; }
+.navbar . navbar-header a.navbar-brand:after { content: '<img class="logo" style="height: 35px;" alt="HyperKitty" src="/static/hyperkitty/img/logo.png"> XMailmanX';}

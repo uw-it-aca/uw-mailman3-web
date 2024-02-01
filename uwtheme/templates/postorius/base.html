@@ -1,9 +1,18 @@
 {% extends "postorius/base.html" %}
 
+{% block additionalcss %}
+<link rel='stylesheet' href='/static/postorius/css/uw-theme.css' type='text/css' media='screen'>
+{{ block.super }}
+{% endblock %}
+
+
 {% block additionaljs %}
 <script type="text/javascript">
 (function () {
-    var $signon_link = $('ul.navbar-nav li.nav-item a.nav-link span.fa-sign-in').parents('li.nav-item');
+    var $signon_link = $('ul.navbar-nav li.nav-item a.nav-link span.fa-sign-in').parents('li.nav-item'),
+        $logo_span = $('.navbar-header a.navbar-brand span');
+
+    $logo_span.html($logo_span.html().replace('Postorius', 'Mailman'));
 
     if ($signon_link.length) {
         $signon_link.replaceWith(
@@ -25,4 +34,3 @@
 </script>
 {{ block.super }}
 {% endblock %}
-
