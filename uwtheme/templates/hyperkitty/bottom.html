@@ -14,16 +14,7 @@
                   '</li>' +
               '</ul>' +
            '</div>',
-        $logo_span = $('.navbar a.navbar-brand'),
-        $head = $('head'),
-        $link = $('head').find("link[rel='stylesheet']:last"),
-        link_html = "<link rel='stylesheet' href='/static/hyperkitty/css/uw-theme.css' type='text/css' media='screen'>";
-
-    if ($link.length) {
-        $link.after(link_html);
-    } else {
-        $head.append(link_html);
-    }
+        $logo_span = $('.navbar a.navbar-brand');
 
     $logo_span.html('<img class="logo" style="height: 35px;" alt="HyperKitty" src="/static/hyperkitty/img/logo.png"> Mailman');
 

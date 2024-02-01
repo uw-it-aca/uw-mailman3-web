@@ -6,3 +6,4 @@
 .navbar .logo { height: 35px; }
 nav .search  { background-color: lightgrey; }
 nav .search-button { background-color: darkgrey; }
+.navbar . navbar-header a.navbar-brand:after { content: '<img class="logo" style="height: 35px;" alt="HyperKitty" src="/static/hyperkitty/img/logo.png"> XMailmanX';}
