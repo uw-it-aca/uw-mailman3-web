@@ -56,8 +56,7 @@ podVolumes:
   opt-mailman-web-data:
     volume:
       persistentVolumeClaim:
-        claimName: mailman-core-prod-test-pvc-opt-mailman-mailman-core-prod-test-0
-        readOnly: true
+        claimName: mailman-core-prod-test-nfs-server-archive-index
     mount:
       mountPath: /opt/mailman-web-data
     containers: [ base ]
