@@ -52,6 +52,14 @@ certs:
   certPath: /certs/test.lists.uw.edu.cert
   keyPath: /certs/test.lists.uw.edu.key
   secretName: test.lists.uw.edu-ic-certs
+podVolumes:
+  opt-mailman-web-data:
+    volume:
+      persistentVolumeClaim:
+        claimName: mailman-core-prod-test-nfs-server-archive-index
+    mount:
+      mountPath: /opt/mailman-web-data
+    containers: [ base ]
 environmentVariables:
   - name: ENV
     value: dev
