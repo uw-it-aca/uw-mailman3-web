@@ -4,6 +4,8 @@ FROM us-docker.pkg.dev/uwit-mci-axdd/containers/django-container:${DJANGO_CONTAI
 
 USER root
 RUN apt-get update && apt-get install libpq-dev sassc cron -y
+# make cron startable by acait
+RUN chmod gu+rw /var/run && chmod gu+s /usr/sbin/cron
 USER acait
 
 ADD --chown=acait:acait . /app/
