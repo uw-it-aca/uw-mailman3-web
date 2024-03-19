@@ -14,6 +14,9 @@
 
     $logo_span.html($logo_span.html().replace('Postorius', 'Mailman'));
 
+    // hide user setttings for dmarc mitigations since those are set globally
+    $('li.nav-item a.nav-link[href$="/settings/dmarc_mitigations"]').parent().remove();
+
     if ($signon_link.length) {
         $signon_link.replaceWith(
           '<div class="btn-group">' +
