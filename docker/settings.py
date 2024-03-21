@@ -95,7 +95,6 @@ RESTCLIENTS_MAILMAN3_REST_PASSWORD = os.environ.get(
     'MAILMAN_REST_PASSWORD', 'restpass')
 RESTCLIENTS_MAILMAN3_HOST = os.environ.get(
     'MAILMAN_REST_URL', 'http://uw-mailman3-core:8080')
-
 RESTCLIENTS_MAILMAN3_MAIL_DOMAIN = os.environ.get('CLUSTER_CNAME', 'uw.edu')
 
 # postorius
