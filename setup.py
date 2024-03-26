@@ -17,7 +17,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'Django~=3.2',
-        'django-allauth',
+        'django-allauth==0.54.0',
         'django-compressor==2.4.1',
         'django-mailman3==1.3.9',
         'djangorestframework==3.15.0',
