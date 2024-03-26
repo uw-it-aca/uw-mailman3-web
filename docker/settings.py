@@ -86,17 +86,6 @@ MAILMAN_REST_API_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
 MAILMAN_ARCHIVER_FROM = os.environ.get('MAILMAN_ARCHIVER_FROM')
 
-# Mailman3 Core REST API settings
-RESTCLIENTS_MAILMAN3_DAO_CLASS='Live'
-RESTCLIENTS_MAILMAN3_BASE_VERSION='3.1'
-RESTCLIENTS_MAILMAN3_REST_USER = os.environ.get(
-    'MAILMAN_REST_USER', 'restadmin')
-RESTCLIENTS_MAILMAN3_REST_PASSWORD = os.environ.get(
-    'MAILMAN_REST_PASSWORD', 'restpass')
-RESTCLIENTS_MAILMAN3_HOST = os.environ.get(
-    'MAILMAN_REST_URL', 'http://uw-mailman3-core:8080')
-RESTCLIENTS_MAILMAN3_MAIL_DOMAIN = os.environ.get('CLUSTER_CNAME', 'uw.edu')
-
 # postorius
 # this is the base for urls that are told to core so it can find templates which live in postorius
 POSTORIUS_TEMPLATE_BASE_URL = os.environ.get('POSTORIUS_TEMPLATE_BASE_URL')
