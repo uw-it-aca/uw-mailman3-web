@@ -166,6 +166,9 @@
       // depending on whether Javascript is enabled.
       $(document).ready(function(){
           $("body").addClass("js-enabled");
+
+          // hide user setttings for dmarc mitigations since those are set globally
+          $('li.nav-item a.nav-link[href$="/settings/dmarc_mitigations"]').parent().remove();
       });
     </script>
     {% block additionaljs %}{% endblock %}

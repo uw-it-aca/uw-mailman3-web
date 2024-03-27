@@ -17,15 +17,16 @@ setup(
     include_package_data=True,
     install_requires=[
         'Django~=3.2',
-        'django-allauth',
+        'django-allauth==0.54.0',
         'django-compressor==2.4.1',
         'django-mailman3==1.3.9',
-        'djangorestframework',
+        'djangorestframework==3.15.0',
         'HyperKitty==1.3.7',
         'mailmanclient',
         'postorius==1.3.8',
         'whoosh',
         'UW-Django-SAML2~=1.6',
+        'uw_list_manager @ git+https://github.com/uw-it-aca/uw-list-manager@develop#egg=uw-list-manager',
     ],
     license='Apache License, Version 2.0',  # example license
     description='UW theme for mailman 3',
