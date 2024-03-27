@@ -24,6 +24,7 @@ setup(
         'HyperKitty==1.3.7',
         'mailmanclient',
         'postorius==1.3.8',
+        'lxml==4.9.4',
         'whoosh',
         'UW-Django-SAML2~=1.6',
         'uw_list_manager @ git+https://github.com/uw-it-aca/uw-list-manager@develop#egg=uw-list-manager',
