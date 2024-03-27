@@ -46,6 +46,7 @@ INSTALLED_APPS += [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'uw_list_manager',
 ]
 
 if os.getenv('THEME_OFF', 'false') == 'true':
