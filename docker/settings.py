@@ -78,6 +78,14 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.cssmin.CSSMinFilter'
 ]
 
+# Mailman API credentials
+MAILMAN_REST_API_URL = os.environ.get(
+    'MAILMAN_REST_URL', 'http://uw-mailman3-core:8080')
+MAILMAN_REST_API_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
+MAILMAN_REST_API_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
+MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
+MAILMAN_ARCHIVER_FROM = os.environ.get('MAILMAN_ARCHIVER_FROM')
+
 # Mailman2 API credentials needed for now by uw_list_manager
 RESTCLIENTS_MAILMAN2_DAO_CLASS = 'Live'
 RESTCLIENTS_MAILMAN2_HOST = 'mailman1.u.washington.edu'
