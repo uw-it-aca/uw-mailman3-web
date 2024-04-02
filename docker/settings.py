@@ -38,6 +38,8 @@ INSTALLED_APPS += [
     #'django.contrib.messages',
     #'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'uw_list_manager',
     'django_gravatar',
     'compressor',
     'haystack',  # Full-text search engine
@@ -46,7 +48,6 @@ INSTALLED_APPS += [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'uw_list_manager',
 ]
 
 if os.getenv('THEME_OFF', 'false') == 'true':
