@@ -136,7 +136,7 @@ environmentVariablesSecrets:
     secretName: test.lists.uw.edu-secrets
     secretKey: default-from-email
   mailman2RestKey:
-    name: RESTCLIENTS_MAILMAN2_REST_KEY:
+    name: RESTCLIENTS_MAILMAN2_REST_KEY
     secretName: test.lists.uw.edu-secrets
     secretKey: mailman2-rest-key
   mailmanAdminUser:
