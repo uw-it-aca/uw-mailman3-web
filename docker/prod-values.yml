@@ -92,6 +92,8 @@ externalSecrets:
           property: email-host
         - name: default-from-email
           property: default-from-email
+        - name: mailman2-rest-key
+          property: mailman2-rest-key
     - name: lists.uw.edu-sql-secret
       externalKey: mailman/web/prod/sql-secret
       data:
@@ -124,6 +126,10 @@ environmentVariablesSecrets:
     name: DEFAULT_FROM_EMAIL
     secretName: lists.uw.edu-secrets
     secretKey: default-from-email
+  mailman2RestKey:
+    name: RESTCLIENTS_MAILMAN2_REST_KEY
+    secretName: lists.uw.edu-secrets
+    secretKey: mailman2-rest-key
   mailmanAdminUser:
     name: MAILMAN_REST_USER
     secretName: lists.uw.edu-shared-secrets
