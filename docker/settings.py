@@ -38,6 +38,8 @@ INSTALLED_APPS += [
     #'django.contrib.messages',
     #'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'uw_list_manager',
     'django_gravatar',
     'compressor',
     'haystack',  # Full-text search engine
@@ -46,7 +48,6 @@ INSTALLED_APPS += [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'uw_list_manager',
 ]
 
 if os.getenv('THEME_OFF', 'false') == 'true':
@@ -84,6 +85,11 @@ MAILMAN_REST_API_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
 MAILMAN_REST_API_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
 MAILMAN_ARCHIVER_FROM = os.environ.get('MAILMAN_ARCHIVER_FROM')
+
+# Mailman2 API credentials needed for now by uw_list_manager
+RESTCLIENTS_MAILMAN2_DAO_CLASS = 'Live'
+RESTCLIENTS_MAILMAN2_HOST = 'mailman1.u.washington.edu'
+RESTCLIENTS_MAILMAN2_REST_KEY = os.environ.get('RESTCLIENTS_MAILMAN2_REST_KEY')
 
 # postorius
 # this is the base for urls that are told to core so it can find templates which live in postorius

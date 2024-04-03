@@ -13,6 +13,7 @@ urlpatterns += [
     re_path(r'^hyperkitty/', include('hyperkitty.urls')),
     re_path(r'', include('django_mailman3.urls')),
     re_path(r'^accounts/', include('allauth.urls')),
+    re_path(r'^uw_list_manager/', include('uw_list_manager.urls')),
     # Django admin
     re_path(r'^admin/', admin.site.urls),
 ]
