@@ -2,5 +2,5 @@
 #mistune==2.0.0rc1
 psycopg2>=2.8,<2.9
 django-allauth==0.59.0
-git+https://github.com/uw-it-aca/uw-list-manager@dbe480f#egg=uw-list-manager
+git+https://github.com/uw-it-aca/uw-list-manager@main#egg=uw-list-manager
 -e .
