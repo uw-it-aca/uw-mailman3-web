@@ -33,7 +33,11 @@ externalService:
   serviceAddress: 172.18.1.64
   servicePort: 5432
 repo: mailman-web
+repoIdentifier: "01"
 instance: test
+namespace:
+  enabled: true
+  name: mailman-test
 resources:
   limits:
     cpu: 500m
@@ -56,7 +60,7 @@ podVolumes:
   opt-mailman-web-data:
     volume:
       persistentVolumeClaim:
-        claimName: mailman-core-prod-test-nfs-server-archive-index
+        claimName: mailman-core-01-nfs-server-archive-index
     mount:
       mountPath: /opt/mailman-web-data
     containers: [ base ]
@@ -70,9 +74,9 @@ environmentVariables:
   - name: LOGOUT_URL
     value: saml_logout
   - name: MAILMAN_REST_URL
-    value: http://mailman-core-prod-test
+    value: http://mailman-core-01
   - name: MAILMAN_ARCHIVER_FROM
-    value: mailman-core-prod-test
+    value: mailman-core-01
   - name: CLUSTER_CNAME
     value: test.lists.uw.edu
   - name: SAML_ENTITY_ID

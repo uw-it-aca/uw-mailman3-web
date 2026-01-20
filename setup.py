@@ -24,9 +24,10 @@ setup(
         'HyperKitty==1.3.8',
         'mailmanclient',
         'postorius==1.3.10',
-        'lxml==4.9.4',
+        'lxml<5',
+        'xmlsec==1.3.13',
         'whoosh',
-        'UW-Django-SAML2~=1.6',
+        'UW-Django-SAML2~=1.8',
     ],
     license='Apache License, Version 2.0',  # example license
     description='UW theme for mailman 3',

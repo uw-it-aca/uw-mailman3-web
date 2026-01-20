@@ -20,6 +20,7 @@ jobs:
       commit_hash: ${{ steps.context.outputs.commit_hash }}
       git_repo_branch: ${{ steps.context.outputs.git_repo_branch }}
       image_tag: ${{ steps.context.outputs.image_tag }}
+      instance_matrix: ${{ steps.context.outputs.instance_matrix }}
 
     steps:
       - name: Set up Context
@@ -75,6 +76,10 @@ jobs:
     outputs:
       context: ${{ steps.context.outputs.context }}
 
+    strategy:
+      matrix:
+        instance: ${{ fromJSON(needs.context.outputs.instance_matrix) }}
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -83,26 +88,30 @@ jobs:
         if: >-
           contains(fromJSON('["develop"]'),
             needs.context.outputs.git_repo_branch)
-        uses: uw-it-aca/actions/cicd-deploy@main
+        uses: uw-it-aca/actions/cicd-deploy@92c01e5
         with:
           release_name: ${{ env.RELEASE_NAME }}
+          release_instance: ${{ matrix.instance }}
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           commit_hash: ${{ needs.context.outputs.commit_hash }}
           git_repo_branch: ${{ needs.context.outputs.git_repo_branch }}
+          helm_chart_branch: e126f44
 
       - name: Production Deployment Pipeline
         if: >-
           contains(fromJSON('["main"]'),
             needs.context.outputs.git_repo_branch)
-        uses: uw-it-aca/actions/cicd-deploy@main
+        uses: uw-it-aca/actions/cicd-deploy@92c01e5
         with:
           release_name: ${{ env.RELEASE_NAME }}
+          release_instance: ${{ matrix.instance }}
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           commit_hash: ${{ needs.context.outputs.commit_hash }}
           git_repo_branch: ${{ needs.context.outputs.git_repo_branch }}
           gcp_production_project: 'uwit-mci-0016'
           gcp_production_flux_instance: 'mailman'
           flux_repo_default_branch: 'main'
+          helm_chart_branch: e126f44
 
       - name: 'Surface context from executed build step'
         id: context
@@ -116,12 +125,17 @@ jobs:
 
     runs-on: ubuntu-20.04
 
+    strategy:
+      matrix:
+        instance: ${{ fromJSON(needs.context.outputs.instance_matrix) }}
+
     steps:
       - name: House Keeping
-        uses: uw-it-aca/actions/cicd-housekeeping@main
+        uses: uw-it-aca/actions/cicd-housekeeping@92c01e5
         with:
-          release_name: ${{ env.RELEASE_NAME }}
+          release_name: ${{ env.RELEASE_NAME }}-${{ matrix.instance }}
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           registry_password: ${{ secrets.GCP_JSON_KEY }}
           context: ${{ needs.deploy.outputs.context }}
           flux_instances: 'mailman,dev'
+          helm_chart_branch: e126f44
