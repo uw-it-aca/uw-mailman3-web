@@ -15,6 +15,10 @@ ingress:
       host: test.lists.uw.edu
       paths:
         - "/"
+    test-mailman-web-01:
+      host: test-01.lists.uw.edu
+      paths:
+        - "/"
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
 securityPolicy:
