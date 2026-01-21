@@ -42,6 +42,7 @@ instance: test
 namespace:
   enabled: true
   name: mailman-test
+  suppressDefinition: true
 resources:
   limits:
     cpu: 500m
