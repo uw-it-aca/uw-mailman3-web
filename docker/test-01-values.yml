@@ -16,7 +16,7 @@ ingress:
       paths:
         - "/"
     test-mailman-web-01:
-      host: test-01.lists.uw.edu
+      host: test01.lists.uw.edu
       paths:
         - "/"
   annotations:

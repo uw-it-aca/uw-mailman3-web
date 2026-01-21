@@ -7,7 +7,7 @@ env:
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, task/deployment-matrix]
   pull_request:
     branches: [main, develop]
     types: [opened, reopened, synchronize]
@@ -23,9 +23,12 @@ jobs:
       instance_matrix: ${{ steps.context.outputs.instance_matrix }}
 
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
       - name: Set up Context
         id: context
-        uses: uw-it-aca/actions/cicd-context@main
+        uses: uw-it-aca/actions/cicd-context@9754788dfac749775f885ab04779198baa8dacbc
         with:
           release_name: ${{ env.RELEASE_NAME }}
 
@@ -86,22 +89,22 @@ jobs:
 
       - name: Dev/Test Deployment Pipeline
         if: >-
-          contains(fromJSON('["develop"]'),
+          contains(fromJSON('["develop", "task/deployment-matrix"]'),
             needs.context.outputs.git_repo_branch)
-        uses: uw-it-aca/actions/cicd-deploy@92c01e5
+        uses: uw-it-aca/actions/cicd-deploy@9754788dfac749775f885ab04779198baa8dacbc
         with:
           release_name: ${{ env.RELEASE_NAME }}
           release_instance: ${{ matrix.instance }}
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           commit_hash: ${{ needs.context.outputs.commit_hash }}
           git_repo_branch: ${{ needs.context.outputs.git_repo_branch }}
-          helm_chart_branch: e126f44
+          helm_chart_branch: feature/repo-identifier
 
       - name: Production Deployment Pipeline
         if: >-
           contains(fromJSON('["main"]'),
             needs.context.outputs.git_repo_branch)
-        uses: uw-it-aca/actions/cicd-deploy@92c01e5
+        uses: uw-it-aca/actions/cicd-deploy@9754788dfac749775f885ab04779198baa8dacbc
         with:
           release_name: ${{ env.RELEASE_NAME }}
           release_instance: ${{ matrix.instance }}
@@ -111,7 +114,7 @@ jobs:
           gcp_production_project: 'uwit-mci-0016'
           gcp_production_flux_instance: 'mailman'
           flux_repo_default_branch: 'main'
-          helm_chart_branch: e126f44
+          helm_chart_branch: feature/repo-identifier
 
       - name: 'Surface context from executed build step'
         id: context
@@ -131,11 +134,11 @@ jobs:
 
     steps:
       - name: House Keeping
-        uses: uw-it-aca/actions/cicd-housekeeping@92c01e5
+        uses: uw-it-aca/actions/cicd-housekeeping@9754788dfac749775f885ab04779198baa8dacbc
         with:
           release_name: ${{ env.RELEASE_NAME }}-${{ matrix.instance }}
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           registry_password: ${{ secrets.GCP_JSON_KEY }}
           context: ${{ needs.deploy.outputs.context }}
           flux_instances: 'mailman,dev'
-          helm_chart_branch: e126f44
+          helm_chart_branch: feature/repo-identifier
