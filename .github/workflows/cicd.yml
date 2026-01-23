@@ -128,17 +128,12 @@ jobs:
 
     runs-on: ubuntu-24.04
 
-    strategy:
-      matrix:
-        instance: ${{ fromJSON(needs.context.outputs.instance_matrix) }}
-
     steps:
       - name: House Keeping
         uses: uw-it-aca/actions/cicd-housekeeping@ce76567cd6826623b22adc26cd63f5186e770017
         with:
-          release_name: ${{ env.RELEASE_NAME }}-${{ matrix.instance }}
+          release_name: ${{ env.RELEASE_NAME }}-01
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           registry_password: ${{ secrets.GCP_JSON_KEY }}
           context: ${{ needs.deploy.outputs.context }}
           flux_instances: 'mailman,dev'
-          helm_chart_branch: feature/repo-identifier
