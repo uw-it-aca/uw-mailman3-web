@@ -69,9 +69,10 @@ podVolumes:
   opt-mailman-web-data:
     volume:
       persistentVolumeClaim:
-        claimName: mailman-core-01-nfs-server-archive-index
+        claimName: mailman-core-01-opt-mailman-webdata
     mount:
       mountPath: /opt/mailman-web-data
+      subPath: "01"
     containers: [ base ]
 environmentVariables:
   - name: ENV
