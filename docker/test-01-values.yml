@@ -62,14 +62,14 @@ metrics:
     enabled: false
 certs:
   mounted: true
-  certPath: /certs/test.lists.uw.edu.cert
-  keyPath: /certs/test.lists.uw.edu.key
+  certPath: /certs/test01.lists.uw.edu.cert
+  keyPath: /certs/test01.lists.uw.edu.key
   secretName: test01.lists.uw.edu-ic-certs
 podVolumes:
   opt-mailman-web-data:
     volume:
       persistentVolumeClaim:
-        claimName: mailman-core-01-opt-mailman-webdata
+        claimName: mailman-core-01-pvc-opt-mailman-webdata
     mount:
       mountPath: /opt/mailman-web-data
       subPath: "01"
@@ -90,7 +90,7 @@ environmentVariables:
   - name: CLUSTER_CNAME
     value: test01.lists.uw.edu
   - name: SAML_ENTITY_ID
-    value: https://test.lists.uw.edu/sso/
+    value: https://test01.lists.uw.edu/sso/
   - name: POSTORIUS_TEMPLATE_BASE_URL
     value: https://test01.lists.uw.edu/
 
@@ -125,11 +125,11 @@ externalSecrets:
         - name: password
           property: sql_pass
     - name: test01.lists.uw.edu-ic-certs
-      externalKey: mailman/web/test/ic-certs
+      externalKey: mailman/web/test/01/ic-certs
       data:
-        - name: test.lists.uw.edu.cert
+        - name: test01.lists.uw.edu.cert
           property: cert
-        - name: test.lists.uw.edu.key
+        - name: test01.lists.uw.edu.key
           property: key
     - name: test01.lists.uw.edu-uw-idp-cert
       externalKey: idp-cert
@@ -168,7 +168,7 @@ environmentVariablesSecrets:
   SAMLServiceProviderCert:
     name: SP_CERT
     secretName: test01.lists.uw.edu-ic-certs
-    secretKey: test.lists.uw.edu.cert
+    secretKey: test01.lists.uw.edu.cert
   SAMLIDPCert:
     name: IDP_CERT
     secretName: test01.lists.uw.edu-uw-idp-cert
