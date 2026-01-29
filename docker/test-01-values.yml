@@ -69,7 +69,7 @@ podVolumes:
   opt-mailman-web-data:
     volume:
       persistentVolumeClaim:
-        claimName: mailman-core-01-pvc-opt-mailman-webdata
+        claimName: mailman-pvc-opt-mailman-web-data
     mount:
       mountPath: /opt/mailman-web-data
       subPath: "01"
