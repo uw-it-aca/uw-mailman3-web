@@ -57,15 +57,15 @@ certs:
   certPath: /certs/test02.lists.uw.edu.cert
   keyPath: /certs/test02.lists.uw.edu.key
   secretName: test02.lists.uw.edu-ic-certs
-#podVolumes:
-#  mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0:
-#    volume:
-#      persistentVolumeClaim:
-#        claimName: mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0
-#    mount:
-#      mountPath: /opt/mailman-web-data
-#      subPath: "02"
-#    containers: [ base ]
+podVolumes:
+  mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0:
+    volume:
+      persistentVolumeClaim:
+        claimName: mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0
+    mount:
+      mountPath: /opt/mailman-web-data
+      subPath: "02"
+    containers: [ base ]
 environmentVariables:
   - name: ENV
     value: dev
