@@ -156,3 +156,15 @@ environmentVariablesSecrets:
     name: IDP_CERT
     secretName: test02.lists.uw.edu-uw-idp-cert
     secretKey: uw-idp-cert
+
+sidecarContainers:
+  '01-share-drive-permissions':
+    image: alpine
+    restartPolicy: Never
+    securityContext:
+      runAsUser: 0
+    command:
+      - sh
+      - -c
+      - >
+        chgrp /opt 1000 && chmod g+rwx /opt
