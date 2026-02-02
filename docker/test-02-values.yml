@@ -23,9 +23,15 @@ readiness:
   enabled: true
 database:
   engine: postgres
-  name: mailmanweb
-  hostname: mailman-web-01-db-test-service
-  secretName: test01.lists.uw.edu-sql-secret
+  name: mailmanweb_02
+  hostname: mailman-web-02-db-test-service
+  secretName: test02.lists.uw.edu-sql-secret
+externalService:
+  enabled: true
+  name: mailman-web-02-db-test-service
+  type: ClusterIP
+  serviceAddress: 172.18.1.64
+  servicePort: 5432
 repo: mailman-web
 repoIdentifier: "02"
 instance: test
