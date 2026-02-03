@@ -66,7 +66,7 @@ certs:
   keyPath: /certs/test01.lists.uw.edu.key
   secretName: test01.lists.uw.edu-ic-certs
 podVolumes:
-  mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0:
+  mailman-core-pvc-opt-mailman-web-data:
     persistentVolumeClaim:
       claimName: mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0
     mount:
