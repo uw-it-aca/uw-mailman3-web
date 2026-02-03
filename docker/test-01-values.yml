@@ -67,6 +67,8 @@ certs:
   secretName: test01.lists.uw.edu-ic-certs
 podVolumes:
   mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0:
+    persistentVolumeClaim:
+      claimName: mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0
     mount:
       mountPath: /opt/mailman-web-data
       subPath: "02"
@@ -170,15 +172,3 @@ environmentVariablesSecrets:
     name: IDP_CERT
     secretName: test01.lists.uw.edu-uw-idp-cert
     secretKey: uw-idp-cert
-
-sidecarContainers:
-  '01-share-drive-permissions':
-    image: alpine
-    restartPolicy: Never
-    securityContext:
-      runAsUser: 0
-    command:
-      - sh
-      - -c
-      - >
-        chgrp /opt 1000 && chmod g+rwx /opt
