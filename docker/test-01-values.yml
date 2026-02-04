@@ -25,6 +25,9 @@ ingress:
         - "/"
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+deploymentInitialization:
+  enabled: true
+  finishedJobTTL: 300
 securityPolicy:
   enabled: true
 readiness:
