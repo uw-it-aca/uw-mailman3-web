@@ -1,6 +1,6 @@
 from .base_settings import *
 import os
-from socket import gethostbyname
+import importlib
 
 if os.getenv("ENV") != "prod":
     DEBUG = True
@@ -79,6 +79,48 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.cssmin.CSSMinFilter'
 ]
 
+if os.getenv("ENV") == "prod":
+    MAILMAN_CLUSTER = {}
+elif os.getenv("ENV") == "dev":
+    MAILMAN_CLUSTER = {
+        'test01.lists.uw.edu': {
+            'api_url': 'http://mailman-core-01',
+            'api_user': os.environ.get(
+                'MAILMAN_REST_USER', 'restadmin'),
+            'api_pass': os.environ.get(
+                'MAILMAN_REST_PASSWORD', 'restpass'),
+            'mailman_archiver_key': os.environ.get(
+                'HYPERKITTY_API_KEY'),
+            'mailman_archiver_from': os.environ.get(
+                'MAILMAN_ARCHIVER_FROM'),
+        },
+        'test02.lists.uw.edu': {
+            'api_url': 'http://mailman-core-02',
+            'api_user': os.environ.get(
+                'MAILMAN_REST_USER', 'restadmin'),
+            'api_pass': os.environ.get(
+                'MAILMAN_REST_PASSWORD', 'restpass'),
+            'mailman_archiver_key': os.environ.get(
+                'HYPERKITTY_API_KEY'),
+            'mailman_archiver_from': os.environ.get(
+                'MAILMAN_ARCHIVER_FROM'),
+        }
+    }
+elif os.getenv("ENV") == "localdev":
+    MAILMAN_CLUSTER = {
+        'localhost:8080': {
+            'api_url': 'http://uw-mailman3-core:8000',
+            'api_user': os.environ.get(
+                'MAILMAN_REST_USER', 'restadmin'),
+            'api_pass': os.environ.get(
+                'MAILMAN_REST_PASSWORD', 'restpass'),
+            'mailman_archiver_key': os.environ.get(
+                'HYPERKITTY_API_KEY'),
+            'mailman_archiver_from': os.environ.get(
+                'MAILMAN_ARCHIVER_FROM'),
+        }
+    }
+
 # Mailman API credentials
 MAILMAN_REST_API_URL = os.environ.get(
     'MAILMAN_REST_URL', 'http://uw-mailman3-core:8080')
@@ -86,21 +128,6 @@ MAILMAN_REST_API_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
 MAILMAN_REST_API_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 MAILMAN_ARCHIVER_KEY = os.environ.get('HYPERKITTY_API_KEY')
 MAILMAN_ARCHIVER_FROM = os.environ.get('MAILMAN_ARCHIVER_FROM')
-
-MAILMAN_CLUSTER = [
-    {
-        MAILMAN_REST_API_URL: os.environ.get(
-            'MAILMAN_REST_URL', 'http://uw-mailman3-core:8080'),
-        MAILMAN_REST_API_USER: os.environ.get(
-            'MAILMAN_REST_USER', 'restadmin'),
-        MAILMAN_REST_API_PASS: os.environ.get(
-            'MAILMAN_REST_PASSWORD', 'restpass'),
-        MAILMAN_ARCHIVER_KEY: os.environ.get(
-            'HYPERKITTY_API_KEY'),
-        MAILMAN_ARCHIVER_FROM: os.environ.get(
-            'MAILMAN_ARCHIVER_FROM'),
-    }
-]
 
 # Mailman2 API credentials needed for now by uw_list_manager
 RESTCLIENTS_MAILMAN2_DAO_CLASS = 'Live'

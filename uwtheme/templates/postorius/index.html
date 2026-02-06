@@ -97,7 +97,7 @@
                     {% for list in lists %}
                         <tr>
                             <td>
-                                <a href="{% url 'list_summary' list_id=list.list_id %}">{{ list.display_name }}</a>
+                                <a href="https://{{list.web_host}}{% url 'list_summary' list_id=list.list_id %}">{{ list.display_name }}</a>
                                 {% if check_advertised %}
                                   {% if user.is_superuser and not list.advertised %}
                                     ({% trans 'unadvertised' %}*)
@@ -108,11 +108,11 @@
                             <td>{{ list.description }}</td>
                             {% if user.is_superuser or role == 'moderator' or role == 'owner' %}
                                 <td class="text-center">
-                                    <a class="badge rounded-4 bg-primary text-decoration-none" href="{% url 'list_members' list.list_id 'member' %}">{{ list.member_count }}</a>
+                                    <a class="badge rounded-4 bg-primary text-decoration-none" href="https://{{list.web_host}}{% url 'list_members' list.list_id 'member' %}">{{ list.member_count }}</a>
                                 </td>
                                 <td class="text-center">
                                     {% if list|held_count > 0 %}
-                                        <a class="badge rounded-4 bg-warning text-decoration-none" href="{% url 'list_held_messages' list.list_id %}">{{ list|held_count }} <span class="fa fa-envelope"></span> </a>
+                                        <a class="badge rounded-4 bg-warning text-decoration-none" href="https://{{list.web_host}}{% url 'list_held_messages' list.list_id %}">{{ list|held_count }} <span class="fa fa-envelope"></span> </a>
                                     {% else %}
                                         -
                                     {% endif %}
@@ -120,10 +120,10 @@
                                 <td class="text-center">
                                     {% if list|pending_subscriptions_count > 0 or list|pending_unsubscriptions_count > 0 %}
                                         {% if list|pending_subscriptions_count > 0 %}
-                                            <a class="badge rounded-4 bg-warning text-decoration-none" href="{% url 'list_subscription_requests' list.list_id %}">{{ list|pending_subscriptions_count }} <span class="fa fa-sign-in"></span> </a>
+                                            <a class="badge rounded-4 bg-warning text-decoration-none" href="https://{{list.web_host}}{% url 'list_subscription_requests' list.list_id %}">{{ list|pending_subscriptions_count }} <span class="fa fa-sign-in"></span> </a>
                                         {% endif %}
                                         {% if list|pending_unsubscriptions_count > 0 %}
-                                            <a class="badge rounded-4 bg-warning text-decoration-none" href="{% url 'list_unsubscription_requests' list.list_id %}">{{ list|pending_unsubscriptions_count }} <span class="fa fa-sign-out"></span> </a>
+                                            <a class="badge rounded-4 bg-warning text-decoration-none" href="https://{{list.web_host}}{% url 'list_unsubscription_requests' list.list_id %}">{{ list|pending_unsubscriptions_count }} <span class="fa fa-sign-out"></span> </a>
                                         {% endif %}
                                     {% else %}
                                         -

@@ -27,6 +27,8 @@ from postorius.models import (
     Style,
 )
 
+from uwtheme.dao.mailman_client import find_all_lists
+
 
 def _get_choosable_domains(request):
     domains = Domain.objects.all()
@@ -90,21 +92,23 @@ def list_index_authenticated(request):
 
     """
     role = request.GET.get('role', None)
-    client = get_mailman_client()
+    # client = get_mailman_client()
     choosable_domains = _get_choosable_domains(request)
 
     # Get the user_id of the current user
     user_id = get_mailman_user_id(request.user)
 
-    mail_host = _get_mail_host(request.get_host().split(':')[0])
+    # mail_host = _get_mail_host(request.get_host().split(':')[0])
     # Get all the mailing lists for the current user.
-    try:
-        all_lists = client.find_lists(
-            user_id, role=role, mail_host=mail_host, count=sys.maxsize
-        )
-    except HTTPError:
-        # No lists exist with the given role for the given user.
-        all_lists = []
+    #try:
+    #    all_lists = client.find_lists(
+    #        user_id, role=role, mail_host=mail_host, count=sys.maxsize
+    #    )
+    #except HTTPError:
+    #    # No lists exist with the given role for the given user.
+    #    all_lists = []
+    all_lists = find_all_lists(user_id, role=role, count=sys.maxsize)
+
     # If the user has no list that they are subscriber/owner/moderator of, we
     # just redirect them to the index page with all lists.
     if len(all_lists) == 0 and role is None:
