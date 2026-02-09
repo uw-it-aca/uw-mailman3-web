@@ -11,13 +11,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def _get_mailman_client(api_url, api_user, api_pass):
+def _get_mailman_client(api_url, api_user, api_pass, api_version='3.1'):
     """ Mailman Client for specific Mailman instance. """
-    client = MailmanClient(
-        api_url, name=api_user, password=api_pass,
+    return MailmanClient(
+        f"{api_url}/{api_version}",
+        name=api_user, password=api_pass,
         request_hooks=get_request_hooks())
-
-    return client
 
 
 def _get_lists_in_instance(instance, user_id, role):
@@ -30,9 +29,12 @@ def _get_lists_in_instance(instance, user_id, role):
 
     try:
         client = _get_mailman_client(api_url, api_user, api_pass)
-
         logger.debug(f"Connected to Mailman API at {api_url} as {api_user}")
+    except HTTPError as ex:
+        logger.error(f"Cannot connect to Mailman API at {api_url}: {ex}")
+        return []
 
+    try:
         instance_lists = client.find_lists(
             user_id, role=role, mail_host=api_url, count=sys.maxsize)
 
@@ -43,7 +45,8 @@ def _get_lists_in_instance(instance, user_id, role):
         return instance_lists
 
     except HTTPError as ex:
-        logger.error(f"Cannot connect to Mailman API at {api_url}: {ex}")
+        logger.debug(f"No lists found for user_id={user_id}, "
+                     f"role={role}, mail_host={api_url}: {ex}")
         return []
 
     return []
@@ -58,6 +61,9 @@ def find_all_lists(user_id, role=None, count=100):
 
     for web_host, instance in mailman_instances.items():
         instance_lists = _get_lists_in_instance(instance, user_id, role)
+
+        logger.debug(f"Found {len(instance_lists)} lists for user_id {user_id} with role "
+                     f"{role} in Mailman instance at {instance.get('api_url')}")
 
         # add web_host to the MailinList object so it can be
         # referenced in the template

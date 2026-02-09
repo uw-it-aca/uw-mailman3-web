@@ -80,8 +80,10 @@ COMPRESS_CSS_FILTERS = [
 ]
 
 if os.getenv("ENV") == "prod":
+    MAILMAN_CLUSTER_WEB_HOST = 'lists.uw.edu'
     MAILMAN_CLUSTER = {}
 elif os.getenv("ENV") == "dev":
+    MAILMAN_CLUSTER_WEB_HOST = 'test.lists.uw.edu'
     MAILMAN_CLUSTER = {
         'test01.lists.uw.edu': {
             'api_url': 'http://mailman-core-01',
@@ -107,6 +109,7 @@ elif os.getenv("ENV") == "dev":
         }
     }
 elif os.getenv("ENV") == "localdev":
+    MAILMAN_CLUSTER_WEB_HOST = 'localhost:8080'
     MAILMAN_CLUSTER = {
         'localhost:8080': {
             'api_url': 'http://uw-mailman3-core:8000',
