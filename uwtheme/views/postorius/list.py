@@ -101,18 +101,18 @@ def list_index_authenticated(request):
     # Get the user_id of the current user
     user_id = get_mailman_user_id(request.user)
 
-    #mail_host = _get_mail_host(request.get_host().split(':')[0])
+    mail_host = _get_mail_host(request.get_host().split(':')[0])
     # Get all the mailing lists for the current user.
-    #try:
-    #    logger.debug(f"Finding lists for user_id={user_id}, role={role}, mail_host={mail_host}")
-    #    all_lists = client.find_lists(
-    #        user_id, role=role, mail_host=mail_host, count=sys.maxsize
-    #    )
-    #except HTTPError as ex:
-    #    # No lists exist with the given role for the given user.
-    #    logger.debug(f"No lists found for user_id={user_id}, role={role}, mail_host={mail_host}: {ex}")
-    #    all_lists = []
-    all_lists = find_all_lists(user_id, role=role, count=sys.maxsize)
+    try:
+        logger.debug(f"Finding lists for user_id={user_id}, role={role}, mail_host={mail_host}")
+        all_lists = client.find_lists(
+            user_id, role=role, mail_host=mail_host, count=sys.maxsize
+        )
+    except HTTPError as ex:
+        # No lists exist with the given role for the given user.
+        logger.debug(f"No lists found for user_id={user_id}, role={role}, mail_host={mail_host}: {ex}")
+        all_lists = []
+    #all_lists = find_all_lists(user_id, role=role, count=sys.maxsize)
 
     # If the user has no list that they are subscriber/owner/moderator of, we
     # just redirect them to the index page with all lists.
