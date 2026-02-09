@@ -36,7 +36,7 @@ def _get_lists_in_instance(instance, user_id, role):
 
     try:
         instance_lists = client.find_lists(
-            user_id, role=role, mail_host=api_url, count=sys.maxsize)
+            user_id, role=role, mail_host=None, count=sys.maxsize)
 
         logger.debug(f"found {len(instance_lists)} lists for "
                      f"user_id {user_id} with role {role} in "
