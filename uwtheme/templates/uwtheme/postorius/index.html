@@ -67,9 +67,9 @@
           {% endcomment %}
           <span>
             {% if domain_count < 1 %}
-                <a class="btn btn-success" href="{{list.web_host}}{% url 'domain_new' %}">{% trans 'Create New Domain' %}</a>
+                <a class="btn btn-success" href="https://{{list.web_host}}{% url 'domain_new' %}">{% trans 'Create New Domain' %}</a>
             {% else %}
-                <a class="btn btn-success" href="{{list.web_host}}{% url 'list_new' %}">{% trans 'Create New List' %}</a>
+                <a class="btn btn-success" href="https://{{list.web_host}}{% url 'list_new' %}">{% trans 'Create New List' %}</a>
             {% endif %}
           </span>
       </div>
@@ -90,7 +90,7 @@
                     {% for list in lists %}
                         <tr>
                             <td>
-                                <a href="{{list.web_host}}{% url 'list_summary' list_id=list.list_id %}">{{ list.display_name }}</a>
+                                <a href="https://{{list.web_host}}{% url 'list_summary' list_id=list.list_id %}">{{ list.display_name }}</a>
                                 {% if check_advertised %}
                                   {% if user.is_superuser and not list.advertised %}
                                     ({% trans 'unadvertised' %}*)
