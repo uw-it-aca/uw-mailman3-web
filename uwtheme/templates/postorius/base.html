@@ -10,8 +10,10 @@
 <script type="text/javascript">
 (function () {
     var $signon_link = $('ul.navbar-nav li.nav-item a.nav-link span.fa-sign-in').parents('li.nav-item'),
-        $logo_span = $('.navbar-header a.navbar-brand span');
+        $logo_link = $('.navbar-header a.navbar-brand'),
+        $logo_span = $('span', $logo_link);
 
+    $logo_link.attr('href', 'https://{{CLUSTER_WEB_HOST}}' + $logo_link.attr('href'));
     $logo_span.html($logo_span.html().replace('Postorius', 'Mailman'));
 
     // hide user setttings for dmarc mitigations since those are set globally

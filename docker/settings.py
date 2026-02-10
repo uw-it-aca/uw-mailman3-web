@@ -166,7 +166,8 @@ TEMPLATES[0]["OPTIONS"]["context_processors"].extend([
     'django.template.context_processors.csrf',
     'django_mailman3.context_processors.common',
     'hyperkitty.context_processors.common',
-    'postorius.context_processors.postorius'
+    'postorius.context_processors.postorius',
+    'uwtheme.context_processors.uwtheme',
 ])
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
