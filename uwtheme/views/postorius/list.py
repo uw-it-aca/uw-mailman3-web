@@ -95,11 +95,11 @@ def list_index_authenticated(request):
 
     """
     role = request.GET.get('role', None)
-    client = get_mailman_client()
+    #client = get_mailman_client()
     choosable_domains = _get_choosable_domains(request)
 
     # Get the user_id of the current user
-    user_id = get_mailman_user_id(request.user)
+    #user_id = get_mailman_user_id(request.user)
 
     #mail_host = _get_mail_host(request.get_host().split(':')[0])
     ## Get all the mailing lists for the current user.
@@ -112,7 +112,7 @@ def list_index_authenticated(request):
     #    # No lists exist with the given role for the given user.
     #    logger.debug(f"No lists found for user_id={user_id}, role={role}, mail_host={mail_host}: {ex}")
     #    all_lists = []
-    all_lists = find_all_lists(user_id, role=role, count=sys.maxsize)
+    all_lists = find_all_lists(request.user, role=role, count=sys.maxsize)
 
     # If the user has no list that they are subscriber/owner/moderator of, we
     # just redirect them to the index page with all lists.
