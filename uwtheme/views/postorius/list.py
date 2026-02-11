@@ -20,6 +20,7 @@ from django_mailman3.lib.mailman import (
     get_mailman_user_id,
 )
 from django_mailman3.lib.paginator import MailmanPaginator, paginate
+
 from django_mailman3.models import MailDomain
 
 from postorius.models import (
@@ -27,7 +28,7 @@ from postorius.models import (
     Style,
 )
 
-from uwtheme.dao.mailman_client import find_all_lists
+from uwtheme.dao.mailman_client.lists import find_all_lists, get_list_page
 
 
 slogger = logging.getLogger(__name__)
@@ -146,7 +147,7 @@ def list_index(request, template='uwtheme/postorius/index.html'):
         advertised = not request.user.is_superuser
         mail_host = _get_mail_host(request.get_host().split(':')[0])
         return client.get_list_page(
-            advertised=advertised, mail_host=mail_host, count=count, page=page
+            advertised=False, mail_host=mail_host, count=count, page=page
         )
 
     lists = paginate(
