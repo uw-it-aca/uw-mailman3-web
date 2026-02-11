@@ -142,16 +142,13 @@ def list_index(request, template='uwtheme/postorius/index.html'):
     if request.user.is_authenticated and 'all-lists' not in request.GET:
         return list_index_authenticated(request)
 
-    #def _get_list_page(count, page):
-    #    client = get_mailman_client()
-    #    advertised = not request.user.is_superuser
-    #    mail_host = _get_mail_host(request.get_host().split(':')[0])
-    #    return client.get_list_page(
-    #        advertised=False, mail_host=mail_host, count=count, page=page
-    #    )
+    def _get_list_page(count, page):
+        advertised = not request.user.is_superuser
+        return get_all_list_page(
+            count=count, page=page, advertised=advertised)
 
     lists = paginate(
-        get_all_list_page,
+        _get_list_page,
         request.GET.get('page'),
         request.GET.get('count'),
         paginator_class=MailmanPaginator,

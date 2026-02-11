@@ -36,11 +36,11 @@ def find_all_lists(username, role=None, count=100):
     return lists
 
 
-def get_all_list_page(count, page):
+def get_all_list_page(count, page, advertised=False):
     page_model = None
 
     for web_host, client in instance_mailman_clients():
-        instance_page = _get_list_page(client, count, page)
+        instance_page = _get_list_page(client, count, page, advertised)
         if instance_page is None:
             continue
 
@@ -98,12 +98,13 @@ def _get_lists_in_instance(client, username, role):
     return []
 
 
-def _get_list_page(client, count, page):
+def _get_list_page(client, count, page, advertised=False):
     try:
         logger.debug(f"fetching list page from {client} with "
                      f"count={count}, page={page}")
 
-        page = client.get_list_page(count=count, page=page)
+        page = client.get_list_page(
+            count=count, page=page, advertised=advertised)
 
         logger.debug(f"found {page} lists "
                      f"on Mailman instance at {client}")
