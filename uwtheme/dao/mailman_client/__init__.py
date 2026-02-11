@@ -22,7 +22,7 @@ def _get_mailman_client(api_url, api_user, api_pass, api_version='3.1'):
         request_hooks=get_request_hooks())
 
 
-def instance_clients():
+def instance_mailman_clients():
     mailman_instances = getattr(settings, 'MAILMAN_CLUSTER', {})
     for web_host, instance in mailman_instances.items():
         api_url = instance.get('api_url')

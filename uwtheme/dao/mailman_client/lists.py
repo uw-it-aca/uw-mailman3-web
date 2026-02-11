@@ -2,7 +2,7 @@
 #
 #
 
-from uwtheme.dao.mailman_client import instance_clients
+from uwtheme.dao.mailman_client import instance_mailman_clients
 from uwtheme.dao.mailman_client.user import get_mailman_user
 from mailmanclient import MailmanConnectionError
 from urllib.error import HTTPError
@@ -19,7 +19,7 @@ def find_all_lists(username, role=None, count=100):
     """
     lists = []
 
-    for web_host, client in instance_clients():
+    for web_host, client in instance_mailman_clients():
 
         instance_lists = _get_lists_in_instance(client, username, role)
 
@@ -36,24 +36,34 @@ def find_all_lists(username, role=None, count=100):
     return lists
 
 
-def get_list_page(count, page):
-    page = None
+def get_all_list_page(count, page):
+    page_model = None
 
-    for web_host, client in instance_clients():
-        instance_page = _get_list_page_in_instance(client, count, page)
+    for web_host, client in instance_mailman_clients():
+        instance_page = _get_list_page(client, count, page)
         if instance_page is None:
             continue
 
-        page_count = len(instance_page)
+        list_count = len(instance_page)
 
-        logger.debug(f"Found {list_count} lists on {client}")
+        # augment MailingList objects with web_host for template reference
+        for entry in instance_page._entries:
+            entry.web_host = web_host
 
-        if page:
-            logger.error(f"SHOULD add instance_page to page _entries")
+        logger.debug(f"Found {list_count} lists on page "
+                     f"{page} from {client}")
 
+        if page_model:
+            logger.debug(f"Adding {list_count} lists to page model with "
+                         f"{len(page_model)} lists")
+            for entry in instance_page._entries:
+                page_model._entries.append(entry)
+
+            list_count = len(page_model)
         else:
-            page = instance_page
-            if list_count == count:
+            page_model = instance_page
+
+        if list_count == count:
                 break
 
         logger.debug(f"Response does not fill page {page} of size {count})")
@@ -62,7 +72,7 @@ def get_list_page(count, page):
         page = 0
         count = count - list_count
 
-    return page
+    return page_model
 
 
 def _get_lists_in_instance(client, username, role):
@@ -88,7 +98,7 @@ def _get_lists_in_instance(client, username, role):
     return []
 
 
-def _get_list_page_in_instance(client, count, page):
+def _get_list_page(client, count, page):
     try:
         logger.debug(f"fetching list page from {client} with "
                      f"count={count}, page={page}")

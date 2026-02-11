@@ -28,7 +28,7 @@ from postorius.models import (
     Style,
 )
 
-from uwtheme.dao.mailman_client.lists import find_all_lists, get_list_page
+from uwtheme.dao.mailman_client.lists import find_all_lists, get_all_list_page
 
 
 slogger = logging.getLogger(__name__)
@@ -142,16 +142,16 @@ def list_index(request, template='uwtheme/postorius/index.html'):
     if request.user.is_authenticated and 'all-lists' not in request.GET:
         return list_index_authenticated(request)
 
-    def _get_list_page(count, page):
-        client = get_mailman_client()
-        advertised = not request.user.is_superuser
-        mail_host = _get_mail_host(request.get_host().split(':')[0])
-        return client.get_list_page(
-            advertised=False, mail_host=mail_host, count=count, page=page
-        )
+    #def _get_list_page(count, page):
+    #    client = get_mailman_client()
+    #    advertised = not request.user.is_superuser
+    #    mail_host = _get_mail_host(request.get_host().split(':')[0])
+    #    return client.get_list_page(
+    #        advertised=False, mail_host=mail_host, count=count, page=page
+    #    )
 
     lists = paginate(
-        _get_list_page,
+        get_all_list_page,
         request.GET.get('page'),
         request.GET.get('count'),
         paginator_class=MailmanPaginator,
