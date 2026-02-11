@@ -1,6 +1,6 @@
 from .base_settings import *
 import os
-from socket import gethostbyname
+import importlib
 
 if os.getenv("ENV") != "prod":
     DEBUG = True
@@ -79,6 +79,51 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.cssmin.CSSMinFilter'
 ]
 
+if os.getenv("ENV") == "prod":
+    MAILMAN_CLUSTER_WEB_HOST = 'lists.uw.edu'
+    MAILMAN_CLUSTER = {}
+elif os.getenv("ENV") == "dev":
+    MAILMAN_CLUSTER_WEB_HOST = 'test.lists.uw.edu'
+    MAILMAN_CLUSTER = {
+        'test01.lists.uw.edu': {
+            'api_url': 'http://mailman-core-01',
+            'api_user': os.environ.get(
+                'MAILMAN_REST_USER', 'restadmin'),
+            'api_pass': os.environ.get(
+                'MAILMAN_REST_PASSWORD', 'restpass'),
+            'mailman_archiver_key': os.environ.get(
+                'HYPERKITTY_API_KEY'),
+            'mailman_archiver_from': os.environ.get(
+                'MAILMAN_ARCHIVER_FROM'),
+        },
+        'test02.lists.uw.edu': {
+            'api_url': 'http://mailman-core-02',
+            'api_user': os.environ.get(
+                'MAILMAN_REST_USER', 'restadmin'),
+            'api_pass': os.environ.get(
+                'MAILMAN_REST_PASSWORD', 'restpass'),
+            'mailman_archiver_key': os.environ.get(
+                'HYPERKITTY_API_KEY'),
+            'mailman_archiver_from': os.environ.get(
+                'MAILMAN_ARCHIVER_FROM'),
+        }
+    }
+elif os.getenv("ENV") == "localdev":
+    MAILMAN_CLUSTER_WEB_HOST = 'localhost:8080'
+    MAILMAN_CLUSTER = {
+        'localhost:8080': {
+            'api_url': 'http://uw-mailman3-core:8000',
+            'api_user': os.environ.get(
+                'MAILMAN_REST_USER', 'restadmin'),
+            'api_pass': os.environ.get(
+                'MAILMAN_REST_PASSWORD', 'restpass'),
+            'mailman_archiver_key': os.environ.get(
+                'HYPERKITTY_API_KEY'),
+            'mailman_archiver_from': os.environ.get(
+                'MAILMAN_ARCHIVER_FROM'),
+        }
+    }
+
 # Mailman API credentials
 MAILMAN_REST_API_URL = os.environ.get(
     'MAILMAN_REST_URL', 'http://uw-mailman3-core:8080')
@@ -121,7 +166,8 @@ TEMPLATES[0]["OPTIONS"]["context_processors"].extend([
     'django.template.context_processors.csrf',
     'django_mailman3.context_processors.common',
     'hyperkitty.context_processors.common',
-    'postorius.context_processors.postorius'
+    'postorius.context_processors.postorius',
+    'uwtheme.context_processors.uwtheme',
 ])
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

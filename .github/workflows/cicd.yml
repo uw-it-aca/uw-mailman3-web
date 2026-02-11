@@ -14,14 +14,18 @@ on:
 
 jobs:
   context:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     outputs:
       commit_hash: ${{ steps.context.outputs.commit_hash }}
       git_repo_branch: ${{ steps.context.outputs.git_repo_branch }}
       image_tag: ${{ steps.context.outputs.image_tag }}
+      instance_matrix: ${{ steps.context.outputs.instance_matrix }}
 
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
       - name: Set up Context
         id: context
         uses: uw-it-aca/actions/cicd-context@main
@@ -29,7 +33,7 @@ jobs:
           release_name: ${{ env.RELEASE_NAME }}
 
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     needs: context
 
@@ -70,10 +74,14 @@ jobs:
 
     needs: [context, build]
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     outputs:
       context: ${{ steps.context.outputs.context }}
+
+    strategy:
+      matrix:
+        instance: ${{ fromJSON(needs.context.outputs.instance_matrix) }}
 
     steps:
       - name: Checkout Repo
@@ -86,6 +94,7 @@ jobs:
         uses: uw-it-aca/actions/cicd-deploy@main
         with:
           release_name: ${{ env.RELEASE_NAME }}
+          release_instance: ${{ matrix.instance }}
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           commit_hash: ${{ needs.context.outputs.commit_hash }}
           git_repo_branch: ${{ needs.context.outputs.git_repo_branch }}
@@ -97,6 +106,7 @@ jobs:
         uses: uw-it-aca/actions/cicd-deploy@main
         with:
           release_name: ${{ env.RELEASE_NAME }}
+          release_instance: ${{ matrix.instance }}
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           commit_hash: ${{ needs.context.outputs.commit_hash }}
           git_repo_branch: ${{ needs.context.outputs.git_repo_branch }}
@@ -107,20 +117,20 @@ jobs:
       - name: 'Surface context from executed build step'
         id: context
         shell: bash
-        run: echo "::set-output name=context::$(< ${CONTEXT_FILENAME})"
+        run: echo "context=$(< ${CONTEXT_FILENAME})" >> $GITHUB_OUTPUT
 
   housekeeping:
     if: github.event_name == 'push'
 
     needs: [context, build, deploy]
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: House Keeping
         uses: uw-it-aca/actions/cicd-housekeeping@main
         with:
-          release_name: ${{ env.RELEASE_NAME }}
+          release_name: ${{ env.RELEASE_NAME }}-01
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           registry_password: ${{ secrets.GCP_JSON_KEY }}
           context: ${{ needs.deploy.outputs.context }}
