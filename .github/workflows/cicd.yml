@@ -7,7 +7,7 @@ env:
 
 on:
   push:
-    branches: [main, develop, task/deployment-matrix]
+    branches: [main, develop]
   pull_request:
     branches: [main, develop]
     types: [opened, reopened, synchronize]
@@ -28,7 +28,7 @@ jobs:
 
       - name: Set up Context
         id: context
-        uses: uw-it-aca/actions/cicd-context@ce76567cd6826623b22adc26cd63f5186e770017
+        uses: uw-it-aca/actions/cicd-context@main
         with:
           release_name: ${{ env.RELEASE_NAME }}
 
@@ -89,22 +89,21 @@ jobs:
 
       - name: Dev/Test Deployment Pipeline
         if: >-
-          contains(fromJSON('["develop", "task/deployment-matrix"]'),
+          contains(fromJSON('["develop"]'),
             needs.context.outputs.git_repo_branch)
-        uses: uw-it-aca/actions/cicd-deploy@ce76567cd6826623b22adc26cd63f5186e770017
+        uses: uw-it-aca/actions/cicd-deploy@main
         with:
           release_name: ${{ env.RELEASE_NAME }}
           release_instance: ${{ matrix.instance }}
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
           commit_hash: ${{ needs.context.outputs.commit_hash }}
           git_repo_branch: ${{ needs.context.outputs.git_repo_branch }}
-          helm_chart_branch: feature/repo-identifier
 
       - name: Production Deployment Pipeline
         if: >-
           contains(fromJSON('["main"]'),
             needs.context.outputs.git_repo_branch)
-        uses: uw-it-aca/actions/cicd-deploy@ce76567cd6826623b22adc26cd63f5186e770017
+        uses: uw-it-aca/actions/cicd-deploy@main
         with:
           release_name: ${{ env.RELEASE_NAME }}
           release_instance: ${{ matrix.instance }}
@@ -114,7 +113,6 @@ jobs:
           gcp_production_project: 'uwit-mci-0016'
           gcp_production_flux_instance: 'mailman'
           flux_repo_default_branch: 'main'
-          helm_chart_branch: feature/repo-identifier
 
       - name: 'Surface context from executed build step'
         id: context
@@ -130,7 +128,7 @@ jobs:
 
     steps:
       - name: House Keeping
-        uses: uw-it-aca/actions/cicd-housekeeping@ce76567cd6826623b22adc26cd63f5186e770017
+        uses: uw-it-aca/actions/cicd-housekeeping@main
         with:
           release_name: ${{ env.RELEASE_NAME }}-01
           gh_auth_token: ${{ secrets.GH_AUTH_TOKEN }}
