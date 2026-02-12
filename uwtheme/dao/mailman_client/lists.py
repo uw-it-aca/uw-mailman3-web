@@ -39,6 +39,9 @@ def get_all_list_page(count, page, advertised=False):
     page_model = None
 
     for web_host, client in instance_mailman_clients():
+
+        logger.debug(f"Fetching {count} lists for page {page} from {client}")
+
         instance_page = _get_list_page(client, count, page, advertised)
         if instance_page is None:
             continue
@@ -67,8 +70,8 @@ def get_all_list_page(count, page, advertised=False):
 
         logger.debug(f"Response does not fill page {page} of size {count})")
 
-        # reset page and gather remaining lists to fill out page
-        page = 0
+        # adjust page count to gather remaining lists from next instance
+        page = 1
         count = count - list_count
 
     return page_model
