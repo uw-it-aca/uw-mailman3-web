@@ -4,7 +4,6 @@
 
 from uwtheme.dao.mailman_client import instance_mailman_clients
 from uwtheme.dao.mailman_client.user import get_mailman_user
-from mailmanclient import MailmanConnectionError
 from urllib.error import HTTPError
 import sys
 import logging
@@ -88,8 +87,6 @@ def _get_lists_in_instance(client, username, role):
                      f"Mailman instance at {client}")
 
         return instance_lists
-    except MailmanConnectionError as ex:
-        logger.debug(f"Cannot connect to mailman {client}: {ex}")
     except HTTPError as ex:
         logger.debug(f"No lists found for user_id={user_id}, "
                      f"role={role}, mail_host={client}: "
@@ -112,7 +109,5 @@ def _get_list_page(client, count, page, advertised=False):
         return page
     except HTTPError as ex:
         logger.debug(f"No lists found on instance mail_host={client}: {ex}")
-    except MailmanConnectionError as ex:
-        logger.debug(f"Cannot connect to mailman {client}: {ex}")
 
     return None
