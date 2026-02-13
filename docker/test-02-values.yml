@@ -46,7 +46,7 @@ resources:
 metrics:
   enabled: true
   serviceMonitor:
-    enabled: true
+    enabled: false
   pushgateway:
     enabled: false
 certs:
