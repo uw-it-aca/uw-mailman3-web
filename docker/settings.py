@@ -54,6 +54,7 @@ if os.getenv('THEME_OFF', 'false') == 'true':
     INSTALLED_APPS.remove('uwtheme')
 
 MIDDLEWARE += [
+    'uwtheme.middleware.AuthenticationRedirectMiddleware',
     'postorius.middleware.PostoriusMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django_mailman3.middleware.TimezoneMiddleware',
