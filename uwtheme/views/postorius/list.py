@@ -127,7 +127,7 @@ def list_index_authenticated(request):
         'domain_count': len(choosable_domains),
         'role': role,
         'check_advertised': False,
-        'is_authenticated': request.session has 'samlSessionIndex',
+        'is_authenticated': 'samlSessionIndex' in request.session,
     }
     return render(request, 'uwtheme/postorius/index.html', context)
 
