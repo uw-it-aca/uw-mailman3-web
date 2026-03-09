@@ -8,13 +8,16 @@ logger = logging.getLogger(__name__)
 
 
 class AuthenticationRedirectMiddleware:
+    """  Redirect through saml login if request is not authenticated
+    and the request contains a cue that authentication should be attempted
+    """
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
         try:
-            if request.GET.get('is_authenticated', '') == 'true':
-                # remove is_authenticated from parameters
+            if (not request.user.is_authenticated
+                    and request.GET.get('is_authenticated', '') == 'true'):
                 params = request.GET.copy()
                 del params['is_authenticated']
                 query_string = f"?{urlencode(params)}" if params else ""
