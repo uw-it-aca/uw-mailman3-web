@@ -127,6 +127,7 @@ def list_index_authenticated(request):
         'domain_count': len(choosable_domains),
         'role': role,
         'check_advertised': False,
+        'is_authenticated': True,
     }
     return render(request, 'uwtheme/postorius/index.html', context)
 
@@ -173,5 +174,6 @@ def list_index(request, template='uwtheme/postorius/index.html'):
             'check_advertised': True,
             'all_lists': True,
             'domain_count': domain_count,
+            'is_authenticated': False,
         },
     )
