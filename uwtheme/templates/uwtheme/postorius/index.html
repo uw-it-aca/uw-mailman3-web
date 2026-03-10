@@ -67,9 +67,9 @@
           {% endcomment %}
           <span>
             {% if domain_count < 1 %}
-                <a class="btn btn-success" href="https://{% url 'domain_new' %}">{% trans 'Create New Domain' %}</a>
+                <a class="btn btn-success" href="{% url 'domain_new' %}">{% trans 'Create New Domain' %}</a>
             {% else %}
-                <a class="btn btn-success" href="https://{% url 'list_new' %}">{% trans 'Create New List' %}</a>
+                <a class="btn btn-success" href="{% url 'list_new' %}">{% trans 'Create New List' %}</a>
             {% endif %}
           </span>
       </div>
