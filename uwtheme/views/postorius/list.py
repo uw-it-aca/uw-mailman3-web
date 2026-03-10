@@ -31,7 +31,7 @@ from postorius.models import (
 from uwtheme.dao.mailman_client.lists import find_all_lists, get_all_list_page
 
 
-slogger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def _get_choosable_domains(request):
@@ -174,7 +174,7 @@ def list_index(request, template='uwtheme/postorius/index.html'):
             'check_advertised': True,
             'all_lists': True,
             'domain_count': domain_count,
-            'is_saml_auth': False,
+            'is_saml_auth': _is_saml_session(request),
         },
     )
 
