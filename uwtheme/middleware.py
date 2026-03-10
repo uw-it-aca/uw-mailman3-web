@@ -19,10 +19,15 @@ class AuthenticationRedirectMiddleware:
             if (not request.user.is_authenticated
                     and request.GET.get('is_authenticated', '') == 'true'):
                 params = request.GET.copy()
+                logger.debug(f"Auth Redirect: param copy: {params}")
+
                 del params['is_authenticated']
                 query_string = f"?{urlencode(params)}" if params else ""
 
                 login_url = f"/saml/login?next={request.path}{query_string}"
+
+                logger.debug(f"Auth Redirect: redirecting to {login_url}")
+
                 return redirect(login_url)
         except Exception as ex:
             logger.error(f"Cannot get revers paths: {ex}")
