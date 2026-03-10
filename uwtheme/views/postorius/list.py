@@ -127,7 +127,7 @@ def list_index_authenticated(request):
         'domain_count': len(choosable_domains),
         'role': role,
         'check_advertised': False,
-        'is_authenticated': 'samlSessionIndex' in request.session,
+        'is_saml_auth': _is_saml_session(request),
     }
     return render(request, 'uwtheme/postorius/index.html', context)
 
@@ -174,6 +174,11 @@ def list_index(request, template='uwtheme/postorius/index.html'):
             'check_advertised': True,
             'all_lists': True,
             'domain_count': domain_count,
-            'is_authenticated': False,
+            'is_saml_auth': False,
         },
     )
+
+
+def _is_saml_session(request):
+    session_index = request.session.get('samlSessionIndex')
+    return session_index is not None
