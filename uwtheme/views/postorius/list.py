@@ -181,4 +181,8 @@ def list_index(request, template='uwtheme/postorius/index.html'):
 
 def _is_saml_session(request):
     session_index = request.session.get('samlSessionIndex')
+
+    logger.debug(f"is_saml_session: request.session = {request.session}")
+    logger.debug(f"is_saml_session: session_index = {session_index}")
+
     return session_index is not None
