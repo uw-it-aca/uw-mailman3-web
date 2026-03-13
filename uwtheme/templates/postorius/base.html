@@ -10,10 +10,8 @@
 <script type="text/javascript">
 (function () {
     var $signon_link = $('ul.navbar-nav li.nav-item a.nav-link span.fa-sign-in').parents('li.nav-item'),
-        $logo_link = $('.navbar-header a.navbar-brand'),
-        $logo_span = $('span', $logo_link);
+        $logo_span = $('.navbar-header a.navbar-brand span');
 
-    $logo_link.attr('href', 'https://{{CLUSTER_WEB_HOST}}' + $logo_link.attr('href') + {% if IS_SAML_AUTHENTICATED %}'?is_authenticated=true'{% endif %});
     $logo_span.html($logo_span.html().replace('Postorius', 'Mailman'));
     // $postorius_link.attr('href', 'https://{{CLUSTER_WEB_HOST}}' + $postorius_link.attr('href'));
 
