@@ -1,0 +1,155 @@
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+ingress:
+  enabled: true
+  type: nginx
+  tls:
+    list03-mailman-web:
+      secretName: list03.lists.uw.edu-ingress-cert
+      hosts:
+        - list03.lists.uw.edu
+  hosts:
+    list03-mailman-web:
+      host: list03.lists.uw.edu
+      paths:
+        - "/"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+securityPolicy:
+  enabled: true
+readiness:
+  enabled: true
+database:
+  engine: postgres
+  name: mailmanweb
+  hostname: mailman-web-01-db-prod-service
+  secretName: list01.lists.uw.edu-sql-secret
+repo: mailman-web
+repoIdentifier: "03"
+instance: prod
+namespace:
+  enabled: true
+  name: mailman-prod
+  suppressDefinition: true
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 50m
+    memory: 256Mi
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: false
+  pushgateway:
+    enabled: false
+certs:
+  mounted: true
+  certPath: /certs/list03.lists.uw.edu.cert
+  keyPath: /certs/lsit03.lists.uw.edu.key
+  secretName: list03.lists.uw.edu-ic-certs
+podVolumes:
+  mailman-core-pvc-opt-mailman-web-data:
+    persistentVolumeClaim:
+      claimName: mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0
+    mount:
+      mountPath: /opt/mailman-web-data
+      subPath: "03"
+    containers: [ base ]
+environmentVariables:
+  - name: ENV
+    value: prod
+  - name: AUTH
+    value: SAML
+  - name: LOGIN_URL
+    value: saml_login
+  - name: LOGOUT_URL
+    value: saml_logout
+  - name: MAILMAN_REST_URL
+    value: http://mailman-core-03
+  - name: MAILMAN_ARCHIVER_FROM
+    value: mailman-core-03
+  - name: CLUSTER_CNAME
+    value: list03.lists.uw.edu
+  - name: SAML_ENTITY_ID
+    value: https://list03.lists.uw.edu/sso/
+  - name: POSTORIUS_TEMPLATE_BASE_URL
+    value: https://list03.lists.uw.edu/
+externalSecrets:
+  enabled: true
+  secrets:
+    - name: list03.lists.uw.edu-shared-secrets
+      externalKey: mailman/shared/prod/secrets
+      data:
+        - name: mailman-rest-user
+          property: mailman-admin-user
+        - name: mailman-rest-password
+          property: mailman-admin-password
+        - name: hyperkitty-api-key
+          property: hyperkitty-api-key
+    - name: list03.lists.uw.edu-secrets
+      externalKey: mailman/web/prod/secrets
+      data:
+        - name: django-secret
+          property: django-secret
+        - name: email-host
+          property: email-host
+        - name: default-from-email
+          property: default-from-email
+        - name: mailman2-rest-key
+          property: mailman2-rest-key
+    - name: list03.lists.uw.edu-sql-secret
+      externalKey: mailman/web/prod/sql-secret
+      data:
+        - name: username
+          property: sql_user
+        - name: password
+          property: sql_pass
+    - name: list03.lists.uw.edu-ic-certs
+      externalKey: mailman/web/prod/03/ic-certs
+      data:
+        - name: list03.lists.uw.edu.cert
+          property: cert
+        - name: list03.lists.uw.edu.key
+          property: key
+    - name: list03.lists.uw.edu-uw-idp-cert
+      externalKey: idp-cert
+      data:
+        - name: uw-idp-cert
+          property: cert
+environmentVariablesSecrets:
+  djangoSecret:
+    name: DJANGO_SECRET
+    secretName: list03.lists.uw.edu-secrets
+    secretKey: django-secret
+  emailHost:
+    name: EMAIL_HOST
+    secretName: list03.lists.uw.edu-secrets
+    secretKey: email-host
+  defaultFromEmail:
+    name: DEFAULT_FROM_EMAIL
+    secretName: list03.lists.uw.edu-secrets
+    secretKey: default-from-email
+  mailmanAdminUser:
+    name: MAILMAN_REST_USER
+    secretName: list03.lists.uw.edu-shared-secrets
+    secretKey: mailman-rest-user
+  mailmanAdminPassword:
+    name: MAILMAN_REST_PASSWORD
+    secretName: list03.lists.uw.edu-shared-secrets
+    secretKey: mailman-rest-password
+  hyperkittyAPIKey:
+    name: HYPERKITTY_API_KEY
+    secretName: list03.lists.uw.edu-shared-secrets
+    secretKey: hyperkitty-api-key
+  SAMLServiceProviderCert:
+    name: SP_CERT
+    secretName: list03.lists.uw.edu-ic-certs
+    secretKey: lists.uw.edu.cert
+  SAMLIDPCert:
+    name: IDP_CERT
+    secretName: list03.lists.uw.edu-uw-idp-cert
+    secretKey: uw-idp-cert
