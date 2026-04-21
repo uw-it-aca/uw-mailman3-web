@@ -37,6 +37,7 @@ def find_all_lists(username, role=None, count=100):
 
 def get_all_list_page(count, page, advertised=False):
     page_model = None
+    total_size = _list_count_total(advertised)
 
     for web_host, client in instance_mailman_clients():
 
@@ -45,6 +46,8 @@ def get_all_list_page(count, page, advertised=False):
         instance_page = _get_list_page(client, count, page, advertised)
         if instance_page is None:
             continue
+
+        instance_page.total_size = total_size
 
         list_count = len(instance_page)
 
@@ -114,3 +117,13 @@ def _get_list_page(client, count, page, advertised=False):
         logger.debug(f"No lists found on instance mail_host={client}: {ex}")
 
     return None
+
+
+def _list_count_total(advertised):
+    total_size = 0
+
+    for web_host, client in instance_mailman_clients():
+        instance_page = _get_list_page(client, 1, 1, advertised)
+        total_size += instance_page.total_size
+
+    return total_size
