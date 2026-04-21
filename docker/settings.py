@@ -82,7 +82,41 @@ COMPRESS_CSS_FILTERS = [
 
 if os.getenv("ENV") == "prod":
     MAILMAN_CLUSTER_WEB_HOST = 'lists.uw.edu'
-    MAILMAN_CLUSTER = {}
+    MAILMAN_CLUSTER = {
+        'list01.lists.uw.edu': {
+            'api_url': 'http://mailman-core-01',
+            'api_user': os.environ.get(
+                'MAILMAN_REST_USER', 'restadmin'),
+            'api_pass': os.environ.get(
+                'MAILMAN_REST_PASSWORD', 'restpass'),
+            'mailman_archiver_key': os.environ.get(
+                'HYPERKITTY_API_KEY'),
+            'mailman_archiver_from': os.environ.get(
+                'MAILMAN_ARCHIVER_FROM'),
+        },
+        'list02.lists.uw.edu': {
+            'api_url': 'http://mailman-core-02',
+            'api_user': os.environ.get(
+                'MAILMAN_REST_USER', 'restadmin'),
+            'api_pass': os.environ.get(
+                'MAILMAN_REST_PASSWORD', 'restpass'),
+            'mailman_archiver_key': os.environ.get(
+                'HYPERKITTY_API_KEY'),
+            'mailman_archiver_from': os.environ.get(
+                'MAILMAN_ARCHIVER_FROM'),
+        },
+        'list03.lists.uw.edu': {
+            'api_url': 'http://mailman-core-02',
+            'api_user': os.environ.get(
+                'MAILMAN_REST_USER', 'restadmin'),
+            'api_pass': os.environ.get(
+                'MAILMAN_REST_PASSWORD', 'restpass'),
+            'mailman_archiver_key': os.environ.get(
+                'HYPERKITTY_API_KEY'),
+            'mailman_archiver_from': os.environ.get(
+                'MAILMAN_ARCHIVER_FROM'),
+        }
+    }
 elif os.getenv("ENV") == "dev":
     MAILMAN_CLUSTER_WEB_HOST = 'test.lists.uw.edu'
     MAILMAN_CLUSTER = {
