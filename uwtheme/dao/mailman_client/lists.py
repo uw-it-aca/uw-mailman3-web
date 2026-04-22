@@ -32,7 +32,7 @@ def find_all_lists(username, role=None, count=100):
 
         lists.extend(instance_lists)
 
-    return lists
+    return lists.sort()
 
 
 def get_all_list_page(count, page, advertised=False):
