@@ -43,10 +43,6 @@ externalService:
 repo: mailman-web
 repoIdentifier: "01"
 instance: prod
-namespace:
-  enabled: true
-  name: mailman-prod
-  suppressDefinition: true
 resources:
   limits:
     cpu: 500m
@@ -67,8 +63,9 @@ certs:
   secretName: list01.lists.uw.edu-ic-certs
 podVolumes:
   mailman-core-pvc-opt-mailman-web-data:
+    # no "volume:" definition since it was defined in prod-01-values.yml
     persistentVolumeClaim:
-      claimName: mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0
+      claimName: mailman-core-01-prod-prod-pvc-opt-mailman-web-data-mailman-core-01-prod-prod-0
     mount:
       mountPath: /opt/mailman-web-data
       subPath: "01"
