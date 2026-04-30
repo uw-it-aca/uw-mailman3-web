@@ -130,6 +130,10 @@ environmentVariablesSecrets:
     name: DEFAULT_FROM_EMAIL
     secretName: list02.lists.uw.edu-secrets
     secretKey: default-from-email
+  mailman2RestKey:
+    name: RESTCLIENTS_MAILMAN2_REST_KEY
+    secretName: list02.lists.uw.edu-secrets
+    secretKey: mailman2-rest-key
   mailmanAdminUser:
     name: MAILMAN_REST_USER
     secretName: list02.lists.uw.edu-shared-secrets
