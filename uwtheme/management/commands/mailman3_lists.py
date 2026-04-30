@@ -4,6 +4,7 @@
 from django.core.management.base import BaseCommand
 from mailmanclient import Client
 import os
+import sys
 import logging
 
 
@@ -25,7 +26,7 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
-            '-a','--api', type=str, default=self.REST_API,
+            '-a', '--api', type=str, default=self.REST_API,
             help=f"mailman3 api (default: {self.REST_API})")
 
     def handle(self, *args, **options):
@@ -33,5 +34,5 @@ class Command(BaseCommand):
         mailman3_api = options['api']
         client = Client(f"{mailman3_api_url}/{mailman3_api}",
                         self.REST_ADMIN, self.REST_PASSWORD)
-        for l in client.get_lists():
-            print(l.fqdn_listname)
+        for mlist in client.get_lists():
+            print(mlist.fqdn_listname, file=sys.stdout)

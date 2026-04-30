@@ -25,10 +25,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            'lists',
-            nargs='?',
-            type=FileType('r'),
-            default=sys.stdin,
+            'lists', nargs='?', type=FileType('r'), default=sys.stdin,
             help='file containing list of list names (default: stdin)'
         )
 
@@ -38,11 +35,11 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
-            '-a','--api', type=str, default=self.REST_API,
+            '-a', '--api', type=str, default=self.REST_API,
             help=f"mailman3 api (default: {self.REST_API})")
 
         parser.add_argument(
-            '-s','--setting', type=str, nargs='*',
+            '-s', '--setting', type=str, nargs='*',
             help="specific setting name ('<setting_name>=<value>' to sets)")
 
         parser.add_argument(
@@ -61,8 +58,8 @@ class Command(BaseCommand):
         client = Client(f"{mailman3_api_url}/{mailman3_api}",
                         self.REST_ADMIN, self.REST_PASSWORD)
 
-        for l in lists:
-            list_name = l.strip()
+        for list_name in lists:
+            list_name = list_name.strip()
             if list_name:
                 mlist = client.get_list(list_name)
                 if settings:
@@ -83,9 +80,12 @@ class Command(BaseCommand):
                     value = value.lower() == 'true'
 
                 mlist.settings[key] = value
-                logger.info(f"{mlist.fqdn_listname}: {'' if update_setting else 'WOULD '}SET {key} = {value}")
+                logger.info(f"{mlist.fqdn_listname}: "
+                            f"{'' if update_setting else 'WOULD '}SET "
+                            f"{key} = {value}")
             else:
-                logger.info(f"{mlist.fqdn_listname}: {setting} = {mlist.settings[setting]}")
+                logger.info(f"{mlist.fqdn_listname}: "
+                            f"{setting} = {mlist.settings[setting]}")
 
         if update_setting and mlist_dirty:
             mlist.save()
