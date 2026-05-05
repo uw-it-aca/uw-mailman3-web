@@ -36,8 +36,8 @@ def update_user_profile(request):
         has_changed = True
 
     uw_email = get_attribute(request, 'uwEduEmail')
-    logger.debug(f"SAML HOOK: uwEduEmail attribute: {uw_email} "
-                 f"for user {request.user}")
+    logger.debug(f"SAML HOOK: uwEduEmail attribute {uw_email} "
+                 f"for user {request.user} ({request.user.email})")
     if uw_email and uw_email != request.user.email:
         add_verified_email(request, uw_email)
         request.user.email = uw_email
@@ -47,9 +47,9 @@ def update_user_profile(request):
         request.user.save(update_fields=['first_name', 'last_name', 'email'])
 
     email = get_attribute(request, 'email')
+    logger.debug(f"SAML HOOK: email attribute {email} for user {request.user}")
     if email and email != uw_email:
-        logger.debug(f"SAML HOOK: email/uw_email mismatch {email} "
-                     f"for user {request.user}")
+        logger.debug("SAML HOOK: email/uw_email mismatch")
         add_verified_email(request, email)
 
     profile, _ = Profile.objects.get_or_create(user=request.user)
