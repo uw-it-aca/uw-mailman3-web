@@ -22,7 +22,8 @@ def find_all_lists(username, role=None, count=100):
 
         instance_lists = _get_lists_in_instance(client, username, role)
 
-        logger.debug(f"Found {len(instance_lists)} lists on client {client}")
+        logger.debug(f"Found {len(instance_lists)} lists on client "
+                     f"{client._connection.baseurl}")
 
         # add web_host to the MailingList object for template reference
         for mlist in instance_lists:
@@ -41,7 +42,8 @@ def get_all_list_page(count, page, advertised=False):
 
     for web_host, client in instance_mailman_clients():
 
-        logger.debug(f"Fetching {count} lists for page {page} from {client}")
+        logger.debug(f"Fetching {count} lists for page {page} "
+                     f"from {client._connection.baseurl}")
 
         instance_page = _get_list_page(client, count, page, advertised)
         if instance_page is None:
@@ -56,7 +58,7 @@ def get_all_list_page(count, page, advertised=False):
             entry.web_host = web_host
 
         logger.debug(f"Found {list_count} lists on page "
-                     f"{page} from {client}")
+                     f"{page} from {client._connection.baseurl}")
 
         if page_model:
             logger.debug(f"Adding {list_count} lists to page model with "
@@ -90,31 +92,34 @@ def _get_lists_in_instance(client, username, role):
         logger.debug(f"found {len(instance_lists)} lists for "
                      f"user {username} ({user_id}) "
                      f"with role {role} in "
-                     f"Mailman instance at {client}")
+                     f"Mailman instance at "
+                     f"{client._connection.baseurl}")
 
         return instance_lists
     except HTTPError as ex:
         logger.debug(f"No lists found for user_id={user_id}, "
-                     f"role={role}, mail_host={client}: "
-                     f"{ex}")
+                     f"role={role}, mail_host="
+                     f"{client._connection.baseurl}: {ex}")
 
     return []
 
 
 def _get_list_page(client, count, page, advertised=False):
     try:
-        logger.debug(f"fetching list page from {client} with "
+        logger.debug(f"fetching list page from "
+                     f"{client._connection.baseurl} with "
                      f"count={count}, page={page}")
 
         page = client.get_list_page(
             count=count, page=page, advertised=advertised)
 
-        logger.debug(f"found {page} lists "
-                     f"on Mailman instance at {client}")
+        logger.debug(f"found {page} lists on Mailman instance at "
+                     f"{client._connection.baseurl}")
 
         return page
     except HTTPError as ex:
-        logger.debug(f"No lists found on instance mail_host={client}: {ex}")
+        logger.debug(f"No lists found on instance mail_host="
+                     f"{client._connection.baseurl}: {ex}")
 
     return None
 

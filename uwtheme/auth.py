@@ -1,10 +1,14 @@
-# Copyright 2022 UW-IT, University of Washington
+# Copyright 2026 UW-IT, University of Washington
 # SPDX-License-Identifier: Apache-2.0
 
 from django.conf import settings
 from uw_saml.utils import get_attribute
 from allauth.account.models import EmailAddress
 from django_mailman3.models import Profile
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 """
@@ -12,6 +16,8 @@ Update Django User model using SAML attributes.
 """
 
 def add_verified_email(request, email):
+    logger.debug(f"SAML HOOK: Verified email {email} for user"
+                 f"{request.user}")
     existing, _ = EmailAddress.objects.get_or_create(
         user=request.user, email__iexact=email, defaults={
             'email': email, 'verified': True})
@@ -30,6 +36,8 @@ def update_user_profile(request):
         has_changed = True
 
     uw_email = get_attribute(request, 'uwEduEmail')
+    logger.debug(f"SAML HOOK: uwEduEmail attribute: {uw_email} "
+                 f"for user {request.user}")
     if uw_email and uw_email != request.user.email:
         add_verified_email(request, uw_email)
         request.user.email = uw_email
@@ -40,6 +48,8 @@ def update_user_profile(request):
 
     email = get_attribute(request, 'email')
     if email and email != uw_email:
+        logger.debug(f"SAML HOOK: email/uw_email mismatch {email} "
+                     f"for user {request.user}")
         add_verified_email(request, email)
 
     profile, _ = Profile.objects.get_or_create(user=request.user)
