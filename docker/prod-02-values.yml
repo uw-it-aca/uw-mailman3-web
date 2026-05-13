@@ -29,10 +29,6 @@ database:
 repo: mailman-web
 repoIdentifier: "02"
 instance: prod
-namespace:
-  enabled: true
-  name: mailman-prod
-  suppressDefinition: true
 resources:
   limits:
     cpu: 500m
@@ -53,8 +49,9 @@ certs:
   secretName: list02.lists.uw.edu-ic-certs
 podVolumes:
   mailman-core-pvc-opt-mailman-web-data:
+    # no "volume:" definition since it was defined in prod-01-values.yml
     persistentVolumeClaim:
-      claimName: mailman-core-01-pvc-opt-mailman-web-data-mailman-core-01-0
+      claimName: mailman-core-01-prod-prod-pvc-opt-mailman-web-data-mailman-core-01-prod-prod-0
     mount:
       mountPath: /opt/mailman-web-data
       subPath: "02"
@@ -75,7 +72,7 @@ environmentVariables:
   - name: CLUSTER_CNAME
     value: list02.lists.uw.edu
   - name: SAML_ENTITY_ID
-    value: https://list02.lists.uw.edu/sso/
+    value: https://lists.uw.edu/sso/
   - name: POSTORIUS_TEMPLATE_BASE_URL
     value: https://list02.lists.uw.edu/
 externalSecrets:
@@ -133,6 +130,10 @@ environmentVariablesSecrets:
     name: DEFAULT_FROM_EMAIL
     secretName: list02.lists.uw.edu-secrets
     secretKey: default-from-email
+  mailman2RestKey:
+    name: RESTCLIENTS_MAILMAN2_REST_KEY
+    secretName: list02.lists.uw.edu-secrets
+    secretKey: mailman2-rest-key
   mailmanAdminUser:
     name: MAILMAN_REST_USER
     secretName: list02.lists.uw.edu-shared-secrets
