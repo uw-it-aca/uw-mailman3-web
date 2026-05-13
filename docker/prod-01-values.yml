@@ -86,7 +86,7 @@ environmentVariables:
   - name: CLUSTER_CNAME
     value: list01.lists.uw.edu
   - name: SAML_ENTITY_ID
-    value: https://list01.lists.uw.edu/sso/
+    value: https://lists.uw.edu/sso/
   - name: POSTORIUS_TEMPLATE_BASE_URL
     value: https://list01.lists.uw.edu/
 externalSecrets:
