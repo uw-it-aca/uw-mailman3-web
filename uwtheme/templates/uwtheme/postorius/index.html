@@ -55,7 +55,9 @@
                   {% trans 'Non-member' %}
                 </a>
               </li>
+              {% if user.is_superuser %}
               <li><a href="?all-lists" class="btn btn-outline-secondary btn-sm {% if all_lists %}active{% endif %}">{% trans 'All' %}</a></li>
+              {% endif %}
             </ul>
           </div>
     {% endif %}
