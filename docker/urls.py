@@ -6,7 +6,7 @@ from django.views.generic.base import RedirectView, TemplateView
 
 urlpatterns += [
     re_path(r'^$', RedirectView.as_view(
-        url=reverse_lazy('uwtheme_list_index'), permanent=True)),
+        url=reverse_lazy('list_index'), permanent=True)),
     re_path(r'^robots\.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
     re_path(r'^postorius/', include('postorius.urls')),
