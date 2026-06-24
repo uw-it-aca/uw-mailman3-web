@@ -1,5 +1,6 @@
 from uwtheme.dao.mailman_client import instance_mailman_clients
 from uwtheme.dao.mailman_client.user import get_mailman_user
+from django.core.cache import cache
 import sys
 import logging
 
