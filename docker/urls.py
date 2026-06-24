@@ -9,7 +9,6 @@ urlpatterns += [
         url=reverse_lazy('uwtheme_list_index'), permanent=True)),
     re_path(r'^robots\.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
-    re_path(r'^postorius/', include('uwtheme.urls')),
     re_path(r'^postorius/', include('postorius.urls')),
     re_path(r'^hyperkitty/', include('hyperkitty.urls')),
     re_path(r'', include('django_mailman3.urls')),
