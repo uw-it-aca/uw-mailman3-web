@@ -13,8 +13,9 @@ logger = logging.getLogger(__name__)
 
 
 def find_all_lists(username, role=None, count=100):
-    """Iterative implementation of local function in
-     postorius/src/postorius/views/list.py:list_index_authenticated
+    """Return aggregate list of lists collected from all mailman3
+    core instances.  Replaces block in
+    postorius/src/postorius/views/list.py:list_index_authenticated
     """
     lists = []
 

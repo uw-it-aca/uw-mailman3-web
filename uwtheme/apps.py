@@ -7,9 +7,11 @@ class UwthemeConfig(AppConfig):
     def ready(self):
         """
         Monkey patch classes and functions to accommodate
-        UW multicore Mailman 3 architecture.
+        seamless interface to UW multi instance Mailman 3
+        architecture.
+
         PRO TIP: make sure uwtheme is listed before
-        django_mailman3, hyperkitty, or postorius in
+        django_mailman3, hyperkitty, and postorius in
         settings.py INSTALLED_APPS.
         """
         try:

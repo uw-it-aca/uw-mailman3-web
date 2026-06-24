@@ -75,47 +75,12 @@ def list_index_authenticated(request):
     return render(request, 'uwtheme/postorius/index.html', context)
 
 
-def list_index(request, template='uwtheme/postorius/index.html'):
-    """Show a table of all public mailing lists."""
-    # TODO maxking: Figure out why does this view accept POST request and why
-    # can't it be just a GET with list parameter.
-    if request.method == 'POST':
-        return redirect('list_summary', list_id=request.POST['list'])
-    # If the user is logged-in, show them only related lists in the index,
-    # except role is present in requests.GET.
-    if request.user.is_authenticated and 'all-lists' not in request.GET:
-        return list_index_authenticated(request)
-
-    def _get_list_page(count, page):
-        advertised = not request.user.is_superuser
-        return get_all_list_page(
-            count=count, page=page, advertised=advertised)
-
-    lists = paginate(
-        _get_list_page,
-        request.GET.get('page'),
-        request.GET.get('count'),
-        paginator_class=MailmanPaginator,
-    )
-
-    # This is just an optimization to skip un-necessary API
-    # calls. uwtheme/postorius/index.html page shows the 'Create New Domain'
-    # button
-    # when the logged-in user is a super user. There is no point making those
-    # API calls if the user isn't a Superuser. So, just call the number 0 if
-    # the user isn't SU.
-    if request.user.is_superuser:
-        domain_count = len(_get_choosable_domains(request))
-    else:
-        domain_count = 0
-
-    return render(
-        request,
-        template,
-        {
-            'lists': lists,
-            'check_advertised': True,
-            'all_lists': True,
-            'domain_count': domain_count,
-        },
-    )
+def _get_list_page(count, page):
+    """
+    Replace nested function in postorius.views.list_index with function
+    to collect lists from all instances
+    """
+    logger.debug(f"_get_list_page: fetching {count} lists for page {page}")
+    advertised = not request.user.is_superuser
+    return get_all_list_page(
+        count=count, page=page, advertised=advertised)

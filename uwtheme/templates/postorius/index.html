@@ -55,6 +55,8 @@
                   {% trans 'Non-member' %}
                 </a>
               </li>
+              {# It was decided that it would be less confusing to users if out of order lists #}
+              {# (due to multi core aggregating) were suppressed than exposed #}
               {% if user.is_superuser %}
               <li><a href="?all-lists" class="btn btn-outline-secondary btn-sm {% if all_lists %}active{% endif %}">{% trans 'All' %}</a></li>
               {% endif %}

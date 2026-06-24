@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2016-2023 by the Free Software Foundation, Inc.
+#
+# This file is derived from Django-Mailman.
+#
+
 from uwtheme.dao.mailman_client import instance_mailman_clients
 from uwtheme.dao.mailman_client.user import get_mailman_user
 from django.core.cache import cache
