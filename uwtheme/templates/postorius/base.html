@@ -13,7 +13,7 @@
         $logo_link = $('.navbar-header a.navbar-brand'),
         $logo_span = $('span', $logo_link);
 
-    $logo_link.attr('href', $logo_link.attr('href') + {% if IS_SAML_AUTHENTICATED %}'?is_authenticated=true'{% endif %});
+    $logo_link.attr('href', $logo_link.attr('href'){% if IS_SAML_AUTHENTICATED %} + '?is_authenticated=true'{% endif %});
     $logo_span.html($logo_span.html().replace('Postorius', 'Mailman'));
     // $postorius_link.attr('href', 'https://{{CLUSTER_WEB_HOST}}' + $postorius_link.attr('href'));
 
