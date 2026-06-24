@@ -7,81 +7,25 @@
 
 import logging
 import sys
-from urllib.error import HTTPError
 
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from django_mailman3.lib.mailman import (
-    get_mailman_client,
-    get_mailman_user,
-    get_mailman_user_id,
-)
 from django_mailman3.lib.paginator import MailmanPaginator, paginate
 
-from django_mailman3.models import MailDomain
-
-from postorius.models import (
-    Domain,
-    Style,
+from postorius.views.list import (
+    _get_choosable_domains,
+    _get_choosable_styles,
+    _get_default_style,
+    _unique_lists,
+    _get_mail_host,
 )
 
 from uwtheme.dao.mailman_client.lists import find_all_lists, get_all_list_page
 
 
 logger = logging.getLogger(__name__)
-
-
-def _get_choosable_domains(request):
-    domains = Domain.objects.all()
-    return [(d.mail_host, d.mail_host) for d in domains]
-
-
-def _get_choosable_styles(request):
-    styles = Style.objects.all()
-    options = [
-        (style['name'], style['description']) for style in styles['styles']
-    ]
-    return options
-
-
-def _get_default_style():
-    return Style.objects.all()['default']
-
-
-def _unique_lists(lists):
-    """Return unique lists from a list of mailing lists."""
-    return {mlist.list_id: mlist for mlist in lists}.values()
-
-
-def _get_mail_host(web_host):
-    """Get the mail_host for a web_host if FILTER_VHOST is true and there's
-    only one mail_host for this web_host.
-    """
-    if not getattr(settings, 'FILTER_VHOST', False):
-        return None
-    mail_hosts = []
-    use_web_host = False
-    for domain in Domain.objects.all():
-        try:
-            if (
-                MailDomain.objects.get(
-                    mail_domain=domain.mail_host
-                ).site.domain
-                == web_host
-            ):
-                if domain.mail_host not in mail_hosts:
-                    mail_hosts.append(domain.mail_host)
-        except MailDomain.DoesNotExist:
-            use_web_host = True
-    if len(mail_hosts) == 1:
-        return mail_hosts[0]
-    elif len(mail_hosts) == 0 and use_web_host:
-        return web_host
-    else:
-        return None
 
 
 @login_required
