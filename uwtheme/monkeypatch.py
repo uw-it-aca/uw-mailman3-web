@@ -1,9 +1,9 @@
+import postorius.views.list
+import django_mailman3.lib.mailman
 from uwtheme.local.postorius.views.list import (
-    list_index_authenticated, list_index, _get_list_page)
+    list_index, list_index_authenticated)
 from uwtheme.local.django_mailman3.lib.mailman import get_subscriptions
-from django.core.cache import cache
 import sys
-
 
 def monkey_patch():
     """
@@ -22,9 +22,9 @@ def monkey_patch():
     # mailman_client.find_lists() with aggregating collector
     setattr(list_module, "list_index_authenticated", list_index_authenticated)
 
-    # replace list_index view inner function to aggregating list
-    # collector
-    setattr(list_module.list_index, "_get_list_page", _get_list_page)
+    # replace list_index view with one that has inner function to
+    # aggregate lists
+    setattr(list_module, "list_index", list_index)
 
     # get_subscriptions needs to aggregate user subscriptions across
     # all mailman3 instances
