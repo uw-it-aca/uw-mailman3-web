@@ -1,4 +1,8 @@
 from django.apps import AppConfig
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class UwthemeConfig(AppConfig):
@@ -18,5 +22,6 @@ class UwthemeConfig(AppConfig):
             from uwtheme.monkeypatch import monkey_patch
 
             monkey_patch()
-        except ImportError:
+        except ImportError as ex:
+            logger.error(f"MONKEY PATCH ERROR {ex}")
             pass

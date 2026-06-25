@@ -8,7 +8,6 @@
 from uwtheme.dao.mailman_client import instance_mailman_clients
 from uwtheme.dao.mailman_client.user import get_mailman_user
 from django.core.cache import cache
-import sys
 import logging
 
 
@@ -20,6 +19,9 @@ def get_subscriptions(user):
        django_mailman3/lib/mailman.py:get_subscriptions
     to collect a user's subscriptions across mailman3 instances
     """
+
+    logger.debug("local get_subscriptions")
+
     # Get subscriptions for the provided Django user.
     def _get_value():
         return dict(_get_subscriptions_for_user(user))
