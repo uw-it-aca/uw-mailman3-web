@@ -2,6 +2,10 @@ autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 2
+gateway:
+  enabled: true
+  hostnames:
+    - test02.lists.uw.edu
 ingress:
   enabled: true
   type: nginx
